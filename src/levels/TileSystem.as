@@ -71,5 +71,23 @@ package levels
 			}
 			return posList;
 		}
+		
+		public static function hitTileInt(posTarget : Point) :int {
+			var result : int;
+			
+			var tile : Tile = new Tile();
+			var lYRows : int = currentTileMap.length;
+			for (var i : int = 0; i < lYRows; i++) {
+				var lXRows : int = currentTileMap[i].length;
+				for (var j : int = 0; j < lXRows; j++) {
+					if (posTarget.x < (i * tile.width) + tile.width && posTarget.x > i * tile.width
+					&& posTarget.y < (j * tile.height) + tile.height && posTarget.y > j * tile.height
+					){
+						result = getTileInt(j * tile.width, i * tile.height);
+					}
+				}
+			}
+			return result;
+		}
 	}
 }

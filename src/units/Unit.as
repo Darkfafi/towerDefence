@@ -53,13 +53,25 @@ package units
 		
 		private function calculateWaypoints():void 
 		{	
-			var realPath : Vector2D = new Vector2D(destination.x, destination.y);
-			
-			for (var i : int = 0; i < realPath.length; i += 5) {
+			var i : int = 0;
+			var realPath : Vector2D = new Vector2D(destination.x - this.x, destination.y - this.y);
+			var waypointTotal : Vector2D = new Vector2D(this.x + realPath.x , this.y + realPath.y);
+			var waypoint : Vector2D = new Vector2D();
+			while (waypoint.length < waypointTotal.length) {
+				trace(waypoint);
+				i += 10;
 				var tile : Tile = new Tile();
-				var waypoint : Vector2D = realPath.cloneVector();
-				waypoint.normalize();
-				waypoint.multiply(i);
+				
+				//var waypoint : Vector2D = new Vector2D(this.x + realPath.x , this.y + realPath.y);
+				
+				if (waypoint.x < waypointTotal.x) {
+					waypoint.x = i;
+				}
+				if(waypoint.y < waypointTotal.y) {
+					waypoint.y = i;
+				}
+				
+				
 				_waypointList.push(waypoint);
 			}
 		}
@@ -69,7 +81,7 @@ package units
 			super.update();
 			if (_waypointList[0] != null) {
 				target = _waypointList[0] as Vector2D;
-				trace(target);
+				//trace(target);
 			}
 			movement();
 		}
