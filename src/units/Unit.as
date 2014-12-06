@@ -36,7 +36,7 @@ package units
 			
 			_position.x = this.x;
 			_position.y = this.y;
-			
+			calculateWaypoints();
 			drawUnit();
 		}
 		
@@ -50,12 +50,30 @@ package units
 		public function setDestination(xPos : int, yPos : int) :void {
 			destination.x = xPos;
 			destination.y = yPos;
-			createWaypoints();
 		}
 		
-		private function createWaypoints():void 
+		private function calculateWaypoints():void 
 		{
-			
+			//zo lang het verschil tussen de waypoint en target groter is dan 4. Dan blijf waypoints maken van unit naar target.
+			var stepNextWaypoint : int = 10;
+			var waypoint : Vector2D = new Vector2D(x, y);
+			var calculatedRoute : Vector2D;
+			while (waypoint.x >= destination.x) {
+				calculatedRoute = new Vector2D(destination.x - waypoint.x, destination.y - waypoint.y);
+				calculatedRoute.normalize();
+				calculatedRoute.multiply(stepNextWaypoint);
+				waypoint.add(calculatedRoute);
+				
+				_waypointList.push(waypoint);
+				
+				var tile : Tile = new Tile();
+				tile.negativeTile();
+				tile.x = waypoint.x;
+				tile.y = waypoint.y;
+				tile.scaleX = 0.1;
+				tile.scaleY = 0.1;
+				stage.addChild(tile);
+			}
 		}
 		
 		override public function update():void 
@@ -63,12 +81,13 @@ package units
 			super.update();
 			target = destination;
 			movement();
-			
+			//---------------Test------------------
 			if (TileSystem.hitTileInt(new Vector2D(_position.x + _velocity.x * 10, _position.y)) == 2){
 				_position.x += _velocity.x;
 			}else if (TileSystem.hitTileInt(new Vector2D(_position.x, _position.y + _velocity.y)) == 2) {
 				_position.y += _velocity.y * 4;
 			}
+			//------------------------------------
 			x = _position.x;
 			y = _position.y;
 		}
