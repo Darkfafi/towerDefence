@@ -6,6 +6,7 @@ package playerControl
 	import gameControlEngine.Tags;
 	import levels.TileSystem;
 	import towers.Tower;
+	import utils.Vector2D;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -31,8 +32,9 @@ package playerControl
 		{
 			//info over tower in hud ofzo.
 			if (buildModus) {
-				if(e.target is Tile){
+				if (e.target is Tile) {
 					var tile : Tile = e.target as Tile;
+					//trace(TileSystem.hitTileInt(new Vector2D(tile.x, tile.y)));
 					if (TileSystem.getTileInt(e.target.x,e.target.y) == 1) { //of als plannedTowerBuild.baseTileSize gits tile non 1.
 						tile.positiveTile();
 					}else {

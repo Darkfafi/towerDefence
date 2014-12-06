@@ -7,7 +7,6 @@ package
 	 */
 	public class Tile extends Sprite
 	{
-		
 		public function Tile() 
 		{
 			defaultTile();

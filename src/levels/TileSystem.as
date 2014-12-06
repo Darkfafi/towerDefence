@@ -4,6 +4,7 @@ package levels
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import utils.Vector2D;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -72,7 +73,7 @@ package levels
 			return posList;
 		}
 		
-		public static function hitTileInt(posTarget : Point) :int {
+		public static function hitTileInt(posTarget : Vector2D) :int {
 			var result : int;
 			
 			var tile : Tile = new Tile();
@@ -80,8 +81,8 @@ package levels
 			for (var i : int = 0; i < lYRows; i++) {
 				var lXRows : int = currentTileMap[i].length;
 				for (var j : int = 0; j < lXRows; j++) {
-					if (posTarget.x < (i * tile.width) + tile.width && posTarget.x > i * tile.width
-					&& posTarget.y < (j * tile.height) + tile.height && posTarget.y > j * tile.height
+					if (posTarget.x <= (j * tile.width) + tile.width && posTarget.x >= j * tile.width
+					&& posTarget.y <= (i * tile.height) + tile.height && posTarget.y >= i * tile.height
 					){
 						result = getTileInt(j * tile.width, i * tile.height);
 					}

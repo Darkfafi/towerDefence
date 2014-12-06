@@ -20,7 +20,7 @@ package units
 		
 		protected var _position : Vector2D = new Vector2D();
 		protected var _velocity : Vector2D = new Vector2D();
-		protected var _speed : int;
+		protected var _speed : int = 2;
 		
 		public function Unit() 
 		{
@@ -36,7 +36,6 @@ package units
 			_position.y = this.y;
 			
 			drawUnit();
-			calculateWaypoints();
 		}
 		
 		private function drawUnit():void 
@@ -51,42 +50,51 @@ package units
 			destination.y = yPos;
 		}
 		
-		private function calculateWaypoints():void 
-		{	
-			var i : int = 0;
-			var realPath : Vector2D = new Vector2D(destination.x - this.x, destination.y - this.y);
-			var waypointTotal : Vector2D = new Vector2D(this.x + realPath.x , this.y + realPath.y);
-			var waypoint : Vector2D = new Vector2D();
-			while (waypoint.length < waypointTotal.length) {
-				trace(waypoint);
-				i += 10;
-				var tile : Tile = new Tile();
-				
-				//var waypoint : Vector2D = new Vector2D(this.x + realPath.x , this.y + realPath.y);
-				
-				if (waypoint.x < waypointTotal.x) {
-					waypoint.x = i;
-				}
-				if(waypoint.y < waypointTotal.y) {
-					waypoint.y = i;
-				}
-				
-				
-				_waypointList.push(waypoint);
-			}
-		}
-		
 		override public function update():void 
 		{
 			super.update();
-			if (_waypointList[0] != null) {
-				target = _waypointList[0] as Vector2D;
-				//trace(target);
-			}
+			target = destination;
 			movement();
+			
+			if (TileSystem.hitTileInt(new Vector2D(_position.x + _velocity.x * 10, _position.y)) == 2){
+				_position.x += _velocity.x;
+			}else if (TileSystem.hitTileInt(new Vector2D(_position.x, _position.y + _velocity.y)) == 2) {
+				_position.y += _velocity.y * 4;
+			}
+			x = _position.x;
+			y = _position.y;
 		}
 		
 		private function movement():void 
+		{
+			if (!target)
+			{
+				return; 
+			}
+			
+			var currentTarget : Vector2D = target.cloneVector();
+			
+			var desiredStep : Vector2D = currentTarget.subtract(_position);
+			var distanceToTarget : Number =	desiredStep.length;
+			
+			desiredStep.normalize();
+			
+			var desiredVelocity:Vector2D = desiredStep.multiply(_speed);
+			
+			var steeringForce:Vector2D = desiredVelocity.subtract(_velocity);
+
+			steeringForce.divide(2);
+			
+			_velocity.add(steeringForce);
+			
+			rotation = _velocity.angle * 180 / Math.PI;
+			
+			if (distanceToTarget <= _velocity.length * 2) {
+				closeToTarget();
+			}
+		}
+		
+		protected function closeToTarget():void 
 		{
 			
 		}
