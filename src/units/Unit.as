@@ -14,6 +14,8 @@ package units
 	{
 		protected var destination : Vector2D = new Vector2D();
 		protected var _waypointList : Array = [];
+		
+		//or enemy or destination
 		protected var target : Vector2D = new Vector2D();
 		
 		protected var _health : int;
@@ -48,6 +50,12 @@ package units
 		public function setDestination(xPos : int, yPos : int) :void {
 			destination.x = xPos;
 			destination.y = yPos;
+			createWaypoints();
+		}
+		
+		private function createWaypoints():void 
+		{
+			
 		}
 		
 		override public function update():void 
