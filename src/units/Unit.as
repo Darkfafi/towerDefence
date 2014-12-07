@@ -55,16 +55,41 @@ package units
 		private function calculateWaypoints():void 
 		{
 			//zo lang het verschil tussen de waypoint en target groter is dan 4. Dan blijf waypoints maken van unit naar target.
-			var stepNextWaypoint : int = 10;
+			var stepNextWaypoint : Point = new Point(40,30);
 			var waypoint : Vector2D = new Vector2D(x, y);
 			var calculatedRoute : Vector2D;
-			while (waypoint.x >= destination.x) {
+			var outOfBoundX : Boolean = false;
+			var outOfBoundY : Boolean = false;
+			while (waypoint.length - destination.length > 3){
 				calculatedRoute = new Vector2D(destination.x - waypoint.x, destination.y - waypoint.y);
 				calculatedRoute.normalize();
-				calculatedRoute.multiply(stepNextWaypoint);
-				waypoint.add(calculatedRoute);
+				var dir : Point = new Point();
+				if (calculatedRoute.x < 0) {
+					dir.x = -1;
+				}else {
+					dir.x = 1;
+				}
+				if (calculatedRoute.y < 0) {
+					dir.y = -1;
+				}else {
+					dir.y = 1;
+				}
+				if (TileSystem.hitTileInt(new Vector2D(waypoint.x + dir.x * stepNextWaypoint.x, waypoint.y)) == 2 && !outOfBoundX) {
+					waypoint.x += stepNextWaypoint.x * dir.x;
+					outOfBoundY = false;
+				}else if (TileSystem.hitTileInt(new Vector2D(waypoint.x, waypoint.y + dir.y * stepNextWaypoint.y)) == 2 && !outOfBoundY) {
+					waypoint.y += stepNextWaypoint.y * dir.y;
+					outOfBoundX = false
+				}else if (waypoint.x - calculatedRoute.x < 1 && TileSystem.hitTileInt(new Vector2D(waypoint.x - dir.x * stepNextWaypoint.x, waypoint.y)) == 2) {
+					waypoint.x -= stepNextWaypoint.x * dir.x;
+					outOfBoundX = true;
+				}else if (waypoint.y - calculatedRoute.y < 1 && TileSystem.hitTileInt(new Vector2D(waypoint.x, waypoint.y - dir.y * stepNextWaypoint.y)) == 2) {
+					waypoint.y -= stepNextWaypoint.y * dir.y;
+					outOfBoundY = true;
+				}
+				var newWaypoint : Vector2D = waypoint.cloneVector();
 				
-				_waypointList.push(waypoint);
+				_waypointList.push(newWaypoint);
 				
 				var tile : Tile = new Tile();
 				tile.negativeTile();
@@ -79,15 +104,9 @@ package units
 		override public function update():void 
 		{
 			super.update();
-			target = destination;
+			target = _waypointList[0];
 			movement();
-			//---------------Test------------------
-			if (TileSystem.hitTileInt(new Vector2D(_position.x + _velocity.x * 10, _position.y)) == 2){
-				_position.x += _velocity.x;
-			}else if (TileSystem.hitTileInt(new Vector2D(_position.x, _position.y + _velocity.y)) == 2) {
-				_position.y += _velocity.y * 4;
-			}
-			//------------------------------------
+			_position.add(_velocity);
 			x = _position.x;
 			y = _position.y;
 		}
@@ -123,7 +142,10 @@ package units
 		
 		protected function closeToTarget():void 
 		{
-			
+			_waypointList.splice(0, 1);
+			if (_waypointList.length == 0) {
+				removeObject(); // <== test;
+			}
 		}
 	}
 

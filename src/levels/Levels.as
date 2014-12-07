@@ -49,9 +49,9 @@ package levels
 			createLevel(level1);
 			//----------------TEST--------------
 				var unit : Unit = new Unit();
-				unit.x = stage.stageWidth - unit.width;
-				unit.y = (11 * 30) - 15;
-				unit.setDestination(0, 13 * 30);
+				unit.x = stage.stageWidth - 20;
+				unit.y = (9 * 30) - 15; // moet naar midden van tile
+				unit.setDestination(0, (13 * 30) - 15); // moet naar midden van tile
 				addChild(unit);
 			//----------------------------------
 		}
