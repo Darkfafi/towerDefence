@@ -12,6 +12,9 @@ package towers
 		protected var range : Number;
 		protected var baseTileSize : Sprite; // <== hiermee word de toren neergezet.
 		
+		protected var buildTime : int = 4000; // doe gedeelt door 4 voor de 4 stages van opbouw in construction voor de timer.
+		
+		//build tower with timer. Every timer event it changes art in building with gotoAndStop.
 		public function Tower() 
 		{
 			

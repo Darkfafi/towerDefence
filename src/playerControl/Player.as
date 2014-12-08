@@ -35,8 +35,10 @@ package playerControl
 				if (e.target is Tile) {
 					var tile : Tile = e.target as Tile;
 					//trace(TileSystem.hitTileInt(new Vector2D(tile.x, tile.y)));
+					trace(TileSystem.getTileInt(e.target.x, e.target.y));
 					if (TileSystem.getTileInt(e.target.x,e.target.y) == 1) { //of als plannedTowerBuild.baseTileSize gits tile non 1.
 						tile.positiveTile();
+						
 					}else {
 						tile.negativeTile();
 					}

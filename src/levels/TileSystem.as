@@ -15,7 +15,7 @@ package levels
 		private var _world : DisplayObjectContainer;
 		public static var grid : Grid;
 		public static var currentTileMap : Array;
-		
+		public static const globalTile : Tile = new Tile();
 		public function TileSystem(world : DisplayObjectContainer) 
 		{
 			_world = world;

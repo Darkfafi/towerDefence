@@ -1,6 +1,7 @@
 package  
 {
 	import flash.display.Sprite;
+	import flash.events.Event;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -15,9 +16,9 @@ package
 			graphics.clear();
 			graphics.beginFill(color, 1);
 			graphics.lineStyle(1, 0x0000FF, 1);
-			graphics.drawRect(0, 0, 39, 29);
+			graphics.drawRect(0, 0, 66, 49);
 			graphics.endFill();
-			alpha = 0.1;
+			alpha = 0.05;
 		}
 		public function positiveTile() :void {
 			defaultTile(0x00FF00);

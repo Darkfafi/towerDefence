@@ -56,7 +56,6 @@ package  pathfinderAStar.grid
 				if (currentCell.position.equals( end ) ) {
 					// we gaan de array met het pad vullen en terug geven
 					var path : Array = [];
-					
 					// dit doen we door alle 'parent' cells heen te loopen en ze te pushen in de path array
 					// zo gaan we vanaf het eindpunt terug naar het beginpunt
 					while(currentCell.parent) {
