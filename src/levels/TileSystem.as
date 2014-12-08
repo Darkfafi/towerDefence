@@ -41,9 +41,8 @@ package levels
 					object.y = i * object.height;
 					_world.addChildAt(object, 0);
 					
-					if (tileMap[i][j] != 2) {
+					if (tileMap[j][i] != 2) {
 						grid.getCell(i, j).isWall = true;
-						//trace(grid.getCell(i,j).isWall);
 					}
 				}
 			}

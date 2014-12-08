@@ -109,15 +109,14 @@ package units
 
 			var start : Point = new Point(Math.floor(x / 40), Math.floor(y / 30));
 			var fin : Point = new Point(Math.floor(destination.x / 40), Math.floor(destination.y / 30));
-			var path : Array = AStar.search(TileSystem.grid, start, fin);
-			
-			trace(start +" / " + fin);
+			_waypointList = AStar.search(TileSystem.grid, start, fin);
 		}
 		
 		override public function update():void 
 		{
 			super.update();
-			target = _waypointList[0];
+			target.x = (_waypointList[0].position.x * 40) + 20;
+			target.y = (_waypointList[0].position.y * 30) + 15;
 			movement();
 			_position.add(_velocity);
 			x = _position.x;

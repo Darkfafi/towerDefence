@@ -56,6 +56,7 @@ package  pathfinderAStar.grid
 				if (currentCell.position.equals( end ) ) {
 					// we gaan de array met het pad vullen en terug geven
 					var path : Array = [];
+					
 					// dit doen we door alle 'parent' cells heen te loopen en ze te pushen in de path array
 					// zo gaan we vanaf het eindpunt terug naar het beginpunt
 					while(currentCell.parent) {
@@ -88,6 +89,7 @@ package  pathfinderAStar.grid
 				var l : int = neighbors.length;
 				for (var i : int = 0; i<l; i++) {
 					neighbor = neighbors[i];
+					
 					if(neighbor.isClosed || currentCell.isWall) {
 						// dit is een cell die we al hebben gehad OF dit is een cell die een muur is
 						// we slaan deze cell over en gaan door met het loopen over de andere cellen
@@ -161,7 +163,7 @@ package  pathfinderAStar.grid
 			var neighbors : Array = [];
 			var x : int = cell.position.x;
 			var y : int = cell.position.y;
-	 
+			
 			// check voor horizontale en verticale cellen
 			if(grid.getCell(x-1, y)) {
 				neighbors.push(grid.getCell(x-1, y));
@@ -189,7 +191,6 @@ package  pathfinderAStar.grid
 			if(grid.getCell(x-1, y+1)) {
 				neighbors.push(grid.getCell(x-1, y+1));
 			}
-
 			return neighbors;
 		}
 		
