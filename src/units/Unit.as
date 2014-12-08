@@ -4,7 +4,9 @@ package units
 	import flash.geom.Point;
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
+	import levels.Levels;
 	import levels.TileSystem;
+	import pathfinderAStar.grid.AStar;
 	import utils.Vector2D;
 	/**
 	 * ...
@@ -54,6 +56,7 @@ package units
 		
 		private function calculateWaypoints():void 
 		{
+			/*
 			//zo lang het verschil tussen de waypoint en target groter is dan 4. Dan blijf waypoints maken van unit naar target.
 			var stepNextWaypoint : Point = new Point(30,30);
 			var waypoint : Vector2D = new Vector2D(x, y);
@@ -102,7 +105,13 @@ package units
 					tile.scaleY = 0.1;
 					stage.addChild(tile);
 				//------------------------------------------
-			}
+			}*/
+
+			var start : Point = new Point(Math.floor(x / 40), Math.floor(y / 30));
+			var fin : Point = new Point(Math.floor(destination.x / 40), Math.floor(destination.y / 30));
+			var path : Array = AStar.search(TileSystem.grid, start, fin);
+			
+			trace(start +" / " + fin);
 		}
 		
 		override public function update():void 

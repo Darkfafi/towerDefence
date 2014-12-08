@@ -47,7 +47,7 @@ package playerControl
 		{
 			if (e.target is Tile) {
 				var tile : Tile = e.target as Tile;
-				//tile.defaultTile();
+				tile.defaultTile();
 			}
 		}
 		

@@ -4,6 +4,7 @@ package levels
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import pathfinderAStar.grid.Grid;
 	import utils.Vector2D;
 	/**
 	 * ...
@@ -12,7 +13,7 @@ package levels
 	public class TileSystem
 	{
 		private var _world : DisplayObjectContainer;
-		
+		public static var grid : Grid;
 		public static var currentTileMap : Array;
 		
 		public function TileSystem(world : DisplayObjectContainer) 
@@ -24,6 +25,9 @@ package levels
 		{
 			// 0 = grond/usedTile, 1 = buildAbleTile, 2 = roadTile (dus verader een tile naar 1 als je een toren verkoopt en naar 0 als je er 1 plaatst etc etc).
 			currentTileMap = tileMap;
+			
+			grid = new Grid(tileMap.length, tileMap[0].length);
+			
 			var lYRows : int = tileMap.length;
 			for (var i : int = 0; i < lYRows; i++) {
 				
@@ -36,6 +40,11 @@ package levels
 					object.x = j * object.width;
 					object.y = i * object.height;
 					_world.addChildAt(object, 0);
+					
+					if (tileMap[i][j] != 2) {
+						grid.getCell(i, j).isWall = true;
+						//trace(grid.getCell(i,j).isWall);
+					}
 				}
 			}
 		}
