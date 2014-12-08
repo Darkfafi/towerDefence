@@ -13,12 +13,13 @@ package UI
 		public function InfoMenu() 
 		{
 			drawBg();
+			alpha = 0.8;
 		}
 		
 		private function drawBg():void 
 		{
 			bgArt.graphics.beginFill(0x969696, 1);
-			bgArt.graphics.drawRect(-50, -50, 50, 50);
+			bgArt.graphics.drawRect(-250, -150, 250, 150);
 			bgArt.graphics.endFill();
 			addChild(bgArt);
 		}

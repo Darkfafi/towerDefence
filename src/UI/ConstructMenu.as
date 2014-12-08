@@ -12,12 +12,13 @@ package UI
 		public function ConstructMenu() 
 		{
 			drawBg();
+			alpha = 0.8;
 		}
 		
 		private function drawBg():void 
 		{
 			bgArt.graphics.beginFill(0x696969, 1);
-			bgArt.graphics.drawRect(0, -50, 50, 50);
+			bgArt.graphics.drawRect(0, -150, 300, 150);
 			bgArt.graphics.endFill();
 			addChild(bgArt);
 		}

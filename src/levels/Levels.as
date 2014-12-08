@@ -51,7 +51,7 @@ package levels
 				var unit : Unit = new Unit();
 				unit.x = stage.stageWidth - 20;
 				unit.y = (9 * 30) - 15; // moet naar midden van tile
-				unit.setDestination(0, (13 * 30) - 15); // moet naar midden van tile
+				unit.setDestination(780, (11 * 30) - 15); // moet naar midden van tile
 				addChild(unit);
 			//----------------------------------
 		}

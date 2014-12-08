@@ -55,49 +55,53 @@ package units
 		private function calculateWaypoints():void 
 		{
 			//zo lang het verschil tussen de waypoint en target groter is dan 4. Dan blijf waypoints maken van unit naar target.
-			var stepNextWaypoint : Point = new Point(40,30);
+			var stepNextWaypoint : Point = new Point(30,30);
 			var waypoint : Vector2D = new Vector2D(x, y);
 			var calculatedRoute : Vector2D;
 			var outOfBoundX : Boolean = false;
 			var outOfBoundY : Boolean = false;
-			while (waypoint.length - destination.length > 3){
+			//while (waypoint.length - destination.length > 3){
+			for (var i : int = 0; i < 500; i++){
 				calculatedRoute = new Vector2D(destination.x - waypoint.x, destination.y - waypoint.y);
-				calculatedRoute.normalize();
+				var step : Vector2D = calculatedRoute.cloneVector();
 				var dir : Point = new Point();
-				if (calculatedRoute.x < 0) {
+				
+				if (step.x < 0) {
 					dir.x = -1;
 				}else {
 					dir.x = 1;
 				}
-				if (calculatedRoute.y < 0) {
+				if (step.y < 0) {
 					dir.y = -1;
 				}else {
 					dir.y = 1;
 				}
-				if (TileSystem.hitTileInt(new Vector2D(waypoint.x + dir.x * stepNextWaypoint.x, waypoint.y)) == 2 && !outOfBoundX) {
+				//als zijn x gelijk staat en zijn y niet dan ga de tegengestelde x op en hij mag de andere x niet op tot hij de JUISTE Y op is gegaan. Niet de omgekeerde dus. <== dat moet ik gaan doen.
+				if (TileSystem.hitTileInt(new Vector2D(waypoint.x + dir.x * stepNextWaypoint.x, waypoint.y)) == 2 && !outOfBoundX && waypoint.x + dir.x * stepNextWaypoint.x != waypoint.x) {
 					waypoint.x += stepNextWaypoint.x * dir.x;
 					outOfBoundY = false;
 				}else if (TileSystem.hitTileInt(new Vector2D(waypoint.x, waypoint.y + dir.y * stepNextWaypoint.y)) == 2 && !outOfBoundY) {
 					waypoint.y += stepNextWaypoint.y * dir.y;
 					outOfBoundX = false
-				}else if (waypoint.x - calculatedRoute.x < 1 && TileSystem.hitTileInt(new Vector2D(waypoint.x - dir.x * stepNextWaypoint.x, waypoint.y)) == 2) {
-					waypoint.x -= stepNextWaypoint.x * dir.x;
-					outOfBoundX = true;
 				}else if (waypoint.y - calculatedRoute.y < 1 && TileSystem.hitTileInt(new Vector2D(waypoint.x, waypoint.y - dir.y * stepNextWaypoint.y)) == 2) {
 					waypoint.y -= stepNextWaypoint.y * dir.y;
 					outOfBoundY = true;
+				}else if (waypoint.x - calculatedRoute.x < 1 && TileSystem.hitTileInt(new Vector2D(waypoint.x - dir.x * stepNextWaypoint.x, waypoint.y)) == 2) {
+					waypoint.x -= stepNextWaypoint.x * dir.x;
+					outOfBoundX = true;
 				}
 				var newWaypoint : Vector2D = waypoint.cloneVector();
 				
 				_waypointList.push(newWaypoint);
-				
-				var tile : Tile = new Tile();
-				tile.negativeTile();
-				tile.x = waypoint.x;
-				tile.y = waypoint.y;
-				tile.scaleX = 0.1;
-				tile.scaleY = 0.1;
-				stage.addChild(tile);
+				//-----------showForDevelopment-------------
+					var tile : Tile = new Tile();
+					tile.negativeTile();
+					tile.x = waypoint.x;
+					tile.y = waypoint.y;
+					tile.scaleX = 0.1;
+					tile.scaleY = 0.1;
+					stage.addChild(tile);
+				//------------------------------------------
 			}
 		}
 		
