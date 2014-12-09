@@ -16,7 +16,7 @@ package playerControl
 		private var _gold : int;
 		
 		
-		private var plannedTowerBuild : Tower;
+		private var plannedTowerBuild : Tower = new Tower();
 		private var buildModus : Boolean = true;
 		
 		private var world : DisplayObjectContainer;
@@ -59,8 +59,8 @@ package playerControl
 			var tile : Tile;
 			
 			if(buildModus){
-				if (e.target is Tile) {
-					tile = e.target as Tile;
+				
+				if(TileSystem.getTileInt(e.target.x,e.target.y) == 1){
 					buildTower(e.target.x, e.target.y);
 				}
 				buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
@@ -85,6 +85,10 @@ package playerControl
 		private function buildTower(xPos : int, yPos : int):void 
 		{
 			TileSystem.setTileInt(xPos, yPos, 0); // <== test. zet bij function build tower ofzo
+			var newTower : Tower = plannedTowerBuild;
+			newTower.x = xPos;
+			newTower.y = yPos;
+			world.addChild(newTower);
 			//place plannedTowerBuild.baseTileSize on position and add tower.
 		}
 		

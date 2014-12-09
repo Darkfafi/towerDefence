@@ -1,6 +1,7 @@
 package UI 
 {
 	import flash.display.Sprite;
+	import levels.TileSystem;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -19,7 +20,7 @@ package UI
 		private function drawBg():void 
 		{
 			bgArt.graphics.beginFill(0x969696, 1);
-			bgArt.graphics.drawRect(-250, -150, 250, 150);
+			bgArt.graphics.drawRect(-TileSystem.globalTile.width * 3, -TileSystem.globalTile.height * 3, TileSystem.globalTile.width * 3, TileSystem.globalTile.height * 3);
 			bgArt.graphics.endFill();
 			addChild(bgArt);
 		}
