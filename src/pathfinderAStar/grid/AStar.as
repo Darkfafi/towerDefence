@@ -12,7 +12,7 @@ package  pathfinderAStar.grid
 		public static var horizontalScore	:	int	=	1;
 		
 		// de g score die we toekennen aan een stap diagonaal
-		public static var diagonalScore		:	int	=	1.414;
+		public static var diagonalScore		:	int	=	3;
 		
 		public static function search(grid : Grid, start : Point, end : Point) : Array
 		{

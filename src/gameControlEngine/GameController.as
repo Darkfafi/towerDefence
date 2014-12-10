@@ -17,8 +17,8 @@ package gameControlEngine
 		public function GameController(world : DisplayObjectContainer) 
 		{
 			_world = world;
-			_world.addEventListener(Event.ADDED_TO_STAGE, objectAdded, true);
-			_world.addEventListener(Event.REMOVED_FROM_STAGE, objectRemoved, true);
+			_world.addEventListener(GameObject.ADDED, objectAdded);
+			_world.addEventListener(GameObject.REMOVED, objectRemoved);
 		}
 		
 		private function objectRemoved(e:Event):void 
@@ -55,6 +55,13 @@ package gameControlEngine
 					object.update();
 				}
 			}
+		}
+		public function destroy() :void {
+			for (var i : int = gameObjects.length - 1; i >= 0; i--) {
+				gameObjects[i].removeObject();
+			}
+			_world.removeEventListener(GameObject.ADDED, objectAdded);
+			_world.removeEventListener(GameObject.REMOVED, objectRemoved);
 		}
 	}
 }

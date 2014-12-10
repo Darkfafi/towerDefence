@@ -14,38 +14,48 @@ package units
 	 */
 	public class Unit extends GameObject
 	{
-		protected var destination : Vector2D = new Vector2D();
+		protected var distanceToClose : int = 2;
+		protected var destination : Point = new Point();
 		protected var _waypointList : Array = [];
 		
 		//or enemy or destination
 		protected var target : Vector2D = new Vector2D();
 		
+		//stats
 		protected var _health : int;
+		protected var attackDmg : int;
+		protected var viewDistance : Number;
 		
+		//movement
 		protected var _position : Vector2D = new Vector2D();
 		protected var _velocity : Vector2D = new Vector2D();
-		protected var _speed : int = 2;
+		protected var _speed : int = 1;
 		
 		public function Unit() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			addTag(Tags.UPDATE_TAG);
+			addTag(Tags.INTERACTIVE_TAG);
+			addTag(Tags.COLLIDER_TAG);
 		}
 		
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			addTag(Tags.UPDATE_TAG);
 			
 			_position.x = this.x;
 			_position.y = this.y;
-			calculateWaypoints();
+			calculateWaypoints(destination);
+		}
+		override protected function drawHitBoxObjectArt():void 
+		{
+			super.drawHitBoxObjectArt();
 			drawUnit();
 		}
-		
 		private function drawUnit():void 
 		{
 			graphics.beginFill(0x000000, 1);
-			graphics.drawCircle(0, 0, 3);
+			graphics.drawRect(-5, -10, 10,10);
 			graphics.endFill();
 		}
 		
@@ -54,20 +64,24 @@ package units
 			destination.y = yPos;
 		}
 		
-		private function calculateWaypoints():void 
+		private function calculateWaypoints(dest : Point):void 
 		{
 			var start : Point = new Point(Math.floor(x / TileSystem.globalTile.width), Math.floor(y / TileSystem.globalTile.height));
-			var fin : Point = new Point(Math.floor(destination.x / TileSystem.globalTile.width), Math.floor(destination.y / TileSystem.globalTile.height));
+			var fin : Point = new Point(Math.floor(dest.x / TileSystem.globalTile.width), Math.floor(dest.y / TileSystem.globalTile.height));
 			_waypointList = AStar.search(TileSystem.grid, start, fin);
 		}
 		
 		override public function update():void 
 		{
 			super.update();
-			target.x = (_waypointList[0].position.x * TileSystem.globalTile.width) + TileSystem.globalTile.width / 2;
-			target.y = (_waypointList[0].position.y * TileSystem.globalTile.height) + TileSystem.globalTile.height / 2;
+			if(_waypointList.length > 0){
+				target.x = (_waypointList[0].position.x * TileSystem.globalTile.width) + TileSystem.globalTile.width / 2;
+				target.y = (_waypointList[0].position.y * TileSystem.globalTile.height) + TileSystem.globalTile.height / 2;
+			}
 			movement();
+			
 			_position.add(_velocity);
+			
 			x = _position.x;
 			y = _position.y;
 		}
@@ -96,7 +110,7 @@ package units
 			
 			rotation = _velocity.angle * 180 / Math.PI;
 			
-			if (distanceToTarget <= _velocity.length * 2) {
+			if (distanceToTarget <= _velocity.length * distanceToClose) {
 				closeToTarget();
 			}
 		}
@@ -105,8 +119,24 @@ package units
 		{
 			_waypointList.splice(0, 1);
 			if (_waypointList.length == 0) {
-				removeObject(); // <== test;
+				lastWaypointReached();
 			}
+		}
+		
+		protected function lastWaypointReached():void 
+		{
+			
+		}
+		override public function onCollisionEnter(other:GameObject):void 
+		{
+			if (other.checkTag(Tags.RANGE_COLLIDER_TAG) == false) {
+				super.onCollisionEnter(other);
+			}
+		}
+		override public function onInteraction():void 
+		{
+			super.onInteraction();
+			trace("See unit info");
 		}
 	}
 
