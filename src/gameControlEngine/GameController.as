@@ -36,6 +36,21 @@ package gameControlEngine
 				var object : GameObject = e.target as GameObject;
 				gameObjects.push(object);
 			}
+			
+			positionGameObjectToLayer();
+		}
+		
+		private function positionGameObjectToLayer():void 
+		{
+			var objectOnScreen : Array = [];
+			for (var i : int = 0; i < gameObjects.length; i++){
+				objectOnScreen.push(gameObjects[i]);
+			}
+			objectOnScreen.sortOn("y", Array.NUMERIC);
+			
+			for (i = 0; i < objectOnScreen.length; i++) {
+				_world.addChild(objectOnScreen[i]);
+			}
 		}
 		public function lisOfObjectType(object : GameObject) :Array {
 			var list : Array = [];
@@ -47,6 +62,7 @@ package gameControlEngine
 			return list;
 		}
 		public function update() :void {
+			positionGameObjectToLayer();
 			collisionSystem.checkCollision(gameObjects,_world);
 			var l : int = gameObjects.length;
 			for (var i : int = l - 1; i >= 0; i--) {

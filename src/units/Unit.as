@@ -46,6 +46,7 @@ package units
 			_position.x = this.x;
 			_position.y = this.y;
 			calculateWaypoints(destination);
+			setHitBox(-5, -10, 10, 10);
 		}
 		override protected function drawHitBoxObjectArt():void 
 		{
@@ -55,7 +56,7 @@ package units
 		private function drawUnit():void 
 		{
 			graphics.beginFill(0x000000, 1);
-			graphics.drawRect(-5, -10, 10,10);
+			graphics.drawRect(-10, -30, 20,30);
 			graphics.endFill();
 		}
 		
@@ -107,8 +108,6 @@ package units
 			steeringForce.divide(2);
 			
 			_velocity.add(steeringForce);
-			
-			rotation = _velocity.angle * 180 / Math.PI;
 			
 			if (distanceToTarget <= _velocity.length * distanceToClose) {
 				closeToTarget();

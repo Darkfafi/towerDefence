@@ -20,6 +20,7 @@ package towers
 		
 		// target var.
 		protected var range : Number;
+		protected var rangeView : GameObject = new GameObject();
 		protected var baseTileSize : Sprite = new Sprite(); // <== hiermee word de toren neergezet en worden alle hittests mee uitgevoert
 		
 		//tower Art
@@ -49,21 +50,7 @@ package towers
 		override protected function drawHitBoxObjectArt():void 
 		{
 			super.drawHitBoxObjectArt();
-			drawRangeView();
 			drawTower();
-		}
-		private function drawRangeView():void 
-		{
-			var rangeView : GameObject = new GameObject();
-			rangeView.addTag(Tags.COLLIDER_TAG);
-			rangeView.addTag(Tags.RANGE_COLLIDER_TAG);
-			rangeView.graphics.beginFill(0xFF00FF, 0.4);
-			rangeView.graphics.drawCircle(0, 0, 80);
-			rangeView.graphics.endFill();
-			rangeView.y -= baseTileSize.height / 2;
-			//nog de hitbox van rangeview veranderen.
-			addChild(rangeView);
-			rangeView.setHitBox(-rangeView.width / 2, - rangeView.height / 3, rangeView.width, rangeView.height / 1.5);
 		}
 		
 		public function towerBuildUp():void {
@@ -73,9 +60,37 @@ package towers
 				dispatchEvent(new Event(TOWER_BUILD, true));
 				removeChild(towerBuildAnim);
 				var art : MovieClip = allTowerArt[0];
+				addRangeView();
 				addChild(art);
 			}
 		}
+		
+		private function addRangeView():void 
+		{
+			rangeView.addTag(Tags.COLLIDER_TAG);
+			rangeView.addTag(Tags.RANGE_COLLIDER_TAG);
+			addChild(rangeView);
+			changeRange(100); // Test
+		}
+		
+		protected function changeRange(_range : int) :void {
+			range = _range;
+			drawRangeView();
+		}
+		
+		private function drawRangeView():void 
+		{
+			if (contains(rangeView)) {
+				rangeView.graphics.clear();
+			}
+			rangeView.alpha = 0;
+			rangeView.graphics.beginFill(0xFF00FF, 1);
+			rangeView.graphics.drawCircle(0, 0, range);
+			rangeView.graphics.endFill();
+			rangeView.y -= baseTileSize.height / 2;
+			rangeView.setHitBox(-rangeView.width / 2, - rangeView.height / 2, rangeView.width, rangeView.height);
+		}
+		
 		protected function drawTower():void 
 		{
 			//als een tower word geaddChild dan in de gamenEgine laat alle towers die er al zijn heraddChild worden als hun tile lager zijn dan die is geaddChild.
@@ -88,17 +103,14 @@ package towers
 		override public function onInteraction():void 
 		{
 			super.onInteraction();
+			rangeView.alpha = 0.4;
 			trace("show info and upgrade stats / cost");
 		}
-		
-		override public function willCollide(other:GameObject):Boolean 
+		override public function exitInteraction():void 
 		{
-			var result : Boolean = false;
-			if (baseTileSize.hitTestObject(other)) {
-				result = true;
-			}
-			return result;
+			super.exitInteraction();
+			rangeView.alpha = 0;
+			trace("close info and upgrade stats / cost");
 		}
 	}
-
 }

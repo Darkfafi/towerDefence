@@ -2,6 +2,8 @@ package gameControlEngine
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.Point;
+	import levels.TileSystem;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -75,6 +77,9 @@ package gameControlEngine
 		}
 		
 		public function onInteraction() :void {
+			
+		}
+		public function exitInteraction() :void {
 			
 		}
 		public function removeObject():void {
