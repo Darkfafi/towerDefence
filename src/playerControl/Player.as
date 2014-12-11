@@ -56,6 +56,7 @@ package playerControl
 		
 		private function clicked(e:MouseEvent):void 
 		{
+			trace(e.target);
 			if (clickedObject != null && clickedObject != e.target.parent) {
 				clickedObject.exitInteraction();
 				clickedObject = null;

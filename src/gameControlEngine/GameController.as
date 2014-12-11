@@ -1,6 +1,8 @@
 package gameControlEngine 
 {
+	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
 	/**
@@ -36,20 +38,21 @@ package gameControlEngine
 				var object : GameObject = e.target as GameObject;
 				gameObjects.push(object);
 			}
-			
-			positionGameObjectToLayer();
 		}
 		
 		private function positionGameObjectToLayer():void 
 		{
 			var objectOnScreen : Array = [];
-			for (var i : int = 0; i < gameObjects.length; i++){
-				objectOnScreen.push(gameObjects[i]);
+			for (var i : int = 0; i < gameObjects.length; i++) {
+				if (gameObjects[i].checkTag(Tags.RANGE_COLLIDER_TAG) == false) {
+					objectOnScreen.push(gameObjects[i]);
+				}
 			}
 			objectOnScreen.sortOn("y", Array.NUMERIC);
 			
 			for (i = 0; i < objectOnScreen.length; i++) {
-				_world.addChild(objectOnScreen[i]);
+				var parentObj : Sprite = objectOnScreen[i].parent;
+				parentObj.addChild(objectOnScreen[i]);
 			}
 		}
 		public function lisOfObjectType(object : GameObject) :Array {
