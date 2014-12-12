@@ -57,9 +57,9 @@ package gameControlEngine
 				removeChild(hitBox);
 			}
 			hitBox.graphics.clear();
-			hitBox.graphics.beginFill(0x000000, 0.5);
+			//hitBox.graphics.beginFill(0x000000, 0.5);
 			hitBox.graphics.drawRect(xPos, yPos, hitWidth, hitHeight);
-			hitBox.graphics.endFill();
+			//hitBox.graphics.endFill();
 			addChild(hitBox);
 		}
 		

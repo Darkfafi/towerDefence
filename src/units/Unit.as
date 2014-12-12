@@ -47,7 +47,6 @@ package units
 			
 			_position.x = this.x;
 			_position.y = this.y;
-			calculateWaypoints(destination);
 			setHitBox(-5, -10, 10, 10);
 		}
 		override protected function drawHitBoxObjectArt():void 
@@ -55,11 +54,9 @@ package units
 			super.drawHitBoxObjectArt();
 			drawUnit();
 		}
-		private function drawUnit():void 
+		protected function drawUnit():void 
 		{
-			graphics.beginFill(0x000000, 1);
-			graphics.drawRect(-10, -30, 20,30);
-			graphics.endFill();
+			
 		}
 		
 		public function setDestination(xPos : int, yPos : int) :void {
@@ -67,7 +64,7 @@ package units
 			destination.y = yPos;
 		}
 		
-		private function calculateWaypoints(dest : Point):void 
+		public function calculateWaypoints(dest : Point):void 
 		{
 			var start : Point = new Point(Math.floor(x / TileSystem.globalTile.width), Math.floor(y / TileSystem.globalTile.height));
 			var fin : Point = new Point(Math.floor(dest.x / TileSystem.globalTile.width), Math.floor(dest.y / TileSystem.globalTile.height));

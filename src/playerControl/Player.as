@@ -16,6 +16,7 @@ package playerControl
 	 */
 	public class Player 
 	{
+		private var playerBase : PlayerBase;
 		private var _gold : int;
 		
 		private var clickedObject : GameObject;
@@ -29,6 +30,7 @@ package playerControl
 		public function Player(_world : DisplayObjectContainer) 
 		{
 			world = _world;
+			playerBase = TileSystem.getPlayerBase();
 			world.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 			world.addEventListener(MouseEvent.CLICK, clicked);
 		}
@@ -61,7 +63,8 @@ package playerControl
 				if(TileSystem.getTileInt(tile.x,tile.y) == 1){
 					buildTower(tile.x, tile.y);
 				}
-				//buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
+				buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
+				world.removeChild(buildTile);
 			}
 			//checks if clicked object is interactive
 			else if (e.target is Sprite) {
@@ -85,15 +88,13 @@ package playerControl
 		private function buildTower(xPos : int, yPos : int):void 
 		{
 			TileSystem.setTileInt(xPos, yPos, 0);
-			var newTower : Tower = new CanonTower();
+			var newTower : Tower = plannedTowerBuild;
 			newTower.x = xPos + TileSystem.globalTile.width / 2;
 			newTower.y = yPos + TileSystem.globalTile.height; 
 			world.addChild(newTower);
+			plannedTowerBuild = null;
 			
-			var buildUnit : BuildUnit = new BuildUnit(newTower);
-			buildUnit.y = (TileSystem.globalTile.height * 6) - 25;  // moet verandert worden.
-			buildUnit.setDestination(xPos, yPos);
-			world.addChild(buildUnit); // misschien met een unit factory die ze goed spawned.
+			playerBase.buildConstructUnit(newTower);
 		}
 		
 	}

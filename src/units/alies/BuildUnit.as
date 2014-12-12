@@ -17,11 +17,9 @@ package units.alies
 		
 		public var targetTower : Tower;
 		
-		public function BuildUnit(towerToBuild : Tower) 
+		public function BuildUnit() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
-			targetTower = towerToBuild;
-			distanceToClose = 40
 			buildSpeed = 1000;
 			buildTimer = new Timer(buildSpeed);
 		}
@@ -31,7 +29,9 @@ package units.alies
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.addEventListener(Tower.TOWER_BUILD, towerDone);
 		}
-		
+		public function setTowerTarget(towerToBuild : Tower) :void {
+			targetTower = towerToBuild;
+		}
 		private function towerDone(e:Event):void 
 		{
 			if(e.target == targetTower){
@@ -48,9 +48,12 @@ package units.alies
 					buildTower();
 				}
 			}
-			//removeObject();
-			//if done building then 
-			//if died then remove target tower with removeObject.
+		}
+		override protected function drawUnit():void 
+		{
+			graphics.beginFill(0x0000FF, 1);
+			graphics.drawRect(-10, -30, 20,30);
+			graphics.endFill();
 		}
 		
 		public function buildTower():void {

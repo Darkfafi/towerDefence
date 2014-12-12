@@ -26,6 +26,7 @@ package screens
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, update);
+			
 			gameController = new GameController(this);
 			placeLevel();
 			player = new Player(this);
