@@ -34,6 +34,7 @@ package towers
 			
 			addTag(Tags.INTERACTIVE_TAG);
 			addTag(Tags.COLLIDER_TAG);
+			addTag(Tags.POSITION_ON_Y_TAG);
 			
 			baseTileSize.graphics.beginFill(0x000000, 0);
 			baseTileSize.graphics.drawRect(-TileSystem.globalTile.width / 2, TileSystem.globalTile.height, TileSystem.globalTile.width, TileSystem.globalTile.height);
@@ -93,7 +94,6 @@ package towers
 		
 		protected function drawTower():void 
 		{
-			//als een tower word geaddChild dan in de gamenEgine laat alle towers die er al zijn heraddChild worden als hun tile lager zijn dan die is geaddChild.
 			removeChild(baseTileSize);
 			towerBuildAnim = new BuildTowerStagesArt();
 			towerBuildAnim.stop();

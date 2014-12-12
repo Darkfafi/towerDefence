@@ -34,7 +34,9 @@ package units.alies
 		
 		private function towerDone(e:Event):void 
 		{
-			removeObject();
+			if(e.target == targetTower){
+				removeObject();
+			}
 		}
 		override public function onCollisionEnter(other:GameObject):void 
 		{

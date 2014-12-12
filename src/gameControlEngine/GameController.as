@@ -44,8 +44,8 @@ package gameControlEngine
 		{
 			var objectOnScreen : Array = [];
 			for (var i : int = 0; i < gameObjects.length; i++) {
-				if (gameObjects[i].checkTag(Tags.RANGE_COLLIDER_TAG) == false) {
-					objectOnScreen.push(gameObjects[i]);
+				if (gameObjects[i].checkTag(Tags.POSITION_ON_Y_TAG)) {
+					objectOnScreen.push(gameObjects[i]);	
 				}
 			}
 			objectOnScreen.sortOn("y", Array.NUMERIC);
@@ -55,6 +55,7 @@ package gameControlEngine
 				parentObj.addChild(objectOnScreen[i]);
 			}
 		}
+		
 		public function lisOfObjectType(object : GameObject) :Array {
 			var list : Array = [];
 			for (var i : int = 0; i < gameObjects.length; i++) {

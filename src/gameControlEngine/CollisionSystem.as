@@ -18,7 +18,7 @@ package gameControlEngine
 						var other : GameObject = listObjects[j] as GameObject;
 						if(other){
 							if (other.checkTag(Tags.COLLIDER_TAG) && other != currentObj) {
-								if (currentObj.willCollide(other) && !currentObj.colliding) {
+								if (currentObj.willCollide(other) && currentObj.collidedObject != other) {
 									currentObj.onCollisionEnter(other);
 								}else if (currentObj.willCollide(other)) {
 									currentObj.onCollision(other);

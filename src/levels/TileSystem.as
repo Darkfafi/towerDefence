@@ -15,6 +15,7 @@ package levels
 		private var _world : DisplayObjectContainer;
 		public static var grid : Grid;
 		public static var currentTileMap : Array;
+		private static var allTiles : Array;
 		public static const globalTile : Tile = new Tile();
 		public function TileSystem(world : DisplayObjectContainer) 
 		{
@@ -27,7 +28,7 @@ package levels
 			currentTileMap = tileMap;
 			
 			grid = new Grid(tileMap.length, tileMap[0].length);
-			
+			allTiles = [];
 			var lYRows : int = tileMap.length;
 			for (var i : int = 0; i < lYRows; i++) {
 				
@@ -39,12 +40,19 @@ package levels
 					object = new Tile();
 					object.x = j * object.width;
 					object.y = i * object.height;
+					allTiles.push(object);
 					_world.addChildAt(object, 0);
 					
 					if (tileMap[j][i] < 2 || tileMap[j][i] > 4) {
 						grid.getCell(i, j).isWall = true;
 					}
 				}
+			}
+		}
+		public function removeAllTiles() :void {
+			for (var i : int = allTiles.length - 1; i >= 0; i--) {
+				_world.removeChild(allTiles[i]);
+				allTiles.splice(i, 1);
 			}
 		}
 		public static function getTileInt(x : int, y : int) :int {
@@ -81,8 +89,8 @@ package levels
 			return posList;
 		}
 		
-		public static function hitTileInt(posTarget : Vector2D) :int {
-			var result : int;
+		public static function getTileFromPos(posTarget : Vector2D) :Tile {
+			var result : Tile;
 			
 			var tile : Tile = new Tile();
 			var lYRows : int = currentTileMap.length;
@@ -92,7 +100,7 @@ package levels
 					if (posTarget.x <= (j * tile.width) + tile.width && posTarget.x >= j * tile.width
 					&& posTarget.y <= (i * tile.height) + tile.height && posTarget.y >= i * tile.height
 					){
-						result = getTileInt(j * tile.width, i * tile.height);
+						result = allTiles[j + (i * lYRows)];
 					}
 				}
 			}

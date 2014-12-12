@@ -35,15 +35,13 @@ package playerControl
 		{
 			//info over tower in hud ofzo.
 			if (buildModus) {
-				if (e.target is Tile) {
-					var tile : Tile = e.target as Tile;
-					if (TileSystem.getTileInt(e.target.x,e.target.y) == 1) {
+					var tile : Tile = TileSystem.getTileFromPos(new Vector2D(world.mouseX, world.mouseY));
+					if (TileSystem.getTileInt(tile.x,tile.y) == 1) {
 						tile.positiveTile(); //shows green tile
 						
 					}else {
 						tile.negativeTile(); //shows red tile
 					}
-				}
 			}
 		}
 		private function mouseExit(e:MouseEvent):void 
@@ -56,17 +54,17 @@ package playerControl
 		
 		private function clicked(e:MouseEvent):void 
 		{
-			trace(e.target);
 			if (clickedObject != null && clickedObject != e.target.parent) {
 				clickedObject.exitInteraction();
 				clickedObject = null;
 			}
 			//if in buildModes and you click on a buildable tile then build a tower there.
-			if(buildModus){
-				if(TileSystem.getTileInt(e.target.x,e.target.y) == 1){
-					buildTower(e.target.x, e.target.y);
+			if (buildModus) {
+				var tile : Tile = TileSystem.getTileFromPos(new Vector2D(world.mouseX, world.mouseY));
+				if(TileSystem.getTileInt(tile.x,tile.y) == 1){
+					buildTower(tile.x, tile.y);
 				}
-				buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
+				//buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
 			}
 			//checks if clicked object is interactive
 			else if (e.target is Sprite) {
@@ -90,7 +88,7 @@ package playerControl
 		private function buildTower(xPos : int, yPos : int):void 
 		{
 			TileSystem.setTileInt(xPos, yPos, 0);
-			var newTower : Tower = plannedTowerBuild;
+			var newTower : Tower = new CanonTower();
 			newTower.x = xPos + TileSystem.globalTile.width / 2;
 			newTower.y = yPos + TileSystem.globalTile.height; 
 			world.addChild(newTower);

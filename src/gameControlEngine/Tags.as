@@ -20,6 +20,11 @@ package gameControlEngine
 		public static const COLLIDER_TAG : String = "colliderTag";
 		
 		
+		/**
+		 * This will position the object on the y. If the y is higher than another gameobject then it will be placed underneath it.
+		 */
+		public static const POSITION_ON_Y_TAG :String = "positionOnYTag";
+		 
 		//----------------------------game tags----------------------------
 		
 		/**

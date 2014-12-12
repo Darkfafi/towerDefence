@@ -2,6 +2,7 @@ package levels
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import units.enemies.EnemyUnit;
 	import units.Unit;
 	/**
 	 * ...
@@ -40,7 +41,7 @@ package levels
 			tileSystem = new TileSystem(parent);
 			createLevel(level1);
 			//----------------TEST--------------
-				var unit : Unit = new Unit();
+				var unit : Unit = new EnemyUnit();
 				unit.x = stage.stageWidth - TileSystem.globalTile.width / 2;
 				unit.y = (5 * 50) - TileSystem.globalTile.height / 2; // moet naar midden van tile
 				unit.setDestination(TileSystem.globalTile.width / 2, (6 * 50) - TileSystem.globalTile.height / 2); // moet naar midden van tile

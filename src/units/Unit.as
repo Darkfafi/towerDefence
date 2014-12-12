@@ -1,5 +1,6 @@
 package units 
 {
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
 	import gameControlEngine.GameObject;
@@ -37,6 +38,7 @@ package units
 			addTag(Tags.UPDATE_TAG);
 			addTag(Tags.INTERACTIVE_TAG);
 			addTag(Tags.COLLIDER_TAG);
+			addTag(Tags.POSITION_ON_Y_TAG);
 		}
 		
 		private function init(e:Event):void 
