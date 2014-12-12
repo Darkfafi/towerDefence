@@ -20,35 +20,32 @@ package playerControl
 		
 		private var clickedObject : GameObject;
 		private var plannedTowerBuild : Tower = new CanonTower();
+		
 		private var buildModus : Boolean = true;
+		private var buildTile : Tile = new Tile();
 		
 		private var world : DisplayObjectContainer;
 		
 		public function Player(_world : DisplayObjectContainer) 
 		{
 			world = _world;
-			world.addEventListener(MouseEvent.MOUSE_OVER, mouseHover);
-			world.addEventListener(MouseEvent.MOUSE_OUT, mouseExit);
+			world.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 			world.addEventListener(MouseEvent.CLICK, clicked);
 		}
-		private function mouseHover(e:MouseEvent):void 
+		private function mouseMove(e:MouseEvent):void 
 		{
 			//info over tower in hud ofzo.
 			if (buildModus) {
 					var tile : Tile = TileSystem.getTileFromPos(new Vector2D(world.mouseX, world.mouseY));
+					buildTile.x = tile.x;
+					buildTile.y = tile.y;
+					world.addChild(buildTile);
+					
 					if (TileSystem.getTileInt(tile.x,tile.y) == 1) {
-						tile.positiveTile(); //shows green tile
-						
+						buildTile.positiveTile();
 					}else {
-						tile.negativeTile(); //shows red tile
+						buildTile.negativeTile(); //shows red tile
 					}
-			}
-		}
-		private function mouseExit(e:MouseEvent):void 
-		{
-			if (e.target is Tile) {
-				var tile : Tile = e.target as Tile;
-				tile.defaultTile(); // sets tile back to normal.
 			}
 		}
 		
