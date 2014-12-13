@@ -18,7 +18,10 @@ package towers
 		
 		//na het buiden van de tower addTag de update tag om het ook zijn functie te laten doen.
 		
-		// target var.
+		//target
+		protected var targets : Array = [];
+		protected var currentTarget : GameObject = null;
+		
 		protected var range : Number;
 		protected var rangeView : RangeView = new RangeView();
 		protected var baseTileSize : Sprite = new Sprite(); // <== hiermee word de toren neergezet en worden alle hittests mee uitgevoert
@@ -46,12 +49,22 @@ package towers
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			setStats();
 			setHitBox(-baseTileSize.width / 2, -baseTileSize.height, baseTileSize.width, baseTileSize.height);
+			
+		}
+		
+		protected function setStats():void 
+		{
 			
 		}
 		override public function update():void 
 		{
 			super.update();
+			//trace(targets[0]);
+			if(currentTarget != targets[0]){
+				currentTarget = targets[0]; //als er een target is dan stopt hij die er in anders is currentTarget null
+			}
 		}
 		override protected function drawHitBoxObjectArt():void 
 		{
@@ -77,17 +90,17 @@ package towers
 			rangeView.addTag(Tags.RANGE_COLLIDER_TAG);
 			addChild(rangeView);
 			rangeView.y -= baseTileSize.height / 2;
-			changeRange(100); // Test
+			changeRange(range);
 		}
 		
 		protected function changeRange(_range : int) :void {
 			range = _range;
 			rangeView.drawRangeView(range);
 		}
+		
 		protected function drawTower():void 
 		{
 			removeChild(baseTileSize);
-			towerBuildAnim = new BuildTowerStagesArt();
 			towerBuildAnim.stop();
 			addChild(towerBuildAnim);
 		}
@@ -103,6 +116,17 @@ package towers
 			super.exitInteraction();
 			rangeView.setAlpha(0);
 			trace("close info and upgrade stats / cost");
+		}
+		
+		public function addTarget(target:GameObject):void 
+		{
+			targets.push(target);
+		}
+		
+		public function removeTarget(target:GameObject):void 
+		{
+			var index : int = targets.indexOf(target);
+			targets.splice(index, 1);
 		}
 	}
 }

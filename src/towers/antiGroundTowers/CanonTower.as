@@ -1,6 +1,7 @@
 package towers.antiGroundTowers 
 {
 	import towers.Tower;
+	import units.Unit;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -10,7 +11,13 @@ package towers.antiGroundTowers
 		public function CanonTower() 
 		{
 			super();
-			allTowerArt = [new CanonTowerArt]; 
+			towerBuildAnim = new BuildTowerStagesArt();
+			allTowerArt = [new CanonTowerArt];
+			rangeView.setSeeAbleObjects(new Array(Unit));
+		}
+		override protected function setStats():void 
+		{
+			range = 100;
 		}
 		
 	}

@@ -15,10 +15,7 @@ package gameControlEngine
 		
 		private var removing : Boolean = false;
 		
-		//public var collidedObject : GameObject;
 		public var collidingObjects : Array = [];
-		
-		public var colliding : Boolean = false;
 		
 		private var hitBox : Sprite = new Sprite();
 		
@@ -75,6 +72,7 @@ package gameControlEngine
 		public function onCollisionExit(other : GameObject):void {
 			collidingObjects.splice(collidingObjects.indexOf(other), 1);
 		}
+		
 		public function checkCollidingWithObject(object : GameObject) :Boolean {
 			var result : Boolean = false;
 			for (var i : int = 0; i < collidingObjects.length; i++) {
