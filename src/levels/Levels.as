@@ -2,6 +2,7 @@ package levels
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import units.enemies.EnemyUnit;
 	import units.Unit;
 	/**
@@ -44,8 +45,9 @@ package levels
 				var unit : Unit = new EnemyUnit();
 				unit.x = stage.stageWidth - TileSystem.globalTile.width / 2;
 				unit.y = (5 * 50) - TileSystem.globalTile.height / 2; // moet naar midden van tile
+				stage.addChild(unit);
 				unit.setDestination(TileSystem.globalTile.width / 2, (6 * 50) - TileSystem.globalTile.height / 2); // moet naar midden van tile
-				addChild(unit);
+				unit.calculateWaypoints(new Point(TileSystem.globalTile.width / 2, (6 * 50) - TileSystem.globalTile.height / 2));
 			//----------------------------------
 		}
 		public function createLevel(level : Array) :void {

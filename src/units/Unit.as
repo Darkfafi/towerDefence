@@ -1,5 +1,6 @@
 package units 
 {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
@@ -15,6 +16,9 @@ package units
 	 */
 	public class Unit extends GameObject
 	{
+		protected var art : MovieClip = new MovieClip();
+		
+		
 		protected var distanceToClose : int = 2;
 		protected var destination : Point = new Point();
 		protected var _waypointList : Array = [];

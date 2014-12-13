@@ -27,6 +27,9 @@ package gameControlEngine
 		{
 			if (e.target is GameObject) {
 				var object : GameObject = e.target as GameObject;
+				
+				collisionSystem.checkDeletedObjInCollision(object);
+				
 				var index : int = gameObjects.indexOf(object);
 				gameObjects.splice(index, 1);
 			}

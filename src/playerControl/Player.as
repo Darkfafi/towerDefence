@@ -1,6 +1,7 @@
 package playerControl 
 {
 	import flash.display.DisplayObjectContainer;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import gameControlEngine.GameObject;
@@ -63,11 +64,11 @@ package playerControl
 				if(TileSystem.getTileInt(tile.x,tile.y) == 1){
 					buildTower(tile.x, tile.y);
 				}
-				buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
-				world.removeChild(buildTile);
+				//buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
+				//world.removeChild(buildTile);
 			}
 			//checks if clicked object is interactive
-			else if (e.target is Sprite) {
+			else if (e.target is MovieClip) {
 				if(e.target.parent is GameObject){
 					var gameObject : GameObject = e.target.parent as GameObject;
 					if (gameObject.checkTag(Tags.INTERACTIVE_TAG)) {
@@ -88,7 +89,7 @@ package playerControl
 		private function buildTower(xPos : int, yPos : int):void 
 		{
 			TileSystem.setTileInt(xPos, yPos, 0);
-			var newTower : Tower = plannedTowerBuild;
+			var newTower : Tower = new CanonTower();
 			newTower.x = xPos + TileSystem.globalTile.width / 2;
 			newTower.y = yPos + TileSystem.globalTile.height; 
 			world.addChild(newTower);

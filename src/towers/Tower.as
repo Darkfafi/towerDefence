@@ -20,7 +20,7 @@ package towers
 		
 		// target var.
 		protected var range : Number;
-		protected var rangeView : GameObject = new GameObject();
+		protected var rangeView : RangeView = new RangeView();
 		protected var baseTileSize : Sprite = new Sprite(); // <== hiermee word de toren neergezet en worden alle hittests mee uitgevoert
 		
 		//tower Art
@@ -35,6 +35,7 @@ package towers
 			addTag(Tags.INTERACTIVE_TAG);
 			addTag(Tags.COLLIDER_TAG);
 			addTag(Tags.POSITION_ON_Y_TAG);
+			addTag(Tags.UPDATE_TAG);
 			
 			baseTileSize.graphics.beginFill(0x000000, 0);
 			baseTileSize.graphics.drawRect(-TileSystem.globalTile.width / 2, TileSystem.globalTile.height, TileSystem.globalTile.width, TileSystem.globalTile.height);
@@ -47,6 +48,10 @@ package towers
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			setHitBox(-baseTileSize.width / 2, -baseTileSize.height, baseTileSize.width, baseTileSize.height);
 			
+		}
+		override public function update():void 
+		{
+			super.update();
 		}
 		override protected function drawHitBoxObjectArt():void 
 		{
@@ -71,27 +76,14 @@ package towers
 			rangeView.addTag(Tags.COLLIDER_TAG);
 			rangeView.addTag(Tags.RANGE_COLLIDER_TAG);
 			addChild(rangeView);
+			rangeView.y -= baseTileSize.height / 2;
 			changeRange(100); // Test
 		}
 		
 		protected function changeRange(_range : int) :void {
 			range = _range;
-			drawRangeView();
+			rangeView.drawRangeView(range);
 		}
-		
-		private function drawRangeView():void 
-		{
-			if (contains(rangeView)) {
-				rangeView.graphics.clear();
-			}
-			rangeView.alpha = 0;
-			rangeView.graphics.beginFill(0xFF00FF, 1);
-			rangeView.graphics.drawCircle(0, 0, range);
-			rangeView.graphics.endFill();
-			rangeView.y -= baseTileSize.height / 2;
-			rangeView.setHitBox(-rangeView.width / 2, - rangeView.height / 2, rangeView.width, rangeView.height);
-		}
-		
 		protected function drawTower():void 
 		{
 			removeChild(baseTileSize);
@@ -103,13 +95,13 @@ package towers
 		override public function onInteraction():void 
 		{
 			super.onInteraction();
-			rangeView.alpha = 0.4;
+			rangeView.setAlpha(0.4);
 			trace("show info and upgrade stats / cost");
 		}
 		override public function exitInteraction():void 
 		{
 			super.exitInteraction();
-			rangeView.alpha = 0;
+			rangeView.setAlpha(0);
 			trace("close info and upgrade stats / cost");
 		}
 	}

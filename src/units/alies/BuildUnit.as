@@ -51,9 +51,10 @@ package units.alies
 		}
 		override protected function drawUnit():void 
 		{
-			graphics.beginFill(0x0000FF, 1);
-			graphics.drawRect(-10, -30, 20,30);
-			graphics.endFill();
+			art.graphics.beginFill(0x0000FF, 1);
+			art.graphics.drawRect(-10, -30, 20,30);
+			art.graphics.endFill();
+			addChild(art);
 		}
 		
 		public function buildTower():void {

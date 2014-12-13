@@ -14,9 +14,10 @@ package units.enemies
 		}
 		override protected function drawUnit():void 
 		{
-			graphics.beginFill(0xFF0000, 1);
-			graphics.drawRect(-10, -30, 20,30);
-			graphics.endFill();
+			art.graphics.beginFill(0xFF0000, 1);
+			art.graphics.drawRect(-10, -30, 20,30);
+			art.graphics.endFill();
+			addChild(art);
 		}
 	}
 

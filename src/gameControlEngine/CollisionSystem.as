@@ -8,7 +8,9 @@ package gameControlEngine
 	 */
 	public class CollisionSystem 
 	{
-		public function checkCollision(listObjects : Array,world : DisplayObjectContainer) :void {
+		private var allObjects : Array = [];
+		public function checkCollision(listObjects : Array, world : DisplayObjectContainer) :void {
+			allObjects = listObjects;
 			var l : int = listObjects.length;
 			for (var i : int = l - 1; i >= 0; i--) {
 				//collision system
@@ -18,15 +20,27 @@ package gameControlEngine
 						var other : GameObject = listObjects[j] as GameObject;
 						if(other){
 							if (other.checkTag(Tags.COLLIDER_TAG) && other != currentObj) {
-								if (currentObj.willCollide(other) && currentObj.collidedObject != other) {
+								if (currentObj.willCollide(other) && currentObj.checkCollidingWithObject(other) == false) {
 									currentObj.onCollisionEnter(other);
 								}else if (currentObj.willCollide(other)) {
 									currentObj.onCollision(other);
-								}else if(currentObj.colliding && currentObj.collidedObject == other) {
+								}else if(currentObj.checkCollidingWithObject(other)) {
 									currentObj.onCollisionExit(other);
 								}
 							}
 						}
+					}
+				}
+			}
+		}
+		
+		public function checkDeletedObjInCollision(deletedObj : GameObject):void 
+		{
+			for (var i : int = allObjects.length - 1; i >= 0; i--) {
+				var gameObj : GameObject = allObjects[i] as GameObject;
+				if(gameObj.checkTag(Tags.COLLIDER_TAG)){
+					if (gameObj.checkCollidingWithObject(deletedObj)) {
+						gameObj.onCollisionExit(deletedObj);
 					}
 				}
 			}

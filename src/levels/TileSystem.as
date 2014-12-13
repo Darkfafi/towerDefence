@@ -28,7 +28,7 @@ package levels
 		
 		public function placeTiles(tileMap : Array):void 
 		{
-			// 0 = grond/usedTile, 1 = buildAbleTile, 2 = roadTile, 3 = main base, 4 = enemySpawnPoints, 5 = tower(dus verader een tile naar 1 als je een toren verkoopt en naar 0 als je er 1 plaatst etc etc).
+			// 0 = grond/usedTile, 1 = buildAbleTile, 2 = roadTile, 3 = main base, 4 = enemySpawnPoints (dus verader een tile naar 1 als je een toren verkoopt en naar 0 als je er 1 plaatst etc etc).
 			currentTileMap = tileMap;
 			
 			grid = new Grid(tileMap.length, tileMap[0].length);

@@ -15,7 +15,8 @@ package gameControlEngine
 		
 		private var removing : Boolean = false;
 		
-		public var collidedObject : GameObject;
+		//public var collidedObject : GameObject;
+		public var collidingObjects : Array = [];
 		
 		public var colliding : Boolean = false;
 		
@@ -64,18 +65,26 @@ package gameControlEngine
 		}
 		
 		public function onCollisionEnter(other : GameObject):void {
-			colliding = true;
+			collidingObjects.push(other);
 		}
 		
 		public function onCollision(other : GameObject) :void {
-			collidedObject = other;
+			
 		}
 		
 		public function onCollisionExit(other : GameObject):void {
-			colliding = false;
-			collidedObject = null;
+			collidingObjects.splice(collidingObjects.indexOf(other), 1);
 		}
-		
+		public function checkCollidingWithObject(object : GameObject) :Boolean {
+			var result : Boolean = false;
+			for (var i : int = 0; i < collidingObjects.length; i++) {
+				if (object == collidingObjects[i]) {
+					result = true;
+					break;
+				}
+			}
+			return result;
+		}
 		public function onInteraction() :void {
 			
 		}
