@@ -34,6 +34,9 @@ package towers
 		protected var allTowerArt : Array = []; // deze array bevat alle tower/upgrade art.
 		protected var allFireAnim : Array = []; //deze array bevat alle tower attack/fire animations
 		
+		private var towerArt : MovieClip;
+		private var towerFireArt : MovieClip;
+		
 		//tower stats
 		protected var range : Number;
 		protected var fireRate : int;
@@ -72,6 +75,9 @@ package towers
 			super.update();
 			if(currentTarget != targets[0]){
 				currentTarget = targets[0]; //als er een target is dan stopt hij die er in anders is currentTarget null
+				if (towerFireArt.visible == false) {
+					fire();
+				}
 			}
 		}
 		override protected function drawHitBoxObjectArt():void 
@@ -100,8 +106,8 @@ package towers
 			
 			currentArtInt = towerArtInt;
 			
-			var towerArt : MovieClip = allTowerArt[currentArtInt];
-			var towerFireArt : MovieClip = allFireAnim[currentArtInt];
+			towerArt = allTowerArt[currentArtInt];
+			towerFireArt = allFireAnim[currentArtInt];
 			
 			currentArtVisible.push(towerArt, towerFireArt);
 			
@@ -157,7 +163,21 @@ package towers
 			targets.splice(index, 1);
 		}
 		public function fire() :void {
-			
+			towerArt.visible = false;
+			towerFireArt.visible = true;
+			playAnim(towerFireArt,fireRate);
+		}
+		override protected function AnimationFinishedPlaying():void 
+		{
+			super.AnimationFinishedPlaying();
+			if (currentTarget != null) {
+				fire();
+				//cooldown
+			}else {
+				towerArt.visible = true;
+				towerFireArt.visible = false;
+				towerFireArt.gotoAndStop(1);
+			}
 		}
 	}
 }

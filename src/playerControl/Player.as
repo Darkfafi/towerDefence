@@ -64,8 +64,8 @@ package playerControl
 				if(TileSystem.getTileInt(tile.x,tile.y) == 1){
 					buildTower(tile.x, tile.y);
 				}
-				buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
-				world.removeChild(buildTile);
+				//buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
+				//world.removeChild(buildTile);
 			}
 			//checks if clicked object is interactive
 			else if (e.target is MovieClip) {

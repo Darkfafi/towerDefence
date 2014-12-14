@@ -1,8 +1,11 @@
 package gameControlEngine 
 {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.utils.Timer;
 	import levels.TileSystem;
 	/**
 	 * ...
@@ -20,6 +23,11 @@ package gameControlEngine
 		private var hitBox : Sprite = new Sprite();
 		
 		private var tags : Array = [];
+		
+		//animation variables
+		protected var currentMovieClip : MovieClip;
+		protected var defaultFps : int = 30;
+		protected var framesAnim : Timer;
 		
 		public function GameObject() 
 		{
@@ -126,6 +134,39 @@ package gameControlEngine
 			return result;
 		}
 		//------------------------------------------------
+		
+		//------------Animation Section------------------
+		protected function playAnim(movieClip : MovieClip,fpsAnim : Number = 30):void 
+		{
+			var fps : Number = 1000 / fpsAnim;
+			framesAnim = new Timer(fps);
+			currentMovieClip = movieClip;
+			movieClip.gotoAndStop(1);
+			framesAnim.addEventListener(TimerEvent.TIMER, playingAnimaion);
+			framesAnim.start();
+		}
+		protected function playingAnimaion(t : TimerEvent) :void {
+			
+			
+			animationFrameUp();
+			
+			if (currentMovieClip.currentFrame == currentMovieClip.totalFrames) {
+				
+				AnimationFinishedPlaying();
+			}
+		}
+		
+		protected function animationFrameUp():void 
+		{
+			currentMovieClip.gotoAndStop(currentMovieClip.currentFrame + 1);
+		}
+		
+		protected function AnimationFinishedPlaying():void 
+		{
+			framesAnim.removeEventListener(TimerEvent.TIMER, playingAnimaion);
+			framesAnim.reset();
+		}
+		//---------------------------------------------
 		
 		public function update():void 
 		{

@@ -19,7 +19,7 @@ package towers.antiGroundTowers
 		}
 		override protected function setStats():void 
 		{
-			fireRate = 10;
+			fireRate = 30;
 			attackDmg = 20;
 			range = 80;
 		}
