@@ -22,13 +22,22 @@ package towers
 		protected var targets : Array = [];
 		protected var currentTarget : GameObject = null;
 		
-		protected var range : Number;
+		//tower base vars
 		protected var rangeView : RangeView = new RangeView();
 		protected var baseTileSize : Sprite = new Sprite(); // <== hiermee word de toren neergezet en worden alle hittests mee uitgevoert
 		
 		//tower Art
+		protected var currentArtInt : int; // int van allTowerArt en allFireArt die momenteel gebruikt word.
+		protected var currentArtVisible : Array = []; // array van momentele art van toren
+		
 		protected var towerBuildAnim : MovieClip; //deze array bevat alle construct tower art.
 		protected var allTowerArt : Array = []; // deze array bevat alle tower/upgrade art.
+		protected var allFireAnim : Array = []; //deze array bevat alle tower attack/fire animations
+		
+		//tower stats
+		protected var range : Number;
+		protected var fireRate : int;
+		protected var attackDmg : int;
 		
 		//build tower with timer. Every timer event it changes art in building with gotoAndStop.
 		public function Tower() 
@@ -61,7 +70,6 @@ package towers
 		override public function update():void 
 		{
 			super.update();
-			//trace(targets[0]);
 			if(currentTarget != targets[0]){
 				currentTarget = targets[0]; //als er een target is dan stopt hij die er in anders is currentTarget null
 			}
@@ -78,12 +86,32 @@ package towers
 			}else {
 				dispatchEvent(new Event(TOWER_BUILD, true));
 				removeChild(towerBuildAnim);
-				var art : MovieClip = allTowerArt[0];
 				addRangeView();
-				addChild(art);
+				changeTowerArt(0);
 			}
 		}
-		
+		protected function changeTowerArt(towerArtInt : int) :void {
+			for (var i : int = currentArtVisible.length - 1; i >= 0; i--) {
+				if (contains(currentArtVisible[i])) {
+					removeChild(currentArtVisible[i]);
+					currentArtVisible.splice(i, 1);
+				}
+			}
+			
+			currentArtInt = towerArtInt;
+			
+			var towerArt : MovieClip = allTowerArt[currentArtInt];
+			var towerFireArt : MovieClip = allFireAnim[currentArtInt];
+			
+			currentArtVisible.push(towerArt, towerFireArt);
+			
+			addChild(towerArt); // geeft error als je voorbij de array limit gaat.
+			addChild(towerFireArt); // ^
+			
+			towerFireArt.stop();
+			towerFireArt.visible = false;
+			
+		}
 		private function addRangeView():void 
 		{
 			rangeView.addTag(Tags.COLLIDER_TAG);
@@ -127,6 +155,9 @@ package towers
 		{
 			var index : int = targets.indexOf(target);
 			targets.splice(index, 1);
+		}
+		public function fire() :void {
+			
 		}
 	}
 }

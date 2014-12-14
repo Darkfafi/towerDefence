@@ -13,11 +13,15 @@ package towers.antiGroundTowers
 			super();
 			towerBuildAnim = new BuildTowerStagesArt();
 			allTowerArt = [new CanonTowerArt];
+			allFireAnim = [new CanonTowerFireArt];
+			
 			rangeView.setSeeAbleObjects(new Array(Unit));
 		}
 		override protected function setStats():void 
 		{
-			range = 100;
+			fireRate = 10;
+			attackDmg = 20;
+			range = 80;
 		}
 		
 	}
