@@ -40,6 +40,7 @@ package towers
 		//tower stats
 		protected var range : Number;
 		protected var fireRate : int;
+		protected var bulletSpeed : int;
 		protected var attackDmg : int;
 		
 		//build tower with timer. Every timer event it changes art in building with gotoAndStop.
@@ -76,7 +77,7 @@ package towers
 			if(currentTarget != targets[0]){
 				currentTarget = targets[0]; //als er een target is dan stopt hij die er in anders is currentTarget null
 				if (towerFireArt.visible == false) {
-					fire();
+					startFire();
 				}
 			}
 		}
@@ -162,21 +163,60 @@ package towers
 			var index : int = targets.indexOf(target);
 			targets.splice(index, 1);
 		}
-		public function fire() :void {
+		protected function startFire() :void {
 			towerArt.visible = false;
 			towerFireArt.visible = true;
-			playAnim(towerFireArt,fireRate);
+			
+			var fireSpeed : int;
+			
+			if (fireRate > 30) {
+				fireSpeed = 30;
+			}else {
+				fireSpeed = 30 + (30 - fireRate);
+			}
+			playAnim(towerFireArt, fireSpeed);
+			shoot();
+		}
+		protected function shoot() :void {
+			
 		}
 		override protected function AnimationFinishedPlaying():void 
 		{
 			super.AnimationFinishedPlaying();
-			if (currentTarget != null) {
-				fire();
-				//cooldown
+			
+			startCoolDown();
+			towerArt.visible = true;
+			towerFireArt.alpha = 0;
+			towerFireArt.gotoAndStop(1);
+			
+		}
+		
+		private function startCoolDown():void 
+		{
+			var coolDownTime : int;
+			var fireRateCal : int;
+			if (fireRate - 30 < 1) {
+				fireRateCal = 1;
 			}else {
-				towerArt.visible = true;
-				towerFireArt.visible = false;
-				towerFireArt.gotoAndStop(1);
+				fireRateCal = fireRate - 30;
+			}
+			
+			coolDownTime = (fireRateCal * 50);
+			
+			var coolDownTimer : Timer = new Timer(coolDownTime, 1);
+			
+			coolDownTimer.addEventListener(TimerEvent.TIMER, afterCoolDown);
+			coolDownTimer.start();
+		}
+		
+		private function afterCoolDown(t:TimerEvent):void 
+		{
+			var timer : Timer = t.target as Timer;
+			timer.removeEventListener(TimerEvent.TIMER, afterCoolDown);
+			towerFireArt.alpha = 1;
+			towerFireArt.visible = false; // zorgt er voor dat als hij gaat checken of hij kan vuren dat et pas kan na de cooldown.
+			if (currentTarget != null) {
+				startFire();
 			}
 		}
 	}

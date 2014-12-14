@@ -46,6 +46,7 @@ package gameControlEngine
 		private function positionGameObjectToLayer():void 
 		{
 			var objectOnScreen : Array = [];
+			var parentObj : Sprite;
 			for (var i : int = 0; i < gameObjects.length; i++) {
 				if (gameObjects[i].checkTag(Tags.POSITION_ON_Y_TAG)) {
 					objectOnScreen.push(gameObjects[i]);	
@@ -54,9 +55,16 @@ package gameControlEngine
 			objectOnScreen.sortOn("y", Array.NUMERIC);
 			
 			for (i = 0; i < objectOnScreen.length; i++) {
-				var parentObj : Sprite = objectOnScreen[i].parent;
+				parentObj = objectOnScreen[i].parent;
 				parentObj.addChild(objectOnScreen[i]);
 			}
+			for (i = 0; i < gameObjects.length; i++) {
+				if (gameObjects[i].checkTag(Tags.POSITION_ON_TOP_TAG)) {
+					parentObj = gameObjects[i].parent;
+					parentObj.addChild(gameObjects[i]);	
+				}
+			}
+			
 		}
 		
 		public function lisOfObjectType(object : GameObject) :Array {

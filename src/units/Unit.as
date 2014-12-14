@@ -30,11 +30,11 @@ package units
 		protected var _health : int;
 		protected var attackDmg : int;
 		protected var viewDistance : Number;
+		protected var _speed : int;
 		
 		//movement
 		protected var _position : Vector2D = new Vector2D();
 		protected var _velocity : Vector2D = new Vector2D();
-		protected var _speed : int = 1;
 		
 		public function Unit() 
 		{
@@ -48,10 +48,15 @@ package units
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
+			setStats();
 			_position.x = this.x;
 			_position.y = this.y;
 			setHitBox(-5, -10, 10, 10);
+		}
+		
+		protected function setStats():void 
+		{
+			
 		}
 		override protected function drawHitBoxObjectArt():void 
 		{

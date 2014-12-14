@@ -24,6 +24,14 @@ package units.alies
 			buildTimer = new Timer(buildSpeed);
 		}
 		
+		override protected function setStats():void 
+		{
+			_health = 50;
+			attackDmg = 2;
+			viewDistance = 5;
+			_speed = 2;
+		}
+		
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);

@@ -23,8 +23,13 @@ package gameControlEngine
 		/**
 		 * This will position the object on the y. If the y is higher than another gameobject then it will be placed underneath it.
 		 */
-		public static const POSITION_ON_Y_TAG :String = "positionOnYTag";
-		 
+		public static const POSITION_ON_Y_TAG : String = "positionOnYTag";
+		
+		/**
+		 * This will position the object always on top.
+		 */
+		public static const POSITION_ON_TOP_TAG : String = "positionOnTopTag";
+		
 		//----------------------------game tags----------------------------
 		
 		/**
