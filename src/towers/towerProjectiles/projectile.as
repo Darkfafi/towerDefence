@@ -48,7 +48,6 @@ package towers.towerProjectiles
 		override public function update():void 
 		{
 			super.update();
-			movement();
 		}
 		
 		protected function movement():void 
