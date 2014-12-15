@@ -145,6 +145,11 @@ package units
 			super.onInteraction();
 			trace("See unit info");
 		}
+		
+		public function get velocity():Vector2D 
+		{
+			return _velocity;
+		}
 	}
 
 }

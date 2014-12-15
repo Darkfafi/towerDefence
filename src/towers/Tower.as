@@ -8,6 +8,7 @@ package towers
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
 	import levels.TileSystem;
+	import units.Unit;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -20,7 +21,7 @@ package towers
 		
 		//target
 		protected var targets : Array = [];
-		protected var currentTarget : GameObject = null;
+		protected var currentTarget : Unit = null;
 		
 		//tower base vars
 		protected var rangeView : RangeView = new RangeView();

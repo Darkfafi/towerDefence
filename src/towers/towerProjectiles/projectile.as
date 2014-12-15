@@ -5,6 +5,7 @@ package towers.towerProjectiles
 	import flash.events.Event;
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
+	import units.Unit;
 	import utils.Vector2D;
 	/**
 	 * ...
@@ -24,7 +25,7 @@ package towers.towerProjectiles
 		protected var _position : Vector2D = new Vector2D();
 		protected var _velocity : Vector2D = new Vector2D();
 		
-		public function Projectile(bulletDamage : int,bulletSpeed : int,bulletTarget : GameObject) 
+		public function Projectile(bulletDamage : int,bulletSpeed : int,bulletTarget : Unit) 
 		{
 			
 			addEventListener(Event.ADDED_TO_STAGE, init);
