@@ -14,10 +14,7 @@ package units.enemies
 		}
 		override protected function drawUnit():void 
 		{
-			art.graphics.beginFill(0xFF0000, 1);
-			art.graphics.drawRect(-10, -30, 20,30);
-			art.graphics.endFill();
-			addChild(art);
+			
 		}
 		override protected function lastWaypointReached():void 
 		{

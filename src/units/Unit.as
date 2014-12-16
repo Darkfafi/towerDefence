@@ -18,8 +18,12 @@ package units
 	 */
 	public class Unit extends WatchingObject
 	{
-		protected var art : MovieClip = new MovieClip();
+		protected const WALK_ANIM : int = 0;
+		protected const ATTACK_ANIM : int = 1;
+		protected const DEATH_ANIM : int = 2;
 		
+		protected var movAtDthAnimList : Array = [];
+		protected var animations : Array = [];
 		
 		protected var rangeView : RangeView = new RangeView();
 		protected var destination : Point = new Point();
@@ -27,7 +31,7 @@ package units
 		
 		//or enemy or destination
 		protected var target : Vector2D = new Vector2D(); //for where to move (target vector to move to)
-		public var targetUnit : Unit; //for target unit. Unit to fcus on when seen.
+		public var targetUnit : Unit = null; //for target unit. Unit to fcus on when seen.
 		
 		//stats
 		protected var _health : int;
@@ -81,9 +85,22 @@ package units
 		}
 		protected function drawUnit():void 
 		{
-			
+			for (var i : int = 0; i < movAtDthAnimList.length; i++) {
+				var anim : MovieClip = movAtDthAnimList[i] as MovieClip;
+				addChild(anim);
+				animations.push(anim);
+			}
+			switchAnim(WALK_ANIM);
 		}
-		
+		protected function switchAnim(animInt : int) :void {
+			for (var i : int = 0; i < animations.length; i++) {
+				var anim : MovieClip = animations[i] as MovieClip;
+				anim.visible = false;
+				anim.stop();
+			}
+			animations[animInt].visible = true;
+			animations[animInt].play();
+		}
 		public function setDestination(xPos : int, yPos : int) :void {
 			destination.x = xPos;
 			destination.y = yPos;
@@ -104,15 +121,12 @@ package units
 				target.x = (_waypointList[0].position.x * TileSystem.globalTile.width) + TileSystem.globalTile.width / 2;
 				target.y = (_waypointList[0].position.y * TileSystem.globalTile.height) + TileSystem.globalTile.height / 2;
 			}
-			if (targetUnit != null) {
-				
-				whenTargetInViewRange();
-			}else {
-				if (!_moving) {
-					_moving = true;
+			if(rangeView.seeAbleObjects.length != 0){
+				if (targetUnit != null) {
+					whenTargetInViewRange();
+				}else {
+					noTargetInViewRange();
 				}
-				calculateWaypoints(destination);
-				trace("des : " + _waypointList);
 			}
 			if (_moving){
 				movement();
@@ -123,20 +137,27 @@ package units
 			}
 		}
 		
+		protected function noTargetInViewRange():void 
+		{
+			if (!_moving) {
+				_moving = true;
+			}
+			calculateWaypoints(destination);
+		}
+		
 		protected function whenTargetInViewRange():void 
 		{
-			
+			//action what to do when unit sees target.
 		}
 		override public function removeTarget(targetObj:GameObject):void 
 		{
 			super.removeTarget(targetObj);
 			_waypointList = [];
 		}
-		private function setFocusOnTargetUnit():void 
+		protected function setFocusOnTargetUnit():void 
 		{
 			if(targetUnit != targetObjects[0]){
 				targetUnit = targetObjects[0]; //als er een target is dan stopt hij die er in anders is currentTarget null
-				trace(targetUnit);
 			}
 		}
 		

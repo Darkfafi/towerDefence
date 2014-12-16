@@ -14,6 +14,8 @@ package units.alies
 	 */
 	public class BuildUnit extends MeleeUnit
 	{
+		protected const BUILD_ANIM : int = 3;
+		
 		protected var buildSpeed : int;
 		protected var buildTimer : Timer;
 		
@@ -22,6 +24,7 @@ package units.alies
 		public function BuildUnit() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			movAtDthAnimList = [new BuilderMoveUnitArt, new BuilderUnitAttackArt, new BuilderUnitDeathArt, new BuilderUnitBuildingArt]
 			buildSpeed = 1000;
 			buildTimer = new Timer(buildSpeed);
 		}
@@ -32,7 +35,6 @@ package units.alies
 			attackDmg = 2;
 			viewDistance = 50;
 			_speed = 2;
-			rangeView.setSeeAbleObjects([Unit]);
 		}
 		
 		private function init(e:Event):void 
@@ -57,17 +59,10 @@ package units.alies
 				if(tower == targetTower){
 					_moving = false;
 					buildTower();
+					switchAnim(BUILD_ANIM);
 				}
 			}
 		}
-		override protected function drawUnit():void 
-		{
-			art.graphics.beginFill(0x0000FF, 1);
-			art.graphics.drawRect(-10, -30, 20,30);
-			art.graphics.endFill();
-			addChild(art);
-		}
-		
 		public function buildTower():void {
 			buildTimer.addEventListener(TimerEvent.TIMER, buildStageTik);
 			buildTimer.start();

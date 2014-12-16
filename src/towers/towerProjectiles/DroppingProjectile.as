@@ -27,7 +27,13 @@ package towers.towerProjectiles
 			
 			super(bulletDamage, bulletSpeed, bulletTarget);
 			targetPosition = new Vector2D(bulletTarget.x, bulletTarget.y);
+			
 			targetUnitVelocity = bulletTarget.velocity.cloneVector();
+			
+			var targetUnitMoving : int = bulletTarget.moving == true ? 1 : 0;
+			
+			targetUnitVelocity.multiply(targetUnitMoving);
+			
 			shootingPower = shootPower;
 		}
 		

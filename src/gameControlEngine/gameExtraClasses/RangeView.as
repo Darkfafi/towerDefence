@@ -12,7 +12,7 @@ package gameControlEngine.gameExtraClasses
 	public class RangeView extends GameObject
 	{
 		private var watchingObj : WatchingObject;
-		private var seeAbleObjects : Array = [];
+		private var _seeAbleObjects : Array = [];
 		
 		private var viewArt : Sprite = new Sprite();
 		
@@ -41,7 +41,7 @@ package gameControlEngine.gameExtraClasses
 		
 		public function setSeeAbleObjects(listOfClasses : Array) :void 
 		{
-			seeAbleObjects = listOfClasses;
+			_seeAbleObjects = listOfClasses;
 		}
 		
 		public function setAlpha(alphaRange : Number):void 
@@ -72,14 +72,19 @@ package gameControlEngine.gameExtraClasses
 		//maak hiervan 'checkIfSeeAbleClass' en maak later ook een functie 'checkIfSeeAble' die er naar kijkt of het flying is etc.
 		private function checkIfSeeAble(object : Sprite):Boolean {
 			var result : Boolean = false;
-			for (var i : int = 0; i < seeAbleObjects.length; i++) {
-				var objectClass : Class = seeAbleObjects[i] as Class;
+			for (var i : int = 0; i < _seeAbleObjects.length; i++) {
+				var objectClass : Class = _seeAbleObjects[i] as Class;
 				if (object is objectClass) {
 					result = true;
 					break;
 				}
 			}
 			return result;
+		}
+		
+		public function get seeAbleObjects():Array 
+		{
+			return _seeAbleObjects;
 		}
 	}
 

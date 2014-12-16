@@ -17,12 +17,13 @@ package units
 		{
 			super.whenTargetInViewRange();
 			 if (targetUnit.moving && targetUnit.targetUnit == this as Unit) {
-					_moving = false;
-				}else {
-					_moving = true;
+				_moving = false;
+			}else {
+				_moving = true;
 			}
 			 calculateWaypoints(new Point(targetUnit.x, targetUnit.y));
-			 //als hij dichtbij is dan val aan.
+			 
+			 //Als hij dichtbij is dan val aan.
 		}
 	}
 
