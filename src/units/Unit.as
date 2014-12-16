@@ -27,7 +27,7 @@ package units
 		
 		//or enemy or destination
 		protected var target : Vector2D = new Vector2D(); //for where to move (target vector to move to)
-		protected var targetUnit : Unit; //for target unit. Unit to fcus on when seen.
+		public var targetUnit : Unit; //for target unit. Unit to fcus on when seen.
 		
 		//stats
 		protected var _health : int;
@@ -36,7 +36,7 @@ package units
 		protected var _speed : int;
 		
 		//movement
-		protected var moving : Boolean = true;
+		protected var _moving : Boolean = true;
 		protected var _position : Vector2D = new Vector2D();
 		protected var _velocity : Vector2D = new Vector2D();
 		
@@ -100,24 +100,38 @@ package units
 		{
 			super.update();
 			setFocusOnTargetUnit();
-			if(_waypointList.length > 0){
+			if (_waypointList.length > 0) {
 				target.x = (_waypointList[0].position.x * TileSystem.globalTile.width) + TileSystem.globalTile.width / 2;
 				target.y = (_waypointList[0].position.y * TileSystem.globalTile.height) + TileSystem.globalTile.height / 2;
-			}else if (targetUnit != null) {
-				calculateWaypoints(new Point(targetUnit.x, targetUnit.y));
+			}
+			if (targetUnit != null) {
+				
+				whenTargetInViewRange();
 			}else {
-				calculateWaypoints(new Point(targetUnit.x, targetUnit.y));
+				if (!_moving) {
+					_moving = true;
+				}
+				calculateWaypoints(destination);
+				trace("des : " + _waypointList);
 			}
-			if (moving){
+			if (_moving){
 				movement();
+				_position.add(_velocity);
+				
+				x = _position.x;
+				y = _position.y;
 			}
-			
-			_position.add(_velocity);
-			
-			x = _position.x;
-			y = _position.y;
 		}
 		
+		protected function whenTargetInViewRange():void 
+		{
+			
+		}
+		override public function removeTarget(targetObj:GameObject):void 
+		{
+			super.removeTarget(targetObj);
+			_waypointList = [];
+		}
 		private function setFocusOnTargetUnit():void 
 		{
 			if(targetUnit != targetObjects[0]){
@@ -187,6 +201,11 @@ package units
 		public function get velocity():Vector2D 
 		{
 			return _velocity;
+		}
+		
+		public function get moving():Boolean 
+		{
+			return _moving;
 		}
 	}
 }

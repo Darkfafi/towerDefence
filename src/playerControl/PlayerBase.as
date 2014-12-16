@@ -36,8 +36,9 @@ package playerControl
 			}
 			unit.x = x + width / 2;
 			unit.y = y + height / 2;
-			world.addChild(unit);
+			unit.setDestination(destination.x,destination.y);
 			unit.calculateWaypoints(destination);
+			world.addChild(unit);
 			return unit;
 		}
 		

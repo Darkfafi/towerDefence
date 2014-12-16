@@ -2,15 +2,17 @@ package units.alies
 {
 	import flash.events.Event;
 	import flash.events.TimerEvent;
+	import flash.geom.Point;
 	import flash.utils.Timer;
 	import gameControlEngine.GameObject;
 	import towers.Tower;
+	import units.MeleeUnit;
 	import units.Unit;
 	/**
 	 * ...
 	 * @author Ramses di Perna
 	 */
-	public class BuildUnit extends Unit
+	public class BuildUnit extends MeleeUnit
 	{
 		protected var buildSpeed : int;
 		protected var buildTimer : Timer;
@@ -53,7 +55,7 @@ package units.alies
 			if(other is Tower){
 				var tower : Tower = other as Tower;
 				if(tower == targetTower){
-					_speed = 0;
+					_moving = false;
 					buildTower();
 				}
 			}

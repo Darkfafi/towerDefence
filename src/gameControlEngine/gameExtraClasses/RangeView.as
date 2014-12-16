@@ -19,7 +19,6 @@ package gameControlEngine.gameExtraClasses
 		public function RangeView() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
-			addChild(viewArt);
 		}
 		
 		private function init(e:Event):void 
@@ -48,6 +47,13 @@ package gameControlEngine.gameExtraClasses
 		public function setAlpha(alphaRange : Number):void 
 		{
 			viewArt.alpha = alphaRange;
+			if(alphaRange > 0){
+				addChild(viewArt);
+			}else {
+				if (contains(viewArt)) {
+					removeChild(viewArt);
+				}
+			}
 		}
 		override public function onCollisionEnter(other:GameObject):void 
 		{
