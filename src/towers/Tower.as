@@ -5,6 +5,8 @@ package towers
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import gameControlEngine.gameExtraClasses.RangeView;
+	import gameControlEngine.gameExtraClasses.WatchingObject;
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
 	import levels.TileSystem;
@@ -13,14 +15,13 @@ package towers
 	 * ...
 	 * @author Ramses di Perna
 	 */
-	public class Tower extends GameObject
+	public class Tower extends WatchingObject
 	{
 		public static const TOWER_BUILD : String = "towerFinishedBuilding";
 		
 		//na het buiden van de tower addTag de update tag om het ook zijn functie te laten doen.
 		
 		//target
-		protected var targets : Array = [];
 		protected var currentTarget : Unit = null;
 		
 		//tower base vars
@@ -75,8 +76,8 @@ package towers
 		override public function update():void 
 		{
 			super.update();
-			if(currentTarget != targets[0]){
-				currentTarget = targets[0]; //als er een target is dan stopt hij die er in anders is currentTarget null
+			if(currentTarget != targetObjects[0]){
+				currentTarget = targetObjects[0]; //als er een target is dan stopt hij die er in anders is currentTarget null
 				if (towerFireArt.visible == false) {
 					startFire();
 				}
@@ -122,8 +123,6 @@ package towers
 		}
 		private function addRangeView():void 
 		{
-			rangeView.addTag(Tags.COLLIDER_TAG);
-			rangeView.addTag(Tags.RANGE_COLLIDER_TAG);
 			addChild(rangeView);
 			rangeView.y -= baseTileSize.height / 2;
 			changeRange(range);
@@ -152,17 +151,6 @@ package towers
 			super.exitInteraction();
 			rangeView.setAlpha(0);
 			trace("close info and upgrade stats / cost");
-		}
-		
-		public function addTarget(target:GameObject):void 
-		{
-			targets.push(target);
-		}
-		
-		public function removeTarget(target:GameObject):void 
-		{
-			var index : int = targets.indexOf(target);
-			targets.splice(index, 1);
 		}
 		protected function startFire() :void {
 			towerArt.visible = false;

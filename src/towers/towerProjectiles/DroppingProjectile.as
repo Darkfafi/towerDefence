@@ -15,7 +15,7 @@ package towers.towerProjectiles
 	 */
 	public class DroppingProjectile extends Projectile 
 	{
-		private var targetUnit : Unit;
+		private var targetUnitVelocity : Vector2D;
 		private var startPos : Point;
 		private var time : Number = 0;
 		private var shootingPower : Number;
@@ -27,7 +27,7 @@ package towers.towerProjectiles
 			
 			super(bulletDamage, bulletSpeed, bulletTarget);
 			targetPosition = new Vector2D(bulletTarget.x, bulletTarget.y);
-			targetUnit = bulletTarget;
+			targetUnitVelocity = bulletTarget.velocity.cloneVector();
 			shootingPower = shootPower;
 		}
 		
@@ -43,7 +43,7 @@ package towers.towerProjectiles
 		
 		private function calculateCurve():void 
 		{
-			var currentPos : Point = MathFunctions.cubic(startPos, new Point(startPos.x, startPos.y - shootingPower), new Point(targetPosition.x + targetUnit.velocity.x * totalsteps, targetPosition.y - shootingPower + targetUnit.velocity.y * totalsteps), new Point(targetPosition.x + targetUnit.velocity.x * totalsteps, targetPosition.y + targetUnit.velocity.y * totalsteps), time);
+			var currentPos : Point = MathFunctions.cubic(startPos, new Point(startPos.x, startPos.y - shootingPower * 2), new Point(targetPosition.x + targetUnitVelocity.x * totalsteps, targetPosition.y - shootingPower + targetUnitVelocity.y * totalsteps), new Point(targetPosition.x + targetUnitVelocity.x * totalsteps, targetPosition.y + targetUnitVelocity.y * totalsteps), time);
 			_position = new Vector2D(currentPos.x, currentPos.y);
 			time += 1 / totalsteps;
 		}
@@ -53,13 +53,18 @@ package towers.towerProjectiles
 			if(time < 1){
 				calculateCurve();
 			}else {
-				removeObject();
+				explode();
 			}
 			
 			_position.add(_velocity);
 			
 			x = _position.x;
 			y = _position.y;
+		}
+		
+		private function explode():void 
+		{
+			removeObject();
 		}
 		
 		

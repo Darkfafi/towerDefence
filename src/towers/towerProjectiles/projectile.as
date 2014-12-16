@@ -50,12 +50,6 @@ package towers.towerProjectiles
 		{
 			super.update();
 		}
-		
-		protected function movement():void 
-		{
-			
-		}
-		
 	}
 
 }

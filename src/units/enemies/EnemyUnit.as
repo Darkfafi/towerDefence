@@ -19,6 +19,10 @@ package units.enemies
 			art.graphics.endFill();
 			addChild(art);
 		}
+		override protected function lastWaypointReached():void 
+		{
+			super.lastWaypointReached();
+		}
 	}
 
 }

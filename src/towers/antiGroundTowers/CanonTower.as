@@ -23,13 +23,13 @@ package towers.antiGroundTowers
 		{
 			fireRate = 40;
 			attackDmg = 20;
-			bulletSpeed = 5;
+			bulletSpeed = 6;
 			range = 80;
 		}
 		override protected function shoot():void 
 		{
 			super.shoot();
-			var projectile : Projectile = new DroppingProjectile(attackDmg, bulletSpeed, currentTarget);
+			var projectile : Projectile = new DroppingProjectile(attackDmg, bulletSpeed, currentTarget,50);
 			projectile.x = x;
 			projectile.y = y - height / 2;
 			parent.addChild(projectile);

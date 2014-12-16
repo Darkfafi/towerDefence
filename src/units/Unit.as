@@ -4,6 +4,8 @@ package units
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import gameControlEngine.gameExtraClasses.RangeView;
+	import gameControlEngine.gameExtraClasses.WatchingObject;
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
 	import levels.Levels;
@@ -14,17 +16,18 @@ package units
 	 * ...
 	 * @author Ramses di Perna
 	 */
-	public class Unit extends GameObject
+	public class Unit extends WatchingObject
 	{
 		protected var art : MovieClip = new MovieClip();
 		
 		
-		protected var distanceToClose : int = 2;
+		protected var rangeView : RangeView = new RangeView();
 		protected var destination : Point = new Point();
 		protected var _waypointList : Array = [];
 		
 		//or enemy or destination
-		protected var target : Vector2D = new Vector2D();
+		protected var target : Vector2D = new Vector2D(); //for where to move (target vector to move to)
+		protected var targetUnit : Unit; //for target unit. Unit to fcus on when seen.
 		
 		//stats
 		protected var _health : int;
@@ -33,6 +36,7 @@ package units
 		protected var _speed : int;
 		
 		//movement
+		protected var moving : Boolean = true;
 		protected var _position : Vector2D = new Vector2D();
 		protected var _velocity : Vector2D = new Vector2D();
 		
@@ -51,9 +55,21 @@ package units
 			setStats();
 			_position.x = this.x;
 			_position.y = this.y;
-			setHitBox(-5, -10, 10, 10);
+			setHitBox( -5, -10, 10, 10);
+			addRangeView();
+			
 		}
 		
+		private function addRangeView():void 
+		{
+			addChild(rangeView);
+			changeViewDistance(viewDistance);
+		}
+		
+		protected function changeViewDistance(_viewDistance : int) :void {
+			viewDistance = _viewDistance;
+			rangeView.drawRangeView(viewDistance);
+		}
 		protected function setStats():void 
 		{
 			
@@ -83,16 +99,31 @@ package units
 		override public function update():void 
 		{
 			super.update();
+			setFocusOnTargetUnit();
 			if(_waypointList.length > 0){
 				target.x = (_waypointList[0].position.x * TileSystem.globalTile.width) + TileSystem.globalTile.width / 2;
 				target.y = (_waypointList[0].position.y * TileSystem.globalTile.height) + TileSystem.globalTile.height / 2;
+			}else if (targetUnit != null) {
+				calculateWaypoints(new Point(targetUnit.x, targetUnit.y));
+			}else {
+				calculateWaypoints(new Point(targetUnit.x, targetUnit.y));
 			}
-			movement();
+			if (moving){
+				movement();
+			}
 			
 			_position.add(_velocity);
 			
 			x = _position.x;
 			y = _position.y;
+		}
+		
+		private function setFocusOnTargetUnit():void 
+		{
+			if(targetUnit != targetObjects[0]){
+				targetUnit = targetObjects[0]; //als er een target is dan stopt hij die er in anders is currentTarget null
+				trace(targetUnit);
+			}
 		}
 		
 		private function movement():void 
@@ -117,7 +148,7 @@ package units
 			
 			_velocity.add(steeringForce);
 			
-			if (distanceToTarget <= _velocity.length * distanceToClose) {
+			if (distanceToTarget <= _velocity.length * 1) {
 				closeToTarget();
 			}
 		}
@@ -144,6 +175,13 @@ package units
 		{
 			super.onInteraction();
 			trace("See unit info");
+			rangeView.setAlpha(0.4);
+		}
+		override public function exitInteraction():void 
+		{
+			super.exitInteraction();
+			trace("Close unit info");
+			rangeView.setAlpha(0);
 		}
 		
 		public function get velocity():Vector2D 
@@ -151,5 +189,4 @@ package units
 			return _velocity;
 		}
 	}
-
 }

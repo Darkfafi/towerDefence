@@ -28,8 +28,9 @@ package units.alies
 		{
 			_health = 50;
 			attackDmg = 2;
-			viewDistance = 5;
+			viewDistance = 50;
 			_speed = 2;
+			rangeView.setSeeAbleObjects([Unit]);
 		}
 		
 		private function init(e:Event):void 

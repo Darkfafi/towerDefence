@@ -1,15 +1,17 @@
-package towers 
+package gameControlEngine.gameExtraClasses 
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import gameControlEngine.gameExtraClasses.WatchingObject;
 	import gameControlEngine.GameObject;
+	import gameControlEngine.Tags;
 	/**
 	 * ...
 	 * @author Ramses di Perna
 	 */
 	public class RangeView extends GameObject
 	{
-		private var viewingTower : Tower;
+		private var watchingObj : WatchingObject;
 		private var seeAbleObjects : Array = [];
 		
 		private var viewArt : Sprite = new Sprite();
@@ -23,7 +25,9 @@ package towers
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			viewingTower = parent as Tower;
+			watchingObj = parent as WatchingObject;
+			addTag(Tags.COLLIDER_TAG);
+			addTag(Tags.RANGE_COLLIDER_TAG);
 		}
 		
 		public function drawRangeView(range : int):void 
@@ -47,16 +51,16 @@ package towers
 		}
 		override public function onCollisionEnter(other:GameObject):void 
 		{
-			if(checkIfSeeAble(other)){
+			if(checkIfSeeAble(other) && other != watchingObj){
 				super.onCollisionEnter(other);
-				viewingTower.addTarget(other);
+				watchingObj.addTarget(other);
 			}
 		}
 		override public function onCollisionExit(other:GameObject):void 
 		{
 			if(checkIfSeeAble(other)){
 				super.onCollisionExit(other);
-				viewingTower.removeTarget(other);
+				watchingObj.removeTarget(other);
 			}
 		}
 		//maak hiervan 'checkIfSeeAbleClass' en maak later ook een functie 'checkIfSeeAble' die er naar kijkt of het flying is etc.

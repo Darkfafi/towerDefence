@@ -46,8 +46,5 @@ package screens
 			addChild(level);
 			addChild(ui)
 		}
-		
-		
 	}
-
 }
