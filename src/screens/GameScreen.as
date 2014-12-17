@@ -2,7 +2,7 @@ package screens
 {
 	import flash.events.Event;
 	import gameControlEngine.GameController;
-	import levels.Levels;
+	import levels.LevelPlacer;
 	import playerControl.Player;
 	import UI.FullUI;
 	/**
@@ -41,9 +41,10 @@ package screens
 		private function placeLevel():void 
 		{
 			//chose level from array
-			var level : Levels = new Levels();
+			var levelPlacer : LevelPlacer = new LevelPlacer(this);
 			ui = new FullUI();
-			addChild(level);
+			addChild(levelPlacer);
+			levelPlacer.createLevel(0);
 			addChild(ui)
 		}
 	}

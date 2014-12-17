@@ -8,7 +8,7 @@ package units
 	import gameControlEngine.gameExtraClasses.WatchingObject;
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
-	import levels.Levels;
+	import levels.LevelPlacer;
 	import levels.TileSystem;
 	import pathfinderAStar.grid.AStar;
 	import utils.Vector2D;
