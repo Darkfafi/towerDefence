@@ -32,7 +32,6 @@ package units.enemies
 		{
 			_wavesToSpawnList = value;
 		}
-		
 		public function set position(value:Point):void 
 		{
 			_position = value;

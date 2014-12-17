@@ -19,11 +19,11 @@ package levels
 		public function Level() 
 		{
 			setLevelInfo();
-			loopLevel();
 			setSpawnInfo();
 		}
 		public function setWorld(world : DisplayObjectContainer):void {
 			_world = world;
+			loopLevel();
 		}
 		protected function setSpawnInfo():void 
 		{
@@ -50,6 +50,13 @@ package levels
 						_spawnPoints.push(spawnPoint);
 					}
 				}
+			}
+		}
+		
+		public function spawnWave(waveInt : int):void {
+			for (var i : int = 0; i < _spawnPoints.length; i++) {
+				var spawnPoint : SpawnPoint = _spawnPoints[i] as SpawnPoint;
+				spawnPoint.spawnWave(waveInt);
 			}
 		}
 		

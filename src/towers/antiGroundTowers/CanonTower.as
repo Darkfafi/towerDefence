@@ -3,6 +3,7 @@ package towers.antiGroundTowers
 	import towers.Tower;
 	import towers.towerProjectiles.DroppingProjectile;
 	import towers.towerProjectiles.Projectile;
+	import units.enemies.groundUnits.EnemyUnit;
 	import units.Unit;
 	/**
 	 * ...
@@ -17,7 +18,7 @@ package towers.antiGroundTowers
 			allTowerArt = [new CanonTowerArt];
 			allFireAnim = [new CanonTowerFireArt];
 			
-			rangeView.setSeeAbleObjects(new Array(Unit));
+			rangeView.setSeeAbleObjects([EnemyUnit]);
 		}
 		override protected function setStats():void 
 		{
