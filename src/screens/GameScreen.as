@@ -12,7 +12,7 @@ package screens
 	public class GameScreen extends Screen
 	{
 		private var gameRunning : Boolean = true;
-		private var gameController : GameController;
+		public var gameController : GameController;
 		private var ui : FullUI;
 		
 		private var player : Player;

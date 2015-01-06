@@ -53,6 +53,7 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="bin\placeholders.swc" />
+    <element path="bin\HERSTEL_assets_3.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

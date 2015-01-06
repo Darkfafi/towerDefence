@@ -15,6 +15,7 @@ package levels.levelList
 		}
 		override protected function setLevelInfo():void 
 		{
+			_levelBackGround = new LevelOneBgArt();
 			_levelGrid = [
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
@@ -32,6 +33,8 @@ package levels.levelList
 		}
 		override protected function setSpawnInfo():void 
 		{
+			_world.addChild(_levelBackGround);
+			
 			_spawnPoints[0].wavesToSpawnList = [
 				giveEnemyArray(EnemyClawRobot, 5),
 				giveEnemyArray(EnemyClawRobot, 10)

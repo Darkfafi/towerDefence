@@ -2,7 +2,12 @@ package levels
 {
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
+	import flash.events.Event;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.utils.Timer;
+	import gameControlEngine.GameObject;
+	import screens.GameScreen;
 	import units.enemies.groundUnits.EnemyUnit;
 	import units.enemies.SpawnPoint;
 	/**
@@ -13,9 +18,16 @@ package levels
 	{
 		protected var _levelBackGround : MovieClip = new MovieClip();
 		protected var _levelGrid : Array;
+		
 		protected var _spawnPoints : Array = [];
 		
-		private var _world : DisplayObjectContainer;
+		protected var _world : DisplayObjectContainer;
+		protected var _game : GameScreen;
+		
+		//level controll vars
+		private var _spawnsDoneSpawning : int;
+		private var _currentWave : int;
+		protected var _timeUntilNextWave : int = 1000;
 		
 		public function Level() 
 		{
@@ -23,8 +35,15 @@ package levels
 		}
 		public function setWorld(world : DisplayObjectContainer):void {
 			_world = world;
+			
+			_game = _world as GameScreen;
+			
 			loopLevel();
 			setSpawnInfo();
+			
+			_world.addEventListener(GameObject.REMOVED, gameObjectRemoved, true);
+			
+			_world.addEventListener(SpawnPoint.DONE_WAVE, SpawnPointDoneWithWave);
 		}
 		protected function setSpawnInfo():void 
 		{
@@ -35,7 +54,10 @@ package levels
 		{
 			
 		}
-		
+		public function startLevel(waveInt : int = 1) :void {
+			_currentWave = waveInt;
+			spawnWave(waveInt)
+		}
 		protected function loopLevel():void 
 		{
 			var lYRows : int = _levelGrid.length;
@@ -84,5 +106,53 @@ package levels
 			}
 			return enemiesList;
 		}
-	}
+		
+		//level controller (kan je voor elk level aanpassen vanwegen tutorial levels etc)
+		private function SpawnPointDoneWithWave(e:Event):void 
+		{
+			_spawnsDoneSpawning ++;
+			trace(_spawnsDoneSpawning);
+		}
+		protected function gameObjectRemoved(e:Event):void {
+			if (e.target == EnemyUnit) {
+				var enemiesLeft : int = _game.gameController.lisOfObjectType(EnemyUnit as GameObject).length;
+				if (enemiesLeft == 0 && _spawnsDoneSpawning == _spawnPoints.length) {
+					_spawnsDoneSpawning = 0;
+					waveDone();
+				}
+			}
+		}	
+		protected function waveDone():void {
+			var spawnsCantSpawn : int = 0;
+			for (var i : int = 0; i < _spawnPoints.length; i++) {
+				if (_spawnPoints[i].waveSpawnAble(_currentWave + 1) == false) {
+					spawnsCantSpawn ++;
+				}
+			}
+			if (spawnsCantSpawn == _spawnPoints.length) {
+				trace("NEXT LEVEL");
+			}else {
+				var timerTillNextWave : Timer = new Timer(_timeUntilNextWave, 1);
+				timerTillNextWave.addEventListener(TimerEvent.TIMER_COMPLETE, nextWaveTimerDone);
+			}
+		}
+		
+		private function nextWaveTimerDone(e:TimerEvent):void 
+		{
+			var timer : Timer = e.target as Timer;
+			timer.stop();
+			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, nextWaveTimerDone);
+			
+			startNextWave();
+		}
+		
+		private function startNextWave():void 
+		{
+			trace("NEXT WAVE");
+			_currentWave += 1;
+			for (var i : int = 0; i < _spawnPoints.length; i++) {
+				_spawnPoints[i].spawnWave(_currentWave);
+			}
+		}
+	}	
 }

@@ -15,7 +15,7 @@ package levels
 	{
 		private var tileSystem : TileSystem
 		
-		private var allLevelsList : Array = [new Level1];
+		private var allLevelsList : Array = [new Level1]; // array met alle levels
 		
 		private var _world : DisplayObjectContainer;
 		
@@ -43,7 +43,7 @@ package levels
 		}
 		public function createLevel(levelInt : int) :void {
 			tileSystem.placeTiles(allLevelsList[levelInt].levelGrid);
-			allLevelsList[levelInt].spawnWave(1); // <=== test.
+			allLevelsList[levelInt].startLevel();
 		}
 		
 	}
