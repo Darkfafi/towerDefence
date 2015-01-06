@@ -43,7 +43,7 @@ package levels
 		}
 		public function createLevel(levelInt : int) :void {
 			tileSystem.placeTiles(allLevelsList[levelInt].levelGrid);
-			allLevelsList[levelInt].spawnWave(0); // <=== test.
+			allLevelsList[levelInt].spawnWave(1); // <=== test.
 		}
 		
 	}
