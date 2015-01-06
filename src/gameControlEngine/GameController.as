@@ -71,24 +71,26 @@ package gameControlEngine
 			
 		}
 		
-		public function lisOfObjectType(object : GameObject) :Array {
+		public function lisOfObjectType(object : Class) :Array {
 			var list : Array = [];
-			var l : int = gameObjects.length;
-			for (var i : int = 0; i < l; i++) {
-				if (gameObjects[i] == object) {
+			for (var i : int =  gameObjects.length - 1; i >= 0; i--) {
+				if (gameObjects[i] is object) {
 					list.push(gameObjects[i]);
 				}
 			}
 			return list;
 		}
+		
 		public function update() :void {
 			positionGameObjectToLayer();
-			collisionSystem.checkCollision(gameObjects,_world);
+			collisionSystem.checkCollision(gameObjects, _world);
 			var l : int = gameObjects.length;
 			for (var i : int = l - 1; i >= 0; i--) {
 				var object : GameObject = gameObjects[i] as GameObject;
-				if (object.checkTag(Tags.UPDATE_TAG)) {
-					object.update();
+				if(object != null){
+					if (object.checkTag(Tags.UPDATE_TAG)) {
+						object.update();
+					}
 				}
 			}
 		}

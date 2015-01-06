@@ -8,6 +8,8 @@ package gameControlEngine.gameExtraClasses
 	 */
 	public class WatchingObject extends GameObject 
 	{
+		protected var rangeView : RangeView = new RangeView();
+		
 		protected var targetObjects : Array = [];
 		
 		public function WatchingObject() 
@@ -27,6 +29,10 @@ package gameControlEngine.gameExtraClasses
 			targetObjects.splice(index, 1);
 		}
 		
+		override public function removeObject():void 
+		{
+			rangeView.removeObject();
+			super.removeObject();
+		}
 	}
-
 }

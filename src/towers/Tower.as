@@ -25,7 +25,6 @@ package towers
 		protected var currentTarget : Unit = null;
 		
 		//tower base vars
-		protected var rangeView : RangeView = new RangeView();
 		protected var baseTileSize : Sprite = new Sprite(); // <== hiermee word de toren neergezet en worden alle hittests mee uitgevoert
 		
 		//tower Art

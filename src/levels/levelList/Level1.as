@@ -37,6 +37,7 @@ package levels.levelList
 			
 			_spawnPoints[0].wavesToSpawnList = [
 				giveEnemyArray(EnemyClawRobot, 5),
+				giveEnemyArray(EnemyClawRobot, 3),
 				giveEnemyArray(EnemyClawRobot, 10)
 			];
 			

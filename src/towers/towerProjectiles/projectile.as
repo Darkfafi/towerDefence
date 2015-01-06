@@ -17,7 +17,7 @@ package towers.towerProjectiles
 		
 		protected var damage : int; 
 		protected var speed : int; 
-		protected var target : GameObject;
+		protected var target : Unit;
 		protected var targetPosition : Vector2D;
 		
 		

@@ -41,7 +41,7 @@ package levels
 			loopLevel();
 			setSpawnInfo();
 			
-			_world.addEventListener(GameObject.REMOVED, gameObjectRemoved, true);
+			_world.addEventListener(Event.REMOVED_FROM_STAGE, objectRemoved, true);
 			
 			_world.addEventListener(SpawnPoint.DONE_WAVE, SpawnPointDoneWithWave);
 		}
@@ -113,9 +113,9 @@ package levels
 			_spawnsDoneSpawning ++;
 			trace(_spawnsDoneSpawning);
 		}
-		protected function gameObjectRemoved(e:Event):void {
-			if (e.target == EnemyUnit) {
-				var enemiesLeft : int = _game.gameController.lisOfObjectType(EnemyUnit as GameObject).length;
+		protected function objectRemoved(e:Event):void {
+			if (e.target is EnemyUnit) {
+				var enemiesLeft : int = _game.gameController.lisOfObjectType(EnemyUnit).length;
 				if (enemiesLeft == 0 && _spawnsDoneSpawning == _spawnPoints.length) {
 					_spawnsDoneSpawning = 0;
 					waveDone();
@@ -131,9 +131,11 @@ package levels
 			}
 			if (spawnsCantSpawn == _spawnPoints.length) {
 				trace("NEXT LEVEL");
+				//dispatches event so the levelPlacer can remove this level and place the next level.
 			}else {
 				var timerTillNextWave : Timer = new Timer(_timeUntilNextWave, 1);
 				timerTillNextWave.addEventListener(TimerEvent.TIMER_COMPLETE, nextWaveTimerDone);
+				timerTillNextWave.start();
 			}
 		}
 		

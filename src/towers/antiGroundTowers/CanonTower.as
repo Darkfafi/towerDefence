@@ -35,7 +35,6 @@ package towers.antiGroundTowers
 			projectile.y = y - height / 2;
 			parent.addChild(projectile);
 		}
-		
 	}
 
 }

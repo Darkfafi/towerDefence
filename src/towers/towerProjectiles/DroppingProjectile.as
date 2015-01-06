@@ -72,6 +72,7 @@ package towers.towerProjectiles
 		
 		private function explode():void 
 		{
+			target.takeDamage(25); // test. Moet met explosie alles wat de explosie raakt via hit array ofzo
 			removeObject();
 		}
 		

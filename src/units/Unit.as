@@ -25,7 +25,6 @@ package units
 		protected var movAtDthAnimList : Array = [];
 		protected var animations : Array = [];
 		
-		protected var rangeView : RangeView = new RangeView();
 		protected var destination : Point = new Point();
 		protected var _waypointList : Array = [];
 		
@@ -92,14 +91,18 @@ package units
 			}
 			switchAnim(WALK_ANIM);
 		}
-		protected function switchAnim(animInt : int) :void {
+		protected function switchAnim(animInt : int,playType : int = 0) :void {
 			for (var i : int = 0; i < animations.length; i++) {
 				var anim : MovieClip = animations[i] as MovieClip;
 				anim.visible = false;
 				anim.stop();
 			}
 			animations[animInt].visible = true;
-			animations[animInt].play();
+			if(playType == 0){
+				animations[animInt].play();
+			}else if (playType == 1) {
+				playAnim(animations[animInt]);
+			}
 		}
 		public function setDestination(xPos : int, yPos : int) :void {
 			destination.x = xPos;
@@ -187,7 +190,27 @@ package units
 				closeToTarget();
 			}
 		}
+		public function takeDamage(dmg : int) :void {
+			_health -= dmg;
+			if (_health <= 0 && !animations[DEATH_ANIM].visible) {
+				_health = 0;
+				unitDeath();
+			}
+		}
 		
+		protected function unitDeath():void 
+		{
+			switchAnim(DEATH_ANIM,1);
+			trace("I'ma dead! Owa No"); // death animation etc etc. Maybe shout out death so tower can count kills.
+		}
+		
+		override protected function AnimationFinishedPlaying():void 
+		{
+			super.AnimationFinishedPlaying();
+			if (animations[DEATH_ANIM].visible) {
+				removeObject();
+			}
+		}
 		protected function closeToTarget():void 
 		{
 			_waypointList.splice(0, 1);
