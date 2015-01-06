@@ -52,7 +52,7 @@ package levels
 						playerBase = new PlayerBase(_world);
 						playerBase.x = j * globalTile.width;
 						playerBase.y = i * globalTile.height;
-						_world.addChildAt(playerBase, 0);
+						_world.addChild(playerBase);
 					}
 					
 					if (tileMap[j][i] < 2 || tileMap[j][i] > 4) {

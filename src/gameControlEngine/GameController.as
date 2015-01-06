@@ -39,6 +39,7 @@ package gameControlEngine
 		{
 			if (e.target is GameObject) {
 				var object : GameObject = e.target as GameObject;
+				object.parent.setChildIndex(object, 0);
 				gameObjects.push(object);
 			}
 		}
@@ -47,21 +48,24 @@ package gameControlEngine
 		{
 			var objectOnScreen : Array = [];
 			var parentObj : Sprite;
-			for (var i : int = 0; i < gameObjects.length; i++) {
+			var l : int;
+			l = gameObjects.length;
+			for (var i : int = 0; i < l; i++) {
 				if (gameObjects[i].checkTag(Tags.POSITION_ON_Y_TAG)) {
 					objectOnScreen.push(gameObjects[i]);	
 				}
 			}
 			objectOnScreen.sortOn("y", Array.NUMERIC);
-			
-			for (i = 0; i < objectOnScreen.length; i++) {
+			l = objectOnScreen.length;
+			for (i = 0; i < l; i++) {
 				parentObj = objectOnScreen[i].parent;
-				parentObj.addChild(objectOnScreen[i]);
+				parentObj.setChildIndex(objectOnScreen[i],parentObj.numChildren - 1);
 			}
-			for (i = 0; i < gameObjects.length; i++) {
+			l = gameObjects.length;
+			for (i = 0; i < l; i++) {
 				if (gameObjects[i].checkTag(Tags.POSITION_ON_TOP_TAG)) {
 					parentObj = gameObjects[i].parent;
-					parentObj.addChild(gameObjects[i]);	
+					parentObj.setChildIndex(gameObjects[i], parentObj.numChildren - 1);	
 				}
 			}
 			
@@ -69,7 +73,8 @@ package gameControlEngine
 		
 		public function lisOfObjectType(object : GameObject) :Array {
 			var list : Array = [];
-			for (var i : int = 0; i < gameObjects.length; i++) {
+			var l : int = gameObjects.length;
+			for (var i : int = 0; i < l; i++) {
 				if (gameObjects[i] == object) {
 					list.push(gameObjects[i]);
 				}
@@ -88,7 +93,8 @@ package gameControlEngine
 			}
 		}
 		public function destroy() :void {
-			for (var i : int = gameObjects.length - 1; i >= 0; i--) {
+			var l : int = gameObjects.length;
+			for (var i : int = l - 1; i >= 0; i--) {
 				gameObjects[i].removeObject();
 			}
 			_world.removeEventListener(GameObject.ADDED, objectAdded);

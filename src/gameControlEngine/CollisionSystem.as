@@ -36,7 +36,8 @@ package gameControlEngine
 		
 		public function checkDeletedObjInCollision(deletedObj : GameObject):void 
 		{
-			for (var i : int = allObjects.length - 1; i >= 0; i--) {
+			var l : int = allObjects.length;
+			for (var i : int = l - 1; i >= 0; i--) {
 				var gameObj : GameObject = allObjects[i] as GameObject;
 				if(gameObj.checkTag(Tags.COLLIDER_TAG)){
 					if (gameObj.checkCollidingWithObject(deletedObj)) {
