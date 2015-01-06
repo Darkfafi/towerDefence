@@ -3,6 +3,7 @@ package levels
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
+	import units.enemies.groundUnits.EnemyUnit;
 	import units.enemies.SpawnPoint;
 	/**
 	 * ...
@@ -19,11 +20,11 @@ package levels
 		public function Level() 
 		{
 			setLevelInfo();
-			setSpawnInfo();
 		}
 		public function setWorld(world : DisplayObjectContainer):void {
 			_world = world;
 			loopLevel();
+			setSpawnInfo();
 		}
 		protected function setSpawnInfo():void 
 		{
@@ -75,6 +76,13 @@ package levels
 			return _spawnPoints;
 		}
 		
+		protected function giveEnemyArray(enemyType : Class,amount : int):Array {
+			var enemiesList : Array = [];
+			for (var i : int = 0; i < amount; i++) {
+				var enemy : EnemyUnit = new enemyType() as EnemyUnit;
+				enemiesList.push(enemy);
+			}
+			return enemiesList;
+		}
 	}
-
 }
