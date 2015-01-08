@@ -18,7 +18,9 @@ package playerControl
 	{
 		public static const NO_MORE_LIVES : String = "noMoreLives";
 		
-		private var _lives : int = 2;
+		//stats playerBase
+		private var _gold : int; //word gegeven door level aan begin en later gevult door kills en stuff
+		private var _lives : int = 20;
 		
 		//List Of Units
 		private static const BUILD_UNIT_TYPE : String = "buildUnitType";
@@ -70,6 +72,15 @@ package playerControl
 			graphics.beginFill(0xffff00);
 			graphics.drawRect(0, 0, 67, 50);
 			graphics.endFill();
+		}
+		
+		public function addGoldToPlayer(goldAmount : int) :void {
+			_gold += goldAmount;
+		}
+		
+		public function get gold():int 
+		{
+			return _gold;
 		}
 	}
 }

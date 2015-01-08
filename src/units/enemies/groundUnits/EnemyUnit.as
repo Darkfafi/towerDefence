@@ -12,6 +12,8 @@ package units.enemies.groundUnits
 	 */
 	public class EnemyUnit extends Unit
 	{	
+		protected var killGoldWorth : int;
+		
 		protected var atBaseDamage : int = 1;
 		
 		private var playerBase : PlayerBase;
@@ -31,7 +33,13 @@ package units.enemies.groundUnits
 			destination = new Point(playerBase.x, playerBase.y);
 			calculateWaypoints(destination);
 		}
-		
+		override protected function unitDeath():void 
+		{
+			playerBase.addGoldToPlayer(killGoldWorth);
+			_speed = 0;
+			trace(playerBase.gold);
+			super.unitDeath();
+		}
 		override protected function lastWaypointReached():void 
 		{
 			super.lastWaypointReached();

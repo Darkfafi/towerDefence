@@ -24,7 +24,6 @@ package playerControl
 	public class Player 
 	{
 		private var playerBase : PlayerBase;
-		private var _gold : int;
 		
 		private var clickedObject : GameObject;
 		private var plannedTowerBuild : Tower = new CanonTower();
@@ -91,6 +90,7 @@ package playerControl
 				var button : BuyButton = e.target.parent as BuyButton;
 				if (button.boughtItem is Tower) {
 					var boughtTower : Tower = button.boughtItem as Tower;
+					//show info always and go in construct mode if you have the moneys
 					consructMod(boughtTower);
 					trace("Show tower cost : " + boughtTower.costTower);
 				}else if (button.boughtItem is Unit) {
@@ -117,5 +117,13 @@ package playerControl
 			
 			playerBase.buildConstructUnit(newTower);
 		}	
+		
+		public function addGoldToPlayer(goldAmount : int) :void {
+			playerBase.addGoldToPlayer(goldAmount);
+		}
+		
+		public function getGoldAmount() :int {
+			return playerBase.gold;
+		}
 	}
 }
