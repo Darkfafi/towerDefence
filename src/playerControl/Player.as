@@ -91,7 +91,9 @@ package playerControl
 				if (button.boughtItem is Tower) {
 					var boughtTower : Tower = button.boughtItem as Tower;
 					//show info always and go in construct mode if you have the moneys
-					consructMod(boughtTower);
+					if(playerBase.gold >= boughtTower.costTower){
+						consructMod(boughtTower);
+					}
 					trace("Show tower cost : " + boughtTower.costTower);
 				}else if (button.boughtItem is Unit) {
 					//place unit mod thingy
@@ -109,7 +111,7 @@ package playerControl
 		private function buildTower(xPos : int, yPos : int):void 
 		{
 			TileSystem.setTileInt(xPos, yPos, 0);
-			var newTower : Tower = new CanonTower();
+			var newTower : Tower = plannedTowerBuild;
 			newTower.x = xPos + TileSystem.globalTile.width / 2;
 			newTower.y = yPos + TileSystem.globalTile.height; 
 			world.addChild(newTower);

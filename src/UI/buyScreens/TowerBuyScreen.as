@@ -19,7 +19,7 @@ package UI.buyScreens
 		{
 			super.buttonAssign();
 			for (var i : int = 0; i < 6; i++){
-			var cannonTowerButton : Sprite = new BuyButton(new CanonTowerButton,new CanonTower);
+			var cannonTowerButton : Sprite = new BuyButton(new CanonTowerButton,CanonTower);
 			
 			buttonList.push(cannonTowerButton);
 			}

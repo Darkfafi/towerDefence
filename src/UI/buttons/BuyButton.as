@@ -11,9 +11,9 @@ package UI.buttons
 	 */
 	public class BuyButton extends Sprite 
 	{
-		private var _boughtItem : GameObject;
+		private var _boughtItem : Class;
 		
-		public function BuyButton(buttonArt : SimpleButton,boundItem : GameObject) 
+		public function BuyButton(buttonArt : SimpleButton,boundItem : Class) 
 		{
 			addChild(buttonArt);
 			_boughtItem = boundItem;
@@ -21,7 +21,7 @@ package UI.buttons
 		
 		public function get boughtItem():GameObject 
 		{
-			return _boughtItem;
+			return new _boughtItem;
 		}
 		
 	}
