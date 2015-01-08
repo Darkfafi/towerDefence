@@ -25,7 +25,6 @@ package UI.buyScreens
 			drawBg();
 			buttonAssign();
 			placeButtons();
-			addEventListener(MouseEvent.CLICK, clickedOnMenu);
 		}
 		
 		protected function buttonAssign():void 
@@ -51,16 +50,6 @@ package UI.buyScreens
 				addChild(buttonList[i]);
 			}
 		}
-		
-		private function clickedOnMenu(e:MouseEvent):void 
-		{
-			if (e.target is BuyButton) {
-				var button : BuyButton = e.target as BuyButton;
-				var buyEvent : BuyEvent = new BuyEvent(BUTTON_PRESSED, button.boughtItem, true);
-				dispatchEvent(buyEvent);
-			}
-		}
-		
 		protected function drawBg():void 
 		{
 			addChild(bgArt);
