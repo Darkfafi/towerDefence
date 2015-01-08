@@ -16,7 +16,7 @@ package playerControl
 	 */
 	public class PlayerBase extends GameObject
 	{
-		private var _lives : int = 20;
+		private var _lives : int = 15;
 		
 		//List Of Units
 		private static const BUILD_UNIT_TYPE : String = "buildUnitType";
@@ -33,9 +33,11 @@ package playerControl
 		
 		public function loseLife(dmg : int):void 
 		{
-			//misschien nog kijken via e.target hoeveel dmg de enemy in zich heeft ofzo.
 			_lives -= dmg;
-			trace(_lives);
+			if (_lives <= 0) {
+				_lives = 0;
+				trace("GAME LOST. GO TO MENU!");
+			}
 		}
 		
 		public function buildUnit(unitType : String,destination : Point):Unit 

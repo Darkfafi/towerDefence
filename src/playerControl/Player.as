@@ -9,7 +9,9 @@ package playerControl
 	import levels.TileSystem;
 	import towers.antiGroundTowers.CanonTower;
 	import towers.Tower;
+	import UI.buttons.BuyButton;
 	import units.alies.BuildUnit;
+	import units.Unit;
 	import utils.Vector2D;
 	/**
 	 * ...
@@ -75,6 +77,15 @@ package playerControl
 						gameObject.onInteraction();
 						clickedObject = gameObject;
 					}
+				}
+			}
+			//checks if clicked object is a buy button
+			else if (e.target.parent is BuyButton) {
+				var button : BuyButton = e.target.parent as BuyButton;
+				if(button.boughtItem is Tower){
+					consructMod(button.boughtItem as Tower);
+				}else if (button.boughtItem is Unit) {
+					//place unit mod thingy
 				}
 			}
 		}

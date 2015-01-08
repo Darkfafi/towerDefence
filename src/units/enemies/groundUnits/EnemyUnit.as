@@ -12,6 +12,8 @@ package units.enemies.groundUnits
 	 */
 	public class EnemyUnit extends Unit
 	{	
+		protected var atBaseDamage : int = 1;
+		
 		private var playerBase : PlayerBase;
 		
 		private var _typeList : Array = []; // hier komt of het flying is etc etc. will be checked wit function.
@@ -34,7 +36,7 @@ package units.enemies.groundUnits
 		{
 			super.lastWaypointReached();
 			if (destination.x - this.x < 2 && destination.y - this.y < 2) {
-				playerBase.loseLife(1);
+				playerBase.loseLife(atBaseDamage);
 				removeObject();
 			}
 		}
