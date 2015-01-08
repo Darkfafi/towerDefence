@@ -16,7 +16,9 @@ package playerControl
 	 */
 	public class PlayerBase extends GameObject
 	{
-		private var _lives : int = 15;
+		public static const NO_MORE_LIVES : String = "noMoreLives";
+		
+		private var _lives : int = 2;
 		
 		//List Of Units
 		private static const BUILD_UNIT_TYPE : String = "buildUnitType";
@@ -37,6 +39,7 @@ package playerControl
 			if (_lives <= 0) {
 				_lives = 0;
 				trace("GAME LOST. GO TO MENU!");
+				dispatchEvent(new Event(NO_MORE_LIVES,true));
 			}
 		}
 		

@@ -4,6 +4,7 @@ package screens
 	import gameControlEngine.GameController;
 	import levels.LevelPlacer;
 	import playerControl.Player;
+	import playerControl.PlayerBase;
 	import UI.FullUI;
 	/**
 	 * ...
@@ -11,7 +12,12 @@ package screens
 	 */
 	public class GameScreen extends Screen
 	{
+		public static const GAME_OVER : String = "gameOver";
+		
 		private var gameRunning : Boolean = true;
+		
+		private var levelPlacer : LevelPlacer;
+		
 		public var gameController : GameController;
 		private var ui : FullUI;
 		
@@ -27,9 +33,18 @@ package screens
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, update);
 			
+			addEventListener(PlayerBase.NO_MORE_LIVES, gameOver);
+			
 			gameController = new GameController(this);
 			placeLevel();
 			player = new Player(this);
+		}
+		
+		private function gameOver(e:Event):void 
+		{
+			//show GameOver on screen or something and after that.
+			dispatchEvent(new Event(GAME_OVER));
+			
 		}
 		private function update(e:Event):void 
 		{
@@ -41,11 +56,20 @@ package screens
 		private function placeLevel():void 
 		{
 			//chose level from array
-			var levelPlacer : LevelPlacer = new LevelPlacer(this);
+			levelPlacer = new LevelPlacer(this);
 			ui = new FullUI();
 			addChild(levelPlacer);
 			levelPlacer.createLevel(0);
 			addChild(ui)
+		}
+		
+		override public function destroy():void 
+		{
+			gameController.destroy();
+			levelPlacer.destroy();
+			removeEventListener(Event.ENTER_FRAME, update);
+			removeEventListener(PlayerBase.NO_MORE_LIVES, gameOver);
+			super.destroy();
 		}
 	}
 }

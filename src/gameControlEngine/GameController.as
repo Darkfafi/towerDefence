@@ -68,7 +68,6 @@ package gameControlEngine
 					parentObj.setChildIndex(gameObjects[i], parentObj.numChildren - 1);	
 				}
 			}
-			
 		}
 		
 		public function lisOfObjectType(object : Class) :Array {
@@ -99,6 +98,7 @@ package gameControlEngine
 			for (var i : int = l - 1; i >= 0; i--) {
 				gameObjects[i].removeObject();
 			}
+			gameObjects = [];
 			_world.removeEventListener(GameObject.ADDED, objectAdded);
 			_world.removeEventListener(GameObject.REMOVED, objectRemoved);
 		}

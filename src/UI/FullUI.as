@@ -2,6 +2,8 @@ package UI
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import gameControlEngine.GameObject;
+	import gameControlEngine.Tags;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -13,6 +15,8 @@ package UI
 		
 		public function FullUI() 
 		{
+			//addTag(Tags.POSITION_ON_TOP_TAG);
+			
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			//geef player mee in parameter zodat alle menus erbij kunnen.
 			

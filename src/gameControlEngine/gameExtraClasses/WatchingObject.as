@@ -31,7 +31,9 @@ package gameControlEngine.gameExtraClasses
 		
 		override public function removeObject():void 
 		{
-			rangeView.removeObject();
+			if(rangeView != null && contains(rangeView)){
+				rangeView.removeObject();
+			}
 			super.removeObject();
 		}
 	}

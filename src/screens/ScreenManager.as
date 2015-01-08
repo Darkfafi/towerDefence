@@ -1,6 +1,8 @@
 package screens 
 {
 	import flash.display.Stage;
+	import flash.events.Event;
+	import playerControl.PlayerBase;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -30,6 +32,7 @@ package screens
 						menu = null;
 					}
 					game = new GameScreen();
+					game.addEventListener(GameScreen.GAME_OVER, gameOver);
 					stage.addChild(game);
 				break
 				case MENU_SCREEN:
@@ -43,6 +46,11 @@ package screens
 				break
 				
 			}
+		}
+		
+		private function gameOver(e:Event):void 
+		{
+			switchScreen(MENU_SCREEN);
 		}
 		
 	}

@@ -78,5 +78,11 @@ package units.enemies
 			}
 			return result;
 		}
+		
+		public function destroy() :void {
+			spawnTimer.stop();
+			spawnTimer.removeEventListener(TimerEvent.TIMER, spawnEnemy);
+			spawnTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, doneWaveSpawn);
+		}
 	}
 }

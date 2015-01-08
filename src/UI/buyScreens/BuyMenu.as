@@ -54,7 +54,5 @@ package UI.buyScreens
 		{
 			addChild(bgArt);
 		}
-		
 	}
-
 }

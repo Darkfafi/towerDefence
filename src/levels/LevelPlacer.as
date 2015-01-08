@@ -15,6 +15,7 @@ package levels
 	{
 		private var tileSystem : TileSystem
 		
+		private var currentLevel : int;
 		private var allLevelsList : Array = [new Level1]; // array met alle levels
 		
 		private var _world : DisplayObjectContainer;
@@ -43,7 +44,16 @@ package levels
 		}
 		public function createLevel(levelInt : int) :void {
 			tileSystem.placeTiles(allLevelsList[levelInt].levelGrid);
+			currentLevel = levelInt;
 			allLevelsList[levelInt].startLevel();
+		}
+		
+		//maak ook een switchlevel functie waarbij hij het level destroyed en een nieuwe plaatst met createlevel ofzo.
+		
+		public function destroy() :void {
+			var level : Level = allLevelsList[currentLevel] as Level;
+			level.destroy();
+			trace(level);
 		}
 		
 	}

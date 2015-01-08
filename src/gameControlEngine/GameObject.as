@@ -108,7 +108,9 @@ package gameControlEngine
 		}
 		
 		public function destroy() :void {
-			
+			if(framesAnim != null){
+				framesAnim.removeEventListener(TimerEvent.TIMER, playingAnimaion);
+			}
 		}
 		
 		//---------------tag system------------------

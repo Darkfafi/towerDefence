@@ -46,10 +46,5 @@ package towers.towerProjectiles
 			addTag(Tags.UPDATE_TAG);
 			addTag(Tags.POSITION_ON_TOP_TAG);
 		}
-		override public function update():void 
-		{
-			super.update();
-		}
 	}
-
 }

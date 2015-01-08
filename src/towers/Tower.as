@@ -39,6 +39,7 @@ package towers
 		private var towerFireArt : MovieClip;
 		
 		//tower stats
+		protected var _costTower : int;
 		protected var range : Number;
 		protected var fireRate : int;
 		protected var bulletSpeed : int;
@@ -48,6 +49,8 @@ package towers
 		public function Tower() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			
+			setStats();
 			
 			addTag(Tags.INTERACTIVE_TAG);
 			addTag(Tags.COLLIDER_TAG);
@@ -63,7 +66,6 @@ package towers
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			setStats();
 			setHitBox(-baseTileSize.width / 2, -baseTileSize.height, baseTileSize.width, baseTileSize.height);
 			
 		}
@@ -206,6 +208,16 @@ package towers
 			if (currentTarget != null) {
 				startFire();
 			}
+		}
+		
+		public function get costTower():int 
+		{
+			return _costTower;
+		}
+		override public function destroy():void 
+		{
+			currentTarget = null;
+			super.destroy();
 		}
 	}
 }

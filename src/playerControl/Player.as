@@ -1,8 +1,10 @@
 package playerControl 
 {
+	import events.BuyEvent;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
@@ -10,6 +12,8 @@ package playerControl
 	import towers.antiGroundTowers.CanonTower;
 	import towers.Tower;
 	import UI.buttons.BuyButton;
+	import UI.buyScreens.BuyMenu;
+	import UI.ConstructMenu;
 	import units.alies.BuildUnit;
 	import units.Unit;
 	import utils.Vector2D;
@@ -25,7 +29,7 @@ package playerControl
 		private var clickedObject : GameObject;
 		private var plannedTowerBuild : Tower = new CanonTower();
 		
-		private var buildModus : Boolean = true;
+		private var buildModus : Boolean = false;
 		private var buildTile : Tile = new Tile();
 		
 		private var world : DisplayObjectContainer;
@@ -67,7 +71,9 @@ package playerControl
 					buildTower(tile.x, tile.y);
 				}
 				buildModus = false; // haalt je uit bouwmodus na bouwen of na random clicken.
-				world.removeChild(buildTile);
+				if(world.contains(buildTile)){
+					world.removeChild(buildTile);
+				}
 			}
 			//checks if clicked object is interactive
 			else if (e.target is MovieClip) {
@@ -79,11 +85,14 @@ package playerControl
 					}
 				}
 			}
+			
 			//checks if clicked object is a buy button
 			else if (e.target.parent is BuyButton) {
 				var button : BuyButton = e.target.parent as BuyButton;
-				if(button.boughtItem is Tower){
-					consructMod(button.boughtItem as Tower);
+				if (button.boughtItem is Tower) {
+					var boughtTower : Tower = button.boughtItem as Tower;
+					consructMod(boughtTower);
+					trace("Show tower cost : " + boughtTower.costTower);
 				}else if (button.boughtItem is Unit) {
 					//place unit mod thingy
 				}
@@ -107,7 +116,6 @@ package playerControl
 			plannedTowerBuild = null;
 			
 			playerBase.buildConstructUnit(newTower);
-		}
-		
+		}	
 	}
 }

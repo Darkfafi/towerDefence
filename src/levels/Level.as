@@ -28,6 +28,7 @@ package levels
 		private var _spawnsDoneSpawning : int;
 		private var _currentWave : int;
 		protected var _timeUntilNextWave : int = 1000;
+		private var timerTillNextWave : Timer;
 		
 		public function Level() 
 		{
@@ -133,7 +134,7 @@ package levels
 				trace("NEXT LEVEL");
 				//dispatches event so the levelPlacer can remove this level and place the next level.
 			}else {
-				var timerTillNextWave : Timer = new Timer(_timeUntilNextWave, 1);
+				timerTillNextWave = new Timer(_timeUntilNextWave, 1);
 				timerTillNextWave.addEventListener(TimerEvent.TIMER_COMPLETE, nextWaveTimerDone);
 				timerTillNextWave.start();
 			}
@@ -154,6 +155,17 @@ package levels
 			_currentWave += 1;
 			for (var i : int = 0; i < _spawnPoints.length; i++) {
 				_spawnPoints[i].spawnWave(_currentWave);
+			}
+		}
+		
+		public function destroy() :void {
+			_world.removeEventListener(Event.REMOVED_FROM_STAGE, objectRemoved, true);
+			_world.removeEventListener(SpawnPoint.DONE_WAVE, SpawnPointDoneWithWave);
+			timerTillNextWave.removeEventListener(TimerEvent.TIMER_COMPLETE, nextWaveTimerDone);
+			timerTillNextWave.stop();
+			
+			for (var i : int = 0; i < _spawnPoints.length; i++) {
+				_spawnPoints[i].destroy();
 			}
 		}
 	}	
