@@ -220,7 +220,7 @@ package units
 		}
 		
 		protected function lastWaypointReached():void 
-		{
+		{	
 			
 		}
 		override public function onCollisionEnter(other:GameObject):void 

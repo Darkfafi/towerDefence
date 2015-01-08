@@ -1,12 +1,14 @@
 package playerControl 
 {
 	import flash.display.DisplayObjectContainer;
+	import flash.events.Event;
 	import flash.geom.Point;
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
 	import levels.TileSystem;
 	import towers.Tower;
 	import units.alies.BuildUnit;
+	import units.enemies.groundUnits.EnemyUnit;
 	import units.Unit;
 	/**
 	 * ...
@@ -14,6 +16,8 @@ package playerControl
 	 */
 	public class PlayerBase extends GameObject
 	{
+		private var _lives : int = 20;
+		
 		//List Of Units
 		private static const BUILD_UNIT_TYPE : String = "buildUnitType";
 		
@@ -24,7 +28,14 @@ package playerControl
 		public function PlayerBase(_world : DisplayObjectContainer) 
 		{
 			world = _world;
-			drawBase();
+			drawBase(); 
+		}
+		
+		public function loseLife(dmg : int):void 
+		{
+			//misschien nog kijken via e.target hoeveel dmg de enemy in zich heeft ofzo.
+			_lives -= dmg;
+			trace(_lives);
 		}
 		
 		public function buildUnit(unitType : String,destination : Point):Unit 
@@ -55,8 +66,5 @@ package playerControl
 			graphics.drawRect(0, 0, 67, 50);
 			graphics.endFill();
 		}
-		
-		
 	}
-
 }

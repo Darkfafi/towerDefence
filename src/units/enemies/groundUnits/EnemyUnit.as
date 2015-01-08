@@ -2,6 +2,7 @@ package units.enemies.groundUnits
 {
 	import flash.events.Event;
 	import flash.geom.Point;
+	import gameControlEngine.GameObject;
 	import levels.TileSystem;
 	import playerControl.PlayerBase;
 	import units.Unit;
@@ -10,7 +11,7 @@ package units.enemies.groundUnits
 	 * @author Ramses di Perna
 	 */
 	public class EnemyUnit extends Unit
-	{
+	{	
 		private var playerBase : PlayerBase;
 		
 		private var _typeList : Array = []; // hier komt of het flying is etc etc. will be checked wit function.
@@ -29,5 +30,13 @@ package units.enemies.groundUnits
 			calculateWaypoints(destination);
 		}
 		
+		override protected function lastWaypointReached():void 
+		{
+			super.lastWaypointReached();
+			if (destination.x - this.x < 2 && destination.y - this.y < 2) {
+				playerBase.loseLife(1);
+				removeObject();
+			}
+		}
 	}
 }
