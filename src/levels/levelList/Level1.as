@@ -16,6 +16,7 @@ package levels.levelList
 		override protected function setLevelInfo():void 
 		{
 			_levelBackGround = new LevelOneBgArt();
+			levelStartGold = 200;
 			_levelGrid = [
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],

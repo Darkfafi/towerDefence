@@ -2,6 +2,7 @@ package screens
 {
 	import flash.events.Event;
 	import gameControlEngine.GameController;
+	import levels.Level;
 	import levels.LevelPlacer;
 	import playerControl.Player;
 	import playerControl.PlayerBase;
@@ -21,7 +22,7 @@ package screens
 		public var gameController : GameController;
 		private var ui : FullUI;
 		
-		private var player : Player;
+		public var player : Player;
 		
 		public function GameScreen() 
 		{
@@ -37,7 +38,6 @@ package screens
 			
 			gameController = new GameController(this);
 			placeLevel();
-			player = new Player(this);
 		}
 		
 		private function gameOver(e:Event):void 
@@ -59,7 +59,9 @@ package screens
 			levelPlacer = new LevelPlacer(this);
 			ui = new FullUI();
 			addChild(levelPlacer);
-			levelPlacer.createLevel(0);
+			var level : Level = levelPlacer.createLevel(0);
+			player = new Player(this);
+			level.startLevel(1);
 			addChild(ui)
 		}
 		

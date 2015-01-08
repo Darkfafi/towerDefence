@@ -42,10 +42,10 @@ package levels
 			
 			tileSystem = new TileSystem(parent);
 		}
-		public function createLevel(levelInt : int) :void {
+		public function createLevel(levelInt : int) :Level {
 			tileSystem.placeTiles(allLevelsList[levelInt].levelGrid);
 			currentLevel = levelInt;
-			allLevelsList[levelInt].startLevel();
+			return allLevelsList[levelInt];
 		}
 		
 		//maak ook een switchlevel functie waarbij hij het level destroyed en een nieuwe plaatst met createlevel ofzo.
@@ -53,9 +53,6 @@ package levels
 		public function destroy() :void {
 			var level : Level = allLevelsList[currentLevel] as Level;
 			level.destroy();
-			trace(level);
 		}
-		
 	}
-
 }

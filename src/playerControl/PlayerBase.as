@@ -82,5 +82,10 @@ package playerControl
 		{
 			return _gold;
 		}
+		
+		public function set gold(value:int):void 
+		{
+			_gold = value;
+		}
 	}
 }

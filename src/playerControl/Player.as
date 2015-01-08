@@ -125,5 +125,8 @@ package playerControl
 		public function getGoldAmount() :int {
 			return playerBase.gold;
 		}
+		public function setGoldAmount(goldAmount : int) :void {
+			playerBase.gold = goldAmount;
+		}
 	}
 }

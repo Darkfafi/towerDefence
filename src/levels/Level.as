@@ -29,6 +29,7 @@ package levels
 		private var _currentWave : int;
 		protected var _timeUntilNextWave : int = 1000;
 		private var timerTillNextWave : Timer;
+		protected var levelStartGold : int;
 		
 		public function Level() 
 		{
@@ -56,6 +57,7 @@ package levels
 			
 		}
 		public function startLevel(waveInt : int = 1) :void {
+			_game.player.setGoldAmount(levelStartGold);
 			_currentWave = waveInt;
 			spawnWave(waveInt)
 		}
