@@ -26,6 +26,12 @@ package UI
 			
 		}
 		
+		public function destroy():void 
+		{
+			parent.removeEventListener(InfoMenu.SHOW_INFO, infoMenu.setInfoText);
+			parent.removeEventListener(InfoMenu.CLOSE_INFO, infoMenu.closeInfoText);
+		}
+		
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);

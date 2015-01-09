@@ -14,9 +14,9 @@ package towers.antiGroundTowers
 		public function CanonTower() 
 		{
 			super();
-			towerBuildAnim = new BuildTowerStagesArt();
-			allTowerArt = [new CanonTowerArt];
-			allFireAnim = [new CanonTowerFireArt];
+			towerBuildAnim = new CanonTowerBuildUpArt();
+			allTowerArt = [new CannonTowerIdle];
+			allFireAnim = [new CannonTowerShootArt];
 			
 			rangeView.setSeeAbleObjects([EnemyUnit]);
 		}

@@ -69,6 +69,7 @@ package screens
 		{
 			gameController.destroy();
 			levelPlacer.destroy();
+			ui.destroy();
 			removeEventListener(Event.ENTER_FRAME, update);
 			removeEventListener(PlayerBase.NO_MORE_LIVES, gameOver);
 			super.destroy();

@@ -68,7 +68,7 @@ package towers
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			setHitBox(-baseTileSize.width / 2, -baseTileSize.height, baseTileSize.width, baseTileSize.height);
+			setHitBox(-baseTileSize.width / 2, -baseTileSize.height / 2, baseTileSize.width, baseTileSize.height / 2);
 			
 		}
 		
@@ -149,14 +149,12 @@ package towers
 			rangeView.setAlpha(0.4);
 			var event : ShowInfoEvent = new ShowInfoEvent(InfoMenu.SHOW_INFO, ["Attack : ", "Range : ", "FireRate : "], [attackDmg, range, fireRate], true);
 			dispatchEvent(event);
-			trace("show info and upgrade stats / cost");
 		}
 		override public function exitInteraction():void 
 		{
 			super.exitInteraction();
 			rangeView.setAlpha(0);
 			dispatchEvent(new Event(InfoMenu.CLOSE_INFO, true));
-			trace("close info and upgrade stats / cost");
 		}
 		protected function startFire() :void {
 			towerArt.visible = false;

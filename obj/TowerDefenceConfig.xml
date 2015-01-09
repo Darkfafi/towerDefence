@@ -38,6 +38,7 @@
     <library-path append="true">
       <path-element>C:\Users\Darkfafi\Desktop\Mediacollege Amsterdam\LeerJaar2\Fase2\Projecten\TowerDefenceThree\TowerDefence\bin\placeholders.swc</path-element>
       <path-element>C:\Users\Darkfafi\Desktop\Mediacollege Amsterdam\LeerJaar2\Fase2\Projecten\TowerDefenceThree\TowerDefence\bin\HERSTEL_assets_3.swc</path-element>
+      <path-element>C:\Users\Darkfafi\Desktop\Mediacollege Amsterdam\LeerJaar2\Fase2\Projecten\TowerDefenceThree\TowerDefence\bin\assets_5.swc</path-element>
     </library-path>
   </compiler>
   <file-specs>

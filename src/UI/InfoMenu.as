@@ -18,9 +18,10 @@ package UI
 		private static const INFO_EMPTY : int = 0; 
 		private static const INFO_EMPTY_TO_FULL : int = 1; 
 		private static const INFO_FULL : int = 2; 
+		private static const INFO_FULL_TO_EMPTY : int = 3; 
 		
 		private var bgArt : Sprite = new InfoBg();
-		private var screenArtList : Array = [new InfoScreenEmptyArt, new InfoScreenEmptyToFullArt, new InfoScreenArt];
+		private var screenArtList : Array = [new InfoScreenEmptyArt, new InfoScreenEmptyToFullArt, new InfoScreenArt, new InfoScreenFullToEmptyArt];
 		
 		private var currentAnimInt : int;
 		
@@ -63,7 +64,7 @@ package UI
 			screenArtList[animInt].visible = true;
 			screenArtList[animInt].play();
 			
-			if (animInt == INFO_EMPTY_TO_FULL) {
+			if (animInt == INFO_EMPTY_TO_FULL || animInt == INFO_FULL_TO_EMPTY) {
 				addEventListener(Event.ENTER_FRAME, checkAnim);
 			}
 		}
@@ -101,7 +102,7 @@ package UI
 			allText = [];
 			if (showAnim) {
 				//laat overgang van full naar emtpy zien en in update in empty laten.
-				switchAnimation(INFO_EMPTY);
+				switchAnimation(INFO_FULL_TO_EMPTY);
 			}
 		}
 		
@@ -111,6 +112,8 @@ package UI
 				if (currentAnimInt == INFO_EMPTY_TO_FULL) {
 					switchAnimation(INFO_FULL);
 					showText();
+				}else if (currentAnimInt == INFO_FULL_TO_EMPTY) {
+					switchAnimation(INFO_EMPTY);
 				}
 				removeEventListener(Event.ENTER_FRAME, checkAnim);
 			}
