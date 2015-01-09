@@ -12,6 +12,7 @@ package units
 	import levels.LevelPlacer;
 	import levels.TileSystem;
 	import pathfinderAStar.grid.AStar;
+	import playerControl.PlayerBase;
 	import UI.InfoMenu;
 	import utils.Vector2D;
 	/**
@@ -141,7 +142,11 @@ package units
 				y = _position.y;
 			}
 		}
-		
+		public function sell() {
+			var playerBase : PlayerBase = TileSystem.getPlayerBase();
+			playerBase.addGoldToPlayer(5);
+			removeObject();
+		}
 		protected function noTargetInViewRange():void 
 		{
 			if (!_moving) {

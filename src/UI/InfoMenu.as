@@ -2,11 +2,16 @@ package UI
 {
 	import events.ShowInfoEvent;
 	import flash.display.MovieClip;
+	import flash.display.SimpleButton;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import gameControlEngine.GameObject;
 	import levels.TileSystem;
+	import towers.Tower;
+	import units.enemies.groundUnits.EnemyUnit;
+	import units.Unit;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -22,9 +27,13 @@ package UI
 		private static const INFO_FULL_TO_EMPTY : int = 3; 
 		
 		private var bgArt : Sprite = new InfoBg();
+		
 		private var screenArtList : Array = [new InfoScreenEmptyArt, new InfoScreenEmptyToFullArt, new InfoScreenArt, new InfoScreenFullToEmptyArt];
 		
-		private var currentDisplayTarget : GameObject;
+		private var upgradeButton : SimpleButton = new UpgradeButtonArt(),
+					sellButton    : SimpleButton = new SellButtonArt();
+		
+		private var _currentDisplayTarget : GameObject;
 		
 		private var currentAnimInt : int;
 		
@@ -34,12 +43,40 @@ package UI
 		{
 			drawBg();
 			placeButtons();
+			addEventListener(MouseEvent.CLICK, clickedInMenu);
+		}
+		
+		private function clickedInMenu(e:MouseEvent):void 
+		{
+			
+			if (_currentDisplayTarget is Tower) {
+				var tower : Tower = _currentDisplayTarget as Tower;
+				if (e.target == upgradeButton) {
+					trace("UPGRADE " + tower);
+					tower.upgrade();
+				}else if (e.target == sellButton){
+					tower.sell();
+				}	
+			}else if (_currentDisplayTarget is Unit && _currentDisplayTarget is EnemyUnit == false) {
+				var unit : Unit = _currentDisplayTarget as Unit;
+				if (e.target == upgradeButton) {
+					trace("UPGRADE " + unit);
+				}else if (e.target == sellButton){
+					unit.sell();
+				}	
+			}
 		}
 		
 		private function placeButtons():void 
 		{
-			//als je probeerd te upgraden terwijl je er op heb gedrukt zonder te bouwen of het op max zit dan laat dat zien op scherm met "Max upgraded" if "Error : Can't upgrade N.a.P.T."
+			//als je probeerd te upgraden terwijl je er op heb gedrukt zonder te bouwen of het op max zit dan laat dat zien op scherm met "Max upgraded" if "Error : Can't upgrade N.a.P.T."	
+			upgradeButton.x = sellButton.x -= 30;
 			
+			upgradeButton.y -= 60;
+			sellButton.y -= 10;
+			
+			addChild(upgradeButton);
+			addChild(sellButton);
 		}
 		
 		private function drawBg():void 
@@ -74,14 +111,15 @@ package UI
 		
 		public function setInfoText(e : ShowInfoEvent) :void {
 			var textfield : TextField;
-			if(allText.length > 0){
+			if (allText.length > 0) {
 				closeInfoText(null,false);
 			}
 			
-			currentDisplayTarget = e.target as GameObject;
+			_currentDisplayTarget = e.target as GameObject;
 			
 			for (var i : int = 0; i < e.textArray.length; i++) {
 				textfield = new TextField();
+				textfield.selectable = false;
 				textfield.x -= 180;
 				textfield.y = -80 + (i * 12); 
 				textfield.text = e.textArray[i];
@@ -91,6 +129,7 @@ package UI
 			}
 			for (i = 0; i < e.statsArray.length; i++ ) {
 				textfield = new TextField();
+				textfield.selectable = false;
 				textfield.x -= 130;
 				textfield.y = -80 + (i * 12); 
 				textfield.text = e.statsArray[i];
@@ -102,7 +141,7 @@ package UI
 		}
 		
 		public function closeInfoText(e : Event, showAnim : Boolean = true) :void {
-			if(e.target == null || e.target == currentDisplayTarget){
+			if(e == null || e.target == _currentDisplayTarget){
 				for (var i : int = allText.length - 1; i >= 0; i--) {
 					removeChild(allText[i]);
 				}
@@ -133,6 +172,11 @@ package UI
 			for (var i : int = 0; i < allText.length; i++) {
 				allText[i].visible = true;
 			}
+		}
+		
+		public function get currentDisplayTarget():GameObject 
+		{
+			return _currentDisplayTarget;
 		}
 	}
 }

@@ -14,6 +14,7 @@ package playerControl
 	import UI.buttons.BuyButton;
 	import UI.buyScreens.BuyMenu;
 	import UI.ConstructMenu;
+	import UI.InfoMenu;
 	import units.alies.BuildUnit;
 	import units.Unit;
 	import utils.Vector2D;
@@ -59,7 +60,7 @@ package playerControl
 		
 		private function clicked(e:MouseEvent):void 
 		{
-			if (clickedObject != null && clickedObject != e.target.parent) {
+			if (clickedObject != null && clickedObject != e.target.parent && e.target.parent is InfoMenu == false) {
 				clickedObject.exitInteraction();
 				clickedObject = null;
 			}

@@ -2,6 +2,7 @@ package levels.levelList
 {
 	import levels.Level;
 	import units.enemies.groundUnits.EnemyClawRobot;
+	import units.enemies.groundUnits.SpearRobot;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -46,7 +47,7 @@ package levels.levelList
 			];
 			
 			_spawnPoints[1].wavesToSpawnList = [
-				giveEnemyArray(EnemyClawRobot, 2),
+				giveEnemyArray(SpearRobot, 5),
 				giveEnemyArray(EnemyClawRobot, 3)
 			];
 		}

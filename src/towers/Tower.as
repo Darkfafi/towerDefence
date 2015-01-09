@@ -11,8 +11,10 @@ package towers
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
 	import levels.TileSystem;
+	import playerControl.PlayerBase;
 	import UI.InfoMenu;
 	import units.Unit;
+	import utils.Vector2D;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -37,11 +39,15 @@ package towers
 		protected var allTowerArt : Array = []; // deze array bevat alle tower/upgrade art.
 		protected var allFireAnim : Array = []; //deze array bevat alle tower attack/fire animations
 		
+		// all bullet art dat je kan meegeven ofzo
+		
 		private var towerArt : MovieClip;
 		private var towerFireArt : MovieClip;
 		
 		//tower stats
+		protected var _upgradeCost : int;
 		protected var _costTower : int;
+		
 		protected var range : Number;
 		protected var fireRate : int;
 		protected var bulletSpeed : int;
@@ -141,6 +147,23 @@ package towers
 			removeChild(baseTileSize);
 			towerBuildAnim.gotoAndStop(1);
 			addChild(towerBuildAnim);
+		}
+		public function upgrade() :void {
+			if(contains(towerBuildAnim) == false && allTowerArt[currentArtInt + 1] is MovieClip){
+				changeTowerArt(currentArtInt + 1);
+			}else if(contains(towerBuildAnim)) {
+				trace("Can't upgrade unfinished tower");
+			}else {
+				trace("Max upgrades");
+			}
+		}
+		
+		public function sell() :void {
+			var playerBase : PlayerBase = TileSystem.getPlayerBase();
+			playerBase.addGoldToPlayer((_costTower + (currentArtInt * _upgradeCost)) / 2);
+			var tile : Tile = TileSystem.getTileFromPos(new Vector2D(x, y));
+			TileSystem.setTileInt(x,y- TileSystem.globalTile.height, 1);
+			removeObject();
 		}
 		
 		override public function onInteraction():void 

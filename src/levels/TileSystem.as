@@ -79,7 +79,7 @@ package levels
 			var tile : Tile = new Tile();
 			var j : int = x / tile.width;
 			var i : int = y / tile.height;
-			
+			trace(j +" " + i);
 			currentTileMap[i][j] = newTileInt;
 		}
 		
