@@ -24,8 +24,8 @@ package towers.antiGroundTowers
 		{
 			_costTower = 80;
 			fireRate = 40;
-			attackDmg = 25;
-			bulletSpeed = 6;
+			attackDmg = 50;
+			bulletSpeed = 8;
 			range = 100;
 		}
 		override protected function shoot():void 

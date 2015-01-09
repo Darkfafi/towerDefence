@@ -16,7 +16,10 @@ package levels.levelList
 		override protected function setLevelInfo():void 
 		{
 			_levelBackGround = new LevelOneBgArt();
+			_timeTillLevelStarts = 5000;
+			_timeUntilNextWave = 1000;
 			levelStartGold = 200;
+			
 			_levelGrid = [
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],

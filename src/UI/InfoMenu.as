@@ -5,6 +5,7 @@ package UI
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
+	import gameControlEngine.GameObject;
 	import levels.TileSystem;
 	/**
 	 * ...
@@ -22,6 +23,8 @@ package UI
 		
 		private var bgArt : Sprite = new InfoBg();
 		private var screenArtList : Array = [new InfoScreenEmptyArt, new InfoScreenEmptyToFullArt, new InfoScreenArt, new InfoScreenFullToEmptyArt];
+		
+		private var currentDisplayTarget : GameObject;
 		
 		private var currentAnimInt : int;
 		
@@ -72,8 +75,11 @@ package UI
 		public function setInfoText(e : ShowInfoEvent) :void {
 			var textfield : TextField;
 			if(allText.length > 0){
-				closeInfoText(false);
+				closeInfoText(null,false);
 			}
+			
+			currentDisplayTarget = e.target as GameObject;
+			
 			for (var i : int = 0; i < e.textArray.length; i++) {
 				textfield = new TextField();
 				textfield.x -= 180;
@@ -95,14 +101,16 @@ package UI
 			switchAnimation(INFO_EMPTY_TO_FULL);
 		}
 		
-		public function closeInfoText(showAnim : Boolean = true) :void {
-			for (var i : int = allText.length - 1; i >= 0; i--) {
-				removeChild(allText[i]);
-			}
-			allText = [];
-			if (showAnim) {
-				//laat overgang van full naar emtpy zien en in update in empty laten.
-				switchAnimation(INFO_FULL_TO_EMPTY);
+		public function closeInfoText(e : Event, showAnim : Boolean = true) :void {
+			if(e.target == null || e.target == currentDisplayTarget){
+				for (var i : int = allText.length - 1; i >= 0; i--) {
+					removeChild(allText[i]);
+				}
+				allText = [];
+				if (showAnim) {
+					//laat overgang van full naar emtpy zien en in update in empty laten.
+					switchAnimation(INFO_FULL_TO_EMPTY);
+				}
 			}
 		}
 		

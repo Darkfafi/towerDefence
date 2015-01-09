@@ -9,7 +9,7 @@ package units.enemies.groundUnits
 		
 		public function EnemyClawRobot() 
 		{
-			movAtDthAnimList = [new BuilderMoveUnitArt, new BuilderUnitAttackArt, new BuilderUnitDeathArt, new BuilderUnitBuildingArt]; // <== placeholders
+			movAtDthAnimList = [new ClawEnemyWalkAnim, new BuilderUnitAttackArt, new ClawEnemyDeathAnim, new BuilderUnitBuildingArt]; // <== placeholders
 		}
 		override protected function setStats():void 
 		{

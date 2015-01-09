@@ -50,7 +50,7 @@ package towers.towerProjectiles
 		private function calculateCurve():void 
 		{
 			var currentPos : Point = MathFunctions.cubic(startPos, new Point(startPos.x, startPos.y - shootingPower * 2), 
-			new Point(targetPosition.x + targetUnitVelocity.x * totalsteps, targetPosition.y - shootingPower + targetUnitVelocity.y * totalsteps), 
+			new Point(targetPosition.x + targetUnitVelocity.x * totalsteps / 2, targetPosition.y - shootingPower + targetUnitVelocity.y * totalsteps / 2), 
 			new Point(targetPosition.x + targetUnitVelocity.x * totalsteps, targetPosition.y + targetUnitVelocity.y * totalsteps), time);
 			_position = new Vector2D(currentPos.x, currentPos.y);
 			time += 1 / totalsteps;

@@ -27,7 +27,10 @@ package levels
 		//level controll vars
 		private var _spawnsDoneSpawning : int;
 		private var _currentWave : int;
-		protected var _timeUntilNextWave : int = 1000;
+		
+		protected var _timeTillLevelStarts : int = 2000;
+		protected var _timeUntilNextWave : int = 3000;
+		
 		private var timerTillNextWave : Timer;
 		protected var levelStartGold : int;
 		
@@ -59,7 +62,18 @@ package levels
 		public function startLevel(waveInt : int = 1) :void {
 			_game.player.setGoldAmount(levelStartGold);
 			_currentWave = waveInt;
-			spawnWave(waveInt)
+			var timer : Timer = new Timer(_timeTillLevelStarts, 1);
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE, startFirstWave);
+			timer.start();
+		}
+		
+		private function startFirstWave(e:TimerEvent):void 
+		{
+			var timer : Timer = e.target as Timer;
+			timer.stop();
+			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, startFirstWave);
+			
+			spawnWave(_currentWave)
 		}
 		protected function loopLevel():void 
 		{

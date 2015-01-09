@@ -1,5 +1,6 @@
 package units 
 {
+	import events.ShowInfoEvent;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -11,6 +12,7 @@ package units
 	import levels.LevelPlacer;
 	import levels.TileSystem;
 	import pathfinderAStar.grid.AStar;
+	import UI.InfoMenu;
 	import utils.Vector2D;
 	/**
 	 * ...
@@ -201,7 +203,7 @@ package units
 		protected function unitDeath():void 
 		{
 			switchAnim(DEATH_ANIM,1);
-			trace("I'ma dead! Owa No"); // death animation etc etc. Maybe shout out death so tower can count kills.
+			//trace("I'ma dead! Owa No"); // death animation etc etc. Maybe shout out death so tower can count kills.
 		}
 		
 		override protected function AnimationFinishedPlaying():void 
@@ -232,13 +234,14 @@ package units
 		override public function onInteraction():void 
 		{
 			super.onInteraction();
-			trace("See unit info");
+			var event : ShowInfoEvent = new ShowInfoEvent(InfoMenu.SHOW_INFO, ["Health : ", "Attack : ", "View : ", "Speed : "], [_health, attackDmg, viewDistance, _speed], true);
+			dispatchEvent(event);
 			rangeView.setAlpha(0.4);
 		}
 		override public function exitInteraction():void 
 		{
 			super.exitInteraction();
-			trace("Close unit info");
+			dispatchEvent(new Event(InfoMenu.CLOSE_INFO, true));
 			rangeView.setAlpha(0);
 		}
 		
@@ -250,6 +253,11 @@ package units
 		public function get moving():Boolean 
 		{
 			return _moving;
+		}
+		override public function removeObject():void 
+		{
+			dispatchEvent(new Event(InfoMenu.CLOSE_INFO, true));
+			super.removeObject();
 		}
 	}
 }
