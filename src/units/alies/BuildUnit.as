@@ -80,5 +80,4 @@ package units.alies
 			super.removeObject();
 		}
 	}
-
 }

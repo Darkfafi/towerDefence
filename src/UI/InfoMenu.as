@@ -123,6 +123,7 @@ package UI
 				textfield.x -= 180;
 				textfield.y = -80 + (i * 12); 
 				textfield.text = e.textArray[i];
+				textfield.width =  e.textArray[i].length * 5;
 				addChild(textfield);
 				textfield.visible = false;
 				allText.push(textfield);
@@ -133,6 +134,7 @@ package UI
 				textfield.x -= 130;
 				textfield.y = -80 + (i * 12); 
 				textfield.text = e.statsArray[i];
+				textfield.width =  e.textArray[i].length * 5;
 				addChild(textfield);
 				textfield.visible = false;
 				allText.push(textfield);
