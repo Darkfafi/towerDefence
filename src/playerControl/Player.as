@@ -116,7 +116,7 @@ package playerControl
 			newTower.y = yPos + TileSystem.globalTile.height; 
 			world.addChild(newTower);
 			plannedTowerBuild = null;
-			
+			addGoldToPlayer( -newTower.costTower);
 			playerBase.buildConstructUnit(newTower);
 		}	
 		

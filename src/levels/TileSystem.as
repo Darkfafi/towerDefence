@@ -84,7 +84,7 @@ package levels
 		}
 		
 		public static function getPlayerBase() : PlayerBase {
-			trace(playerBase);
+			//trace(playerBase);
 			return playerBase;
 		}
 		

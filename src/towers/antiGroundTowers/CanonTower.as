@@ -22,11 +22,11 @@ package towers.antiGroundTowers
 		}
 		override protected function setStats():void 
 		{
-			_costTower = 120;
+			_costTower = 80;
 			fireRate = 40;
-			attackDmg = 20;
+			attackDmg = 25;
 			bulletSpeed = 6;
-			range = 80;
+			range = 100;
 		}
 		override protected function shoot():void 
 		{

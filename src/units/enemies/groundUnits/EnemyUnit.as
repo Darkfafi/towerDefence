@@ -35,15 +35,17 @@ package units.enemies.groundUnits
 		}
 		override protected function unitDeath():void 
 		{
-			playerBase.addGoldToPlayer(killGoldWorth);
-			_speed = 0;
-			trace(playerBase.gold);
-			super.unitDeath();
+			if(!removing){
+				playerBase.addGoldToPlayer(killGoldWorth);
+				_speed = 0;
+				trace(playerBase.gold);
+				super.unitDeath();
+			}
 		}
 		override protected function lastWaypointReached():void 
 		{
 			super.lastWaypointReached();
-			if (destination.x - this.x < 2 && destination.y - this.y < 2) {
+			if (destination.x - this.x < 1 && destination.y - this.y < 1) {
 				playerBase.loseLife(atBaseDamage);
 				removeObject();
 			}

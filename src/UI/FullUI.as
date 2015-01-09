@@ -34,6 +34,9 @@ package UI
 			infoMenu.x = stage.stageWidth;
 			infoMenu.y = stage.stageHeight;
 			
+			parent.addEventListener(InfoMenu.SHOW_INFO, infoMenu.setInfoText);
+			parent.addEventListener(InfoMenu.CLOSE_INFO, infoMenu.closeInfoText);
+			
 			addChild(constructMenu);
 			addChild(infoMenu);
 		}

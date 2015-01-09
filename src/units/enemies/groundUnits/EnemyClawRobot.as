@@ -18,8 +18,6 @@ package units.enemies.groundUnits
 			attackDmg = 5;
 			viewDistance = 50;
 			_speed = 3;
-		}
-		
+		}	
 	}
-
 }

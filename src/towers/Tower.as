@@ -1,5 +1,6 @@
 package towers 
 {
+	import events.ShowInfoEvent;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -10,6 +11,7 @@ package towers
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
 	import levels.TileSystem;
+	import UI.InfoMenu;
 	import units.Unit;
 	/**
 	 * ...
@@ -137,7 +139,7 @@ package towers
 		protected function drawTower():void 
 		{
 			removeChild(baseTileSize);
-			towerBuildAnim.stop();
+			towerBuildAnim.gotoAndStop(1);
 			addChild(towerBuildAnim);
 		}
 		
@@ -145,12 +147,15 @@ package towers
 		{
 			super.onInteraction();
 			rangeView.setAlpha(0.4);
+			var event : ShowInfoEvent = new ShowInfoEvent(InfoMenu.SHOW_INFO, ["Attack : ", "Range : ", "FireRate : "], [attackDmg, range, fireRate], true);
+			dispatchEvent(event);
 			trace("show info and upgrade stats / cost");
 		}
 		override public function exitInteraction():void 
 		{
 			super.exitInteraction();
 			rangeView.setAlpha(0);
+			dispatchEvent(new Event(InfoMenu.CLOSE_INFO, true));
 			trace("close info and upgrade stats / cost");
 		}
 		protected function startFire() :void {

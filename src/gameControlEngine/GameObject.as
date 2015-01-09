@@ -16,7 +16,7 @@ package gameControlEngine
 		public static const ADDED : String = "addedGameOb";
 		public static const REMOVED : String = "removedGameOb";
 		
-		private var removing : Boolean = false;
+		protected var removing : Boolean = false;
 		
 		public var collidingObjects : Array = [];
 		
