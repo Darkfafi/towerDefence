@@ -1,5 +1,6 @@
 package levels 
 {
+	import events.HudEvent;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -8,6 +9,7 @@ package levels
 	import flash.utils.Timer;
 	import gameControlEngine.GameObject;
 	import screens.GameScreen;
+	import UI.UiGlobalInfo;
 	import units.enemies.groundUnits.EnemyUnit;
 	import units.enemies.SpawnPoint;
 	/**
@@ -94,6 +96,8 @@ package levels
 		}
 		
 		public function spawnWave(waveInt : int):void {
+			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, UiGlobalInfo.WAVE_INFO, waveInt, true);
+			_world.dispatchEvent(hudEvent);
 			for (var i : int = 0; i < _spawnPoints.length; i++) {
 				var spawnPoint : SpawnPoint = _spawnPoints[i] as SpawnPoint;
 				spawnPoint.spawnWave(waveInt);
@@ -169,9 +173,7 @@ package levels
 		{
 			trace("NEXT WAVE");
 			_currentWave += 1;
-			for (var i : int = 0; i < _spawnPoints.length; i++) {
-				_spawnPoints[i].spawnWave(_currentWave);
-			}
+			spawnWave(_currentWave);
 		}
 		
 		public function destroy() :void {

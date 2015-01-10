@@ -1,5 +1,6 @@
 package UI 
 {
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import gameControlEngine.GameObject;
@@ -14,19 +15,20 @@ package UI
 		private var infoMenu : InfoMenu;
 		private var uiGlobalInfo : UiGlobalInfo;
 		
-		public function FullUI() 
+		public function FullUI(game : DisplayObjectContainer) 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
-			
+			uiGlobalInfo = new UiGlobalInfo(game);
 			constructMenu = new ConstructMenu();
 			infoMenu = new InfoMenu();
-			uiGlobalInfo = new UiGlobalInfo();
+		
 		}
 		
 		public function destroy():void 
 		{
 			infoMenu.destroy();
 			constructMenu.destroy();
+			uiGlobalInfo.destroy();
 			
 			parent.removeEventListener(InfoMenu.SHOW_INFO, infoMenu.setInfoText);
 			parent.removeEventListener(InfoMenu.CLOSE_INFO, infoMenu.closeInfoText);

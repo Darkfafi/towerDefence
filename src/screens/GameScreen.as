@@ -56,8 +56,8 @@ package screens
 		private function placeLevel():void 
 		{
 			//chose level from array
+			ui = new FullUI(this);
 			levelPlacer = new LevelPlacer(this);
-			ui = new FullUI();
 			addChild(levelPlacer);
 			var level : Level = levelPlacer.createLevel(0);
 			player = new Player(this);

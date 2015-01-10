@@ -1,5 +1,6 @@
 package playerControl 
 {
+	import events.HudEvent;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.geom.Point;
@@ -7,6 +8,7 @@ package playerControl
 	import gameControlEngine.Tags;
 	import levels.TileSystem;
 	import towers.Tower;
+	import UI.UiGlobalInfo;
 	import units.alies.BuildUnit;
 	import units.enemies.groundUnits.EnemyUnit;
 	import units.Unit;
@@ -20,7 +22,7 @@ package playerControl
 		
 		//stats playerBase
 		private var _gold : int; //word gegeven door level aan begin en later gevult door kills en stuff
-		private var _lives : int = 2;
+		private var _lives : int = 20;
 		
 		//List Of Units
 		private static const BUILD_UNIT_TYPE : String = "buildUnitType";
@@ -31,13 +33,21 @@ package playerControl
 		//De base is waar de enemies op af gaan en als ze er komen verlies je levens. Ook worden via de base all de allied units gemaakt en geplaatst
 		public function PlayerBase(_world : DisplayObjectContainer) 
 		{
+			addEventListener(Event.ADDED_TO_STAGE, init);
 			world = _world;
 			drawBase(); 
+		}
+		
+		private function init(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			sendHudData(UiGlobalInfo.LIVES_INFO, _lives);
 		}
 		
 		public function loseLife(dmg : int):void 
 		{
 			_lives -= dmg;
+			sendHudData(UiGlobalInfo.LIVES_INFO, _lives);
 			if (_lives <= 0) {
 				_lives = 0;
 				trace("GAME LOST. GO TO MENU!");
@@ -75,7 +85,7 @@ package playerControl
 		}
 		
 		public function addGoldToPlayer(goldAmount : int) :void {
-			_gold += goldAmount;
+			gold += goldAmount;
 		}
 		
 		public function get gold():int 
@@ -86,6 +96,13 @@ package playerControl
 		public function set gold(value:int):void 
 		{
 			_gold = value;
+			sendHudData(UiGlobalInfo.GOLD_INFO, _gold);
+		}
+		private function sendHudData(type : String, data : int) :void {
+			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, type, data, true);
+			trace(hudEvent);
+			dispatchEvent(hudEvent);
+			
 		}
 	}
 }

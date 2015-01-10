@@ -1,10 +1,12 @@
 package levels 
 {
+	import events.HudEvent;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
 	import levels.levelList.Level1;
+	import UI.UiGlobalInfo;
 	import units.enemies.groundUnits.EnemyClawRobot;
 	import units.Unit;
 	/**
@@ -45,6 +47,8 @@ package levels
 		public function createLevel(levelInt : int) :Level {
 			tileSystem.placeTiles(allLevelsList[levelInt].levelGrid);
 			currentLevel = levelInt;
+			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, UiGlobalInfo.LEVEL_INFO, currentLevel + 1, true);
+			dispatchEvent(hudEvent);
 			return allLevelsList[levelInt];
 		}
 		
