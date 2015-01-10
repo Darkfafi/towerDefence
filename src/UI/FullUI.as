@@ -12,22 +12,22 @@ package UI
 	{
 		private var constructMenu : ConstructMenu;
 		private var infoMenu : InfoMenu;
+		private var uiGlobalInfo : UiGlobalInfo;
 		
 		public function FullUI() 
 		{
-			//addTag(Tags.POSITION_ON_TOP_TAG);
-			
 			addEventListener(Event.ADDED_TO_STAGE, init);
-			//geef player mee in parameter zodat alle menus erbij kunnen.
 			
 			constructMenu = new ConstructMenu();
 			infoMenu = new InfoMenu();
-			
-			
+			uiGlobalInfo = new UiGlobalInfo();
 		}
 		
 		public function destroy():void 
 		{
+			infoMenu.destroy();
+			constructMenu.destroy();
+			
 			parent.removeEventListener(InfoMenu.SHOW_INFO, infoMenu.setInfoText);
 			parent.removeEventListener(InfoMenu.CLOSE_INFO, infoMenu.closeInfoText);
 		}
@@ -45,6 +45,7 @@ package UI
 			
 			addChild(constructMenu);
 			addChild(infoMenu);
+			addChild(uiGlobalInfo);
 		}
 		
 	}

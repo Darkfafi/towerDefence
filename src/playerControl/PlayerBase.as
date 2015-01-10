@@ -20,7 +20,7 @@ package playerControl
 		
 		//stats playerBase
 		private var _gold : int; //word gegeven door level aan begin en later gevult door kills en stuff
-		private var _lives : int = 20;
+		private var _lives : int = 2;
 		
 		//List Of Units
 		private static const BUILD_UNIT_TYPE : String = "buildUnitType";

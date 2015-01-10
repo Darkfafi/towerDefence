@@ -180,5 +180,9 @@ package UI
 		{
 			return _currentDisplayTarget;
 		}
+		public function destroy():void {
+			removeEventListener(MouseEvent.CLICK, clickedInMenu);
+			removeEventListener(Event.ENTER_FRAME, checkAnim);
+		}
 	}
 }

@@ -81,5 +81,8 @@ package UI
 				switchBuyScreen(UNIT_SCREEN);
 			}
 		}
+		public function destroy() :void {
+			removeEventListener(MouseEvent.CLICK, clickedOnMenu);
+		}
 	}
 }

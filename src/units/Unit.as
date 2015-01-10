@@ -142,7 +142,7 @@ package units
 				y = _position.y;
 			}
 		}
-		public function sell() {
+		public function sell():void {
 			var playerBase : PlayerBase = TileSystem.getPlayerBase();
 			playerBase.addGoldToPlayer(5);
 			removeObject();
