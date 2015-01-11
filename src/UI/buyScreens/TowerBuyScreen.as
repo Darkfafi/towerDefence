@@ -2,6 +2,7 @@ package UI.buyScreens
 {
 	import flash.display.Sprite;
 	import towers.antiGroundTowers.CanonTower;
+	import towers.antiGroundTowers.TeslaTower;
 	import UI.buttons.BuyButton;
 	/**
 	 * ...
@@ -18,11 +19,10 @@ package UI.buyScreens
 		override protected function buttonAssign():void 
 		{
 			super.buttonAssign();
-			for (var i : int = 0; i < 6; i++){
-			var cannonTowerButton : Sprite = new BuyButton(new CanonTowerButton,CanonTower);
-			
-			buttonList.push(cannonTowerButton);
-			}
+			var towerButton : Sprite = new BuyButton(new CanonTowerButton,CanonTower);
+			buttonList.push(towerButton);
+			towerButton = new BuyButton(new TeslaTowerButton , TeslaTower);
+			buttonList.push(towerButton);
 		}
 	}
 }

@@ -13,7 +13,7 @@ package towers.towerProjectiles
 	 */
 	public class Projectile extends GameObject
 	{
-		protected var art : Sprite = new Sprite();
+		protected var art : MovieClip = new MovieClip();
 		
 		protected var damage : int; 
 		protected var speed : int; 

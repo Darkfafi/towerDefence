@@ -45,6 +45,7 @@ package towers
 		private var towerFireArt : MovieClip;
 		
 		//tower stats
+		protected var shootFrame : int = 2;
 		protected var _upgradeCost : int;
 		protected var _costTower : int;
 		
@@ -188,10 +189,17 @@ package towers
 			if (fireRate > 30) {
 				fireSpeed = 30;
 			}else {
-				fireSpeed = 30 + (30 - fireRate);
+				fireSpeed = 30 + (50 - fireRate);
 			}
 			playAnim(towerFireArt, fireSpeed);
-			shoot();
+			
+		}
+		override protected function animationFrameUp():void 
+		{
+			super.animationFrameUp();
+			if (currentMovieClip.currentFrame == shootFrame) {
+				shoot();
+			}
 		}
 		protected function shoot() :void {
 			
