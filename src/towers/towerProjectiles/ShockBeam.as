@@ -28,7 +28,7 @@ package towers.towerProjectiles
 			var diffX : Number = target.x - this.x;
 			var diffY : Number = target.y - this.y;
 			
-			trace(new Vector2D(diffX, diffY).length +" <-- length | X diff -->" + diffX);
+			//trace(new Vector2D(diffX, diffY).length +" <-- length | X diff -->" + diffX);
 			
 			art.scaleX = ((1 / art.width) * Math.abs(new Vector2D(diffX, diffY).length)) * 0.1;
 			var rotInRad : Number = Math.atan2(diffY, diffX);
@@ -36,7 +36,7 @@ package towers.towerProjectiles
 			art.rotation = (rotInRad * (180 / Math.PI));
 			
 			
-			playAnim(art);
+			playAnim(art,60 / art.scaleX);
 		}
 		override protected function AnimationFinishedPlaying():void 
 		{

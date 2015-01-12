@@ -186,10 +186,10 @@ package towers
 			
 			var fireSpeed : int;
 			
-			if (fireRate > 30) {
+			if (fireRate < 30) {
 				fireSpeed = 30;
 			}else {
-				fireSpeed = 30 + (50 - fireRate);
+				fireSpeed = 30 + fireRate * 100;
 			}
 			playAnim(towerFireArt, fireSpeed);
 			
@@ -219,10 +219,10 @@ package towers
 		{
 			var coolDownTime : int;
 			var fireRateCal : int;
-			if (fireRate - 30 < 1) {
-				fireRateCal = 1;
+			if (fireRate < 30) {
+				fireRateCal = 30 - fireRate;
 			}else {
-				fireRateCal = fireRate - 30;
+				fireRateCal = 1;
 			}
 			
 			coolDownTime = (fireRateCal * 50);

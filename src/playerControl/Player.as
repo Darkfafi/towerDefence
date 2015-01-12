@@ -30,6 +30,9 @@ package playerControl
 		private var plannedTowerBuild : Tower = new CanonTower();
 		
 		private var buildModus : Boolean = false;
+		
+		private var priceBar : MovieClip = new PriceTabArt();
+		
 		private var buildTile : Tile = new Tile();
 		
 		private var world : DisplayObjectContainer;
@@ -55,6 +58,33 @@ package playerControl
 					}else {
 						buildTile.negativeTile(); //shows red tile
 					}
+			}else if (e.target.parent is BuyButton && world.contains(priceBar) == false) {
+				var button : BuyButton = e.target.parent as BuyButton;
+				if (button.boughtItem is Tower) {
+					var boughtTower : Tower = button.boughtItem as Tower;
+				}else if (button.boughtItem is Unit) {
+					
+				}
+				priceBar.x = world.mouseX;
+				priceBar.y = world.mouseY;
+				priceBar.addEventListener(Event.ENTER_FRAME, checkAnim);
+				world.addChild(priceBar);
+				priceBar.play();
+			}else if (world.contains(priceBar)) {
+				if (e.target.hitTestPoint(priceBar.x,priceBar.y) == false) {
+					priceBar.gotoAndStop(1);
+					//maak een textfield in de movieclip die je kan vullen.
+					world.removeChild(priceBar);
+					priceBar.removeEventListener(Event.ENTER_FRAME, checkAnim);
+				}
+			}
+		}
+		
+		private function checkAnim(e:Event):void 
+		{
+			if (priceBar.currentFrame == priceBar.totalFrames) {
+				priceBar.removeEventListener(Event.ENTER_FRAME, checkAnim);
+				priceBar.stop();
 			}
 		}
 		
@@ -95,7 +125,7 @@ package playerControl
 					if(playerBase.gold >= boughtTower.costTower){
 						consructMod(boughtTower);
 					}
-					trace("Show tower cost : " + boughtTower.costTower);
+					//trace("Show tower cost : " + boughtTower.costTower);
 				}else if (button.boughtItem is Unit) {
 					//place unit mod thingy
 				}
@@ -130,6 +160,15 @@ package playerControl
 		}
 		public function setGoldAmount(goldAmount : int) :void {
 			playerBase.gold = goldAmount;
+		}
+		
+		public function destroy():void 
+		{
+			world.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
+			world.addEventListener(MouseEvent.CLICK, clicked);
+			if(world.contains(priceBar)){
+				priceBar.removeEventListener(Event.ENTER_FRAME, checkAnim);
+			}
 		}
 	}
 }

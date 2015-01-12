@@ -67,6 +67,7 @@ package screens
 		
 		override public function destroy():void 
 		{
+			player.destroy();
 			gameController.destroy();
 			levelPlacer.destroy();
 			ui.destroy();

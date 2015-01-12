@@ -16,7 +16,7 @@ package levels.levelList
 		}
 		override protected function setLevelInfo():void 
 		{
-			_levelBackGround = new LevelOneBgArt();
+			//_levelBackGround = new LevelOneBgArt(); //als map niet goed is komt er lag
 			_timeTillLevelStarts = 5000;
 			_timeUntilNextWave = 1000;
 			levelStartGold = 200;
@@ -48,6 +48,7 @@ package levels.levelList
 			
 			_spawnPoints[1].wavesToSpawnList = [
 				giveEnemyArray(SpearRobot, 5),
+				null,
 				giveEnemyArray(EnemyClawRobot, 3)
 			];
 		}

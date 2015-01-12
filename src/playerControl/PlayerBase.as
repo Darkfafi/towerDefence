@@ -100,7 +100,6 @@ package playerControl
 		}
 		private function sendHudData(type : String, data : int) :void {
 			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, type, data, true);
-			trace(hudEvent);
 			dispatchEvent(hudEvent);
 			
 		}
