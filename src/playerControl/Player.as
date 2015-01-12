@@ -13,6 +13,7 @@ package playerControl
 	import towers.Tower;
 	import UI.buttons.BuyButton;
 	import UI.buyScreens.BuyMenu;
+	import UI.buyScreens.PriceBar;
 	import UI.ConstructMenu;
 	import UI.InfoMenu;
 	import units.alies.BuildUnit;
@@ -31,7 +32,7 @@ package playerControl
 		
 		private var buildModus : Boolean = false;
 		
-		private var priceBar : MovieClip = new PriceTabArt();
+		private var priceBar : PriceBar;
 		
 		private var buildTile : Tile = new Tile();
 		
@@ -41,6 +42,7 @@ package playerControl
 		{
 			world = _world;
 			playerBase = TileSystem.getPlayerBase();
+			priceBar = new PriceBar();
 			world.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 			world.addEventListener(MouseEvent.CLICK, clicked);
 		}
@@ -58,34 +60,23 @@ package playerControl
 					}else {
 						buildTile.negativeTile(); //shows red tile
 					}
-			}else if (e.target.parent is BuyButton && world.contains(priceBar) == false) {
+			}else if (e.target.parent is BuyButton && priceBar.contains(priceBar.priceBarArt) == false) {
 				var button : BuyButton = e.target.parent as BuyButton;
 				if (button.boughtItem is Tower) {
 					var boughtTower : Tower = button.boughtItem as Tower;
 				}else if (button.boughtItem is Unit) {
 					
 				}
-				priceBar.x = world.mouseX;
-				priceBar.y = world.mouseY;
-				priceBar.addEventListener(Event.ENTER_FRAME, checkAnim);
 				world.addChild(priceBar);
-				priceBar.play();
-			}else if (world.contains(priceBar)) {
-				if (e.target.hitTestPoint(priceBar.x,priceBar.y) == false) {
-					priceBar.gotoAndStop(1);
-					//maak een textfield in de movieclip die je kan vullen.
+				priceBar.showCost(boughtTower.costTower);
+			}else if (priceBar.contains(priceBar.priceBarArt) == true) {
+				if (e.target.hitTestPoint(priceBar.x, priceBar.y) == false) {
 					world.removeChild(priceBar);
-					priceBar.removeEventListener(Event.ENTER_FRAME, checkAnim);
+					priceBar.hide();
 				}
 			}
-		}
-		
-		private function checkAnim(e:Event):void 
-		{
-			if (priceBar.currentFrame == priceBar.totalFrames) {
-				priceBar.removeEventListener(Event.ENTER_FRAME, checkAnim);
-				priceBar.stop();
-			}
+			priceBar.x = world.mouseX + 5;
+			priceBar.y = world.mouseY;
 		}
 		
 		private function clicked(e:MouseEvent):void 
@@ -166,8 +157,8 @@ package playerControl
 		{
 			world.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
 			world.addEventListener(MouseEvent.CLICK, clicked);
-			if(world.contains(priceBar)){
-				priceBar.removeEventListener(Event.ENTER_FRAME, checkAnim);
+			if(priceBar.visible == false){
+				priceBar.hide();
 			}
 		}
 	}

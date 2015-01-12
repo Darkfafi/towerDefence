@@ -19,7 +19,7 @@ package levels.levelList
 			//_levelBackGround = new LevelOneBgArt(); //als map niet goed is komt er lag
 			_timeTillLevelStarts = 5000;
 			_timeUntilNextWave = 1000;
-			levelStartGold = 200;
+			levelStartGold = 240;
 			
 			_levelGrid = [
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

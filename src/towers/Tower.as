@@ -189,7 +189,7 @@ package towers
 			if (fireRate < 30) {
 				fireSpeed = 30;
 			}else {
-				fireSpeed = 30 + fireRate * 100;
+				fireSpeed = 30 + fireRate * 10;
 			}
 			playAnim(towerFireArt, fireSpeed);
 			

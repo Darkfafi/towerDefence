@@ -33,7 +33,7 @@ package gameControlEngine.gameExtraClasses
 		{
 			viewArt.graphics.clear();
 			viewArt.alpha = 0;
-			viewArt.graphics.beginFill(0xFF00FF, 1);
+			viewArt.graphics.beginFill(0x006633, 1);
 			viewArt.graphics.drawCircle(0, 0, range);
 			viewArt.graphics.endFill();
 			setHitBox( -viewArt.width / 2, - viewArt.height / 2, viewArt.width, viewArt.height);

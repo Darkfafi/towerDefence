@@ -24,17 +24,18 @@ package towers.towerProjectiles
 		public function DroppingProjectile(bulletDamage:int, bulletSpeed:int, bulletTarget:Unit,shootPower : Number = 50) 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
-			
 			super(bulletDamage, bulletSpeed, bulletTarget);
-			targetPosition = new Vector2D(bulletTarget.x, bulletTarget.y);
-			
-			targetUnitVelocity = bulletTarget.velocity.cloneVector();
-			
-			var targetUnitMoving : int = bulletTarget.moving == true ? 1 : 0;
-			
-			targetUnitVelocity.multiply(targetUnitMoving);
-			
-			shootingPower = shootPower;
+			if(target != null){
+				targetPosition = new Vector2D(bulletTarget.x, bulletTarget.y);
+				
+				targetUnitVelocity = bulletTarget.velocity.cloneVector();
+				
+				var targetUnitMoving : int = bulletTarget.moving == true ? 1 : 0;
+				
+				targetUnitVelocity.multiply(targetUnitMoving);
+				
+				shootingPower = shootPower;
+			}
 		}
 		
 		private function init(e:Event):void 
