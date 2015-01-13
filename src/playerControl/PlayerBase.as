@@ -22,12 +22,8 @@ package playerControl
 		
 		//stats playerBase
 		private var _gold : int; //word gegeven door level aan begin en later gevult door kills en stuff
-		private var _lives : int = 20;
+		private var _lives : int = 25;
 		
-		//List Of Units
-		private static const BUILD_UNIT_TYPE : String = "buildUnitType";
-		
-		//-----
 		private var world : DisplayObjectContainer;
 		
 		//De base is waar de enemies op af gaan en als ze er komen verlies je levens. Ook worden via de base all de allied units gemaakt en geplaatst
@@ -55,14 +51,10 @@ package playerControl
 			}
 		}
 		
-		public function buildUnit(unitType : String,destination : Point):Unit 
+		public function buildUnit(unitType : Unit,destination : Point):Unit 
 		{
 			var unit : Unit;
-			switch(unitType) {
-				case BUILD_UNIT_TYPE :
-					unit = new BuildUnit();
-				break;
-			}
+			unit = unitType;
 			unit.x = x + width / 2;
 			unit.y = y + height / 2;
 			unit.setDestination(destination.x,destination.y);
@@ -73,7 +65,9 @@ package playerControl
 		
 		public function buildConstructUnit(towerToBuild : Tower):void
 		{
-			var buildUnit : BuildUnit = buildUnit(BUILD_UNIT_TYPE, new Point(towerToBuild.x - TileSystem.globalTile.width / 2, towerToBuild.y  - TileSystem.globalTile.height / 2)) as BuildUnit;
+			var builder : Unit = new BuildUnit();
+			
+			var buildUnit : BuildUnit = buildUnit(builder, new Point(towerToBuild.x - TileSystem.globalTile.width / 2, towerToBuild.y  - TileSystem.globalTile.height / 2)) as BuildUnit;
 			buildUnit.setTowerTarget(towerToBuild);
 		}
 		

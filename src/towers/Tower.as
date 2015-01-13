@@ -75,7 +75,7 @@ package towers
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			setHitBox(-baseTileSize.width / 2, -baseTileSize.height / 2, baseTileSize.width, baseTileSize.height / 2);
+			setHitBox(-baseTileSize.width / 2, -baseTileSize.height, baseTileSize.width, baseTileSize.height);
 			
 		}
 		

@@ -6,6 +6,7 @@ package playerControl
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
 	import levels.TileSystem;
@@ -66,15 +67,17 @@ package playerControl
 					}
 			}else if (e.target.parent is BuyButton && priceBar.contains(priceBar.priceBarArt) == false) {
 				var button : BuyButton = e.target.parent as BuyButton;
-				
 				if (button.boughtItem is Tower) {
 					var boughtTower : Tower = button.boughtItem as Tower;
+					priceBar.showCost(boughtTower.costTower);
 				}else if (button.boughtItem is Unit) {
+					var boughtUnit : Unit = button.boughtItem as Unit;
+					priceBar.showCost(boughtUnit.costUnit);
 					
+					//was bezig met unit placement. Ook worden builders via unbuild towers aangeraden als hun builder dood is.
 				}
-				
 				world.addChild(priceBar);
-				priceBar.showCost(boughtTower.costTower);
+				
 			}else if (priceBar.contains(priceBar.priceBarArt) == true) {
 				if (e.target.hitTestPoint(priceBar.x, priceBar.y) == false) {
 					world.removeChild(priceBar);
@@ -98,11 +101,7 @@ package playerControl
 					if(checkBuildable(1)){
 						buildTower(tile.x, tile.y);
 					}else {
-						if (checkBuildable(5)) {
-							playerBase.buildConstructUnit(e.target.parent as Tower); // ben in dev voor unit script
-						}else{
-							deployUnit(tile.x + tile.x / 2, tile.y + tile.y / 2);
-						}
+						deployUnit(tile.x + tile.width / 2,tile.y + tile.height / 2);
 					}
 				}
 				buildIntArray = [];
@@ -127,24 +126,26 @@ package playerControl
 				var button : BuyButton = e.target.parent as BuyButton;
 				if (button.boughtItem is Tower) {
 					var boughtTower : Tower = button.boughtItem as Tower;
-					//show info always and go in construct mode if you have the moneys
 					if(playerBase.gold >= boughtTower.costTower){
 						consructMod(boughtTower);
 					}
 				}else if (button.boughtItem is Unit) {
 					var boughtUnit : Unit = button.boughtItem as Unit;
-					if (boughtUnit is BuildUnit) {
-						buildIntArray = [5];
-						buildModus = true;
+					if (playerBase.gold >= boughtUnit.costUnit) {
+						deployMod(boughtUnit);
 					}
 					//als het een bouwer is moet tile 5(gebouw) zijn anders moet de tile 2(weg) zijn en niet 6(unit used tile) zijn.
 				}
 			}
 		}
 		
-		private function deployUnit(xPos : int, yPos : int):void 
+		private function deployUnit(posX:int, posY:int):void 
 		{
-			
+			TileSystem.setTileInt(posX, posY, 6);
+			var newUnit : Unit = plannedUnitDeploy;
+			playerBase.buildUnit(newUnit, new Point(posX, posY));
+			plannedUnitDeploy = null;
+			addGoldToPlayer(-newUnit.costUnit);
 		}
 		
 		//if you click on a tower to construct from the build menu then you go to buildmodus.
@@ -152,6 +153,12 @@ package playerControl
 			buildModus = true;
 			buildIntArray = [1];
 			plannedTowerBuild = clickedTower;
+			
+		}
+		private function deployMod(boughtUnit:Unit):void {
+			buildModus = true;
+			buildIntArray = [2];
+			plannedUnitDeploy = boughtUnit;
 			
 		}
 		//sets a tower and creates a builder

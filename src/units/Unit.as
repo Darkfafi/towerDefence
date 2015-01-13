@@ -15,6 +15,7 @@ package units
 	import playerControl.PlayerBase;
 	import UI.HpBar;
 	import UI.InfoMenu;
+	import units.enemies.groundUnits.EnemyUnit;
 	import utils.Vector2D;
 	/**
 	 * ...
@@ -36,6 +37,7 @@ package units
 		//or enemy or destination
 		protected var target : Vector2D = new Vector2D(); //for where to move (target vector to move to)
 		public var targetUnit : Unit = null; //for target unit. Unit to fcus on when seen.
+		public var costUnit : int;
 		
 		//stats
 		protected var _health : int;
@@ -51,6 +53,7 @@ package units
 		public function Unit() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			setStats();
 			addTag(Tags.UPDATE_TAG);
 			addTag(Tags.INTERACTIVE_TAG);
 			addTag(Tags.COLLIDER_TAG);
@@ -60,10 +63,9 @@ package units
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			setStats();
 			_position.x = this.x;
 			_position.y = this.y;
-			setHitBox( -5, -10, 10, 10);
+			setHitBox( -5, -10, 10, 15);
 			addRangeView();
 			
 		}
@@ -129,8 +131,14 @@ package units
 			super.update();
 			setFocusOnTargetUnit();
 			if (_waypointList.length > 0) {
-				target.x = (_waypointList[0].position.x * TileSystem.globalTile.width) + TileSystem.globalTile.width / 2;
-				target.y = (_waypointList[0].position.y * TileSystem.globalTile.height) + TileSystem.globalTile.height / 2;
+				var curWaypoint : Point = new Point((_waypointList[0].position.x * TileSystem.globalTile.width),(_waypointList[0].position.y * TileSystem.globalTile.height));
+				target.x = curWaypoint.x + TileSystem.globalTile.width / 2;
+				target.y = curWaypoint.y + TileSystem.globalTile.height / 2;
+				var tile : Tile = TileSystem.getTileFromPos(new Vector2D(target.x, target.y));
+				if (TileSystem.getTileInt(target.x, target.y) != 2 && TileSystem.getTileInt(target.x, target.y) != 3 && TileSystem.getTileInt(target.x, target.y) != 6) {
+					target.y -=  TileSystem.globalTile.height / 3;
+				}
+				
 			}
 			if(rangeView.seeAbleObjects.length != 0){
 				if (targetUnit != null) {
@@ -160,6 +168,7 @@ package units
 			if (_moving == false && animations[WALK_ANIM].visible == true) {
 				_moving = true;
 			}
+			
 		}
 		
 		protected function whenTargetInViewRange():void 
@@ -213,18 +222,24 @@ package units
 			scaleX = dir;
 		}
 		public function takeDamage(dmg : int) :void {
-			_health -= dmg;
-			if (_health <= 0 && !animations[DEATH_ANIM].visible) {
-				_health = 0;
-				unitDeath();
+			if(animations[DEATH_ANIM].visible == false){
+				_health -= dmg;
+				if (_health <= 0) {
+					_health = 0;
+					unitDeath();
+				}
+				hpBar.scaleBar(_health);
 			}
-			hpBar.scaleBar(_health);
 		}
 		
 		protected function unitDeath():void 
 		{
 			_speed = 0;
-			switchAnim(DEATH_ANIM,1);
+			switchAnim(DEATH_ANIM, 1);
+			if (this is EnemyUnit == false) {
+				var tile : Tile = TileSystem.getTileFromPos(new Vector2D(x, y));
+				TileSystem.setTileInt(tile.x, tile.y, 2);
+			}
 			//trace("I'ma dead! Owa No"); // death animation etc etc. Maybe shout out death so tower can count kills.
 		}
 		
