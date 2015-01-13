@@ -17,8 +17,8 @@ package levels.levelList
 		override protected function setLevelInfo():void 
 		{
 			_levelBackGround = new LevelOneBgArt(); //als map niet goed is komt er lag
-			_timeTillLevelStarts = 5000;
-			_timeUntilNextWave = 1000;
+			_timeTillLevelStarts = 10000;
+			_timeUntilNextWave = 5000;
 			levelStartGold = 240;
 			
 			_levelGrid = [

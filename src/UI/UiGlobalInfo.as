@@ -39,7 +39,7 @@ package UI
 		private function checkSentData(e:HudEvent):void 
 		{
 			var sort : String = e.hudConstInfo;
-			var data : int = e.infoData;
+			var data : String = e.infoData;
 			
 			//als ik dictionary had gebruikt had ik elk textfield zijn eigen sort mee kunnen geven en voor dit all 1 functie te hoeven gebruiken dat door de textfields heen kijkt en degene die gelinkt is met de sort de data krijgt..
 			switch(sort) {
@@ -57,24 +57,24 @@ package UI
 				break;
 			}
 		}
-		private function updateGoldText(data:int):void 
+		private function updateGoldText(data:String):void 
 		{
-			_textGold.changeText("Gold : " + data.toString());
+			_textGold.changeText("Gold : " + data);
 		}
-		private function updateLivesText(data:int):void 
+		private function updateLivesText(data:String):void 
 		{
-			_textLives.changeText("Lives : " + data.toString());
-			if (data < 5) {
+			_textLives.changeText("Lives : " + data);
+			if (int(data) < 5) {
 				_textLives.changeColor(0xff0000);
 			}
 		}
-		private function updateWaveText(data:int):void 
+		private function updateWaveText(data:String):void 
 		{
-			_textWave.changeText("Wave : " + data.toString());
+			_textWave.changeText("Wave : " + data);
 		}
-		private function updateLevelText(data:int):void 
+		private function updateLevelText(data:String):void 
 		{
-			_textLevel.changeText("Level : " + data.toString());
+			_textLevel.changeText("Level : " + data);
 		}
 		private function placeHudItems():void 
 		{

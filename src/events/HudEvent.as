@@ -9,9 +9,9 @@ package events
 	public class HudEvent extends Event 
 	{
 		private var _hudConstInfo : String;
-		private var _infoData : int;
+		private var _infoData : String;
 		
-		public function HudEvent(type:String,hudConstInfo : String,infoData : int, bubbles:Boolean=false, cancelable:Boolean=false) 
+		public function HudEvent(type:String,hudConstInfo : String,infoData : String, bubbles:Boolean=false, cancelable:Boolean=false) 
 		{
 			_hudConstInfo = hudConstInfo;
 			_infoData = infoData;
@@ -25,7 +25,7 @@ package events
 			return _hudConstInfo;
 		}
 		
-		public function get infoData():int 
+		public function get infoData():String 
 		{
 			return _infoData;
 		}

@@ -64,18 +64,22 @@ package levels
 		public function startLevel(waveInt : int = 1) :void {
 			_game.player.setGoldAmount(levelStartGold);
 			_currentWave = waveInt;
-			var timer : Timer = new Timer(_timeTillLevelStarts, 1);
-			timer.addEventListener(TimerEvent.TIMER_COMPLETE, startFirstWave);
+			var timer : Timer = new Timer(1000, _timeTillLevelStarts * 0.001);
+			timer.addEventListener(TimerEvent.TIMER, startFirstWaveCount);
 			timer.start();
 		}
 		
-		private function startFirstWave(e:TimerEvent):void 
+		private function startFirstWaveCount(e:TimerEvent):void 
 		{
 			var timer : Timer = e.target as Timer;
-			timer.stop();
-			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, startFirstWave);
 			
-			spawnWave(_currentWave)
+			sendUIData(UiGlobalInfo.WAVE_INFO, "Incoming in.. " + (timer.repeatCount - timer.currentCount));
+			
+			if(timer.currentCount == timer.repeatCount){
+				timer.stop();
+				timer.removeEventListener(TimerEvent.TIMER, startFirstWaveCount);
+				spawnWave(_currentWave);
+			}
 		}
 		protected function loopLevel():void 
 		{
@@ -96,8 +100,7 @@ package levels
 		}
 		
 		public function spawnWave(waveInt : int):void {
-			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, UiGlobalInfo.WAVE_INFO, waveInt, true);
-			_world.dispatchEvent(hudEvent);
+			sendUIData(UiGlobalInfo.WAVE_INFO, waveInt.toString());
 			for (var i : int = 0; i < _spawnPoints.length; i++) {
 				var spawnPoint : SpawnPoint = _spawnPoints[i] as SpawnPoint;
 				spawnPoint.spawnWave(waveInt);
@@ -132,7 +135,7 @@ package levels
 		private function SpawnPointDoneWithWave(e:Event):void 
 		{
 			_spawnsDoneSpawning ++;
-			trace(_spawnsDoneSpawning);
+			//trace(_spawnsDoneSpawning);
 		}
 		protected function objectRemoved(e:Event):void {
 			if (e.target is EnemyUnit) {
@@ -154,19 +157,23 @@ package levels
 				trace("NEXT LEVEL");
 				//dispatches event so the levelPlacer can remove this level and place the next level.
 			}else {
-				timerTillNextWave = new Timer(_timeUntilNextWave, 1);
-				timerTillNextWave.addEventListener(TimerEvent.TIMER_COMPLETE, nextWaveTimerDone);
+				timerTillNextWave = new Timer(1000, _timeUntilNextWave * 0.001);
+				timerTillNextWave.addEventListener(TimerEvent.TIMER, nextWaveCountDown);
 				timerTillNextWave.start();
 			}
 		}
 		
-		private function nextWaveTimerDone(e:TimerEvent):void 
+		private function nextWaveCountDown(e:TimerEvent):void 
 		{
 			var timer : Timer = e.target as Timer;
-			timer.stop();
-			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, nextWaveTimerDone);
+			sendUIData(UiGlobalInfo.WAVE_INFO, "Seconds left " + (timer.repeatCount - timer.currentCount));
 			
-			startNextWave();
+			if(timer.currentCount == timer.repeatCount){
+				timer.stop();
+				timer.removeEventListener(TimerEvent.TIMER, nextWaveCountDown);
+				startNextWave();
+			}
+			
 		}
 		
 		private function startNextWave():void 
@@ -176,10 +183,15 @@ package levels
 			spawnWave(_currentWave);
 		}
 		
+		private function sendUIData(type : String, data : String) :void {
+			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, type, data, true);
+			_world.dispatchEvent(hudEvent);
+		}
+		
 		public function destroy() :void {
 			_world.removeEventListener(Event.REMOVED_FROM_STAGE, objectRemoved, true);
 			_world.removeEventListener(SpawnPoint.DONE_WAVE, SpawnPointDoneWithWave);
-			timerTillNextWave.removeEventListener(TimerEvent.TIMER_COMPLETE, nextWaveTimerDone);
+			timerTillNextWave.removeEventListener(TimerEvent.TIMER, nextWaveCountDown);
 			timerTillNextWave.stop();
 			
 			for (var i : int = 0; i < _spawnPoints.length; i++) {

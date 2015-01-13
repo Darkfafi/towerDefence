@@ -37,13 +37,13 @@ package playerControl
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			sendHudData(UiGlobalInfo.LIVES_INFO, _lives);
+			sendHudData(UiGlobalInfo.LIVES_INFO, _lives.toString());
 		}
 		
 		public function loseLife(dmg : int):void 
 		{
 			_lives -= dmg;
-			sendHudData(UiGlobalInfo.LIVES_INFO, _lives);
+			sendHudData(UiGlobalInfo.LIVES_INFO, _lives.toString());
 			if (_lives <= 0) {
 				_lives = 0;
 				trace("GAME LOST. GO TO MENU!");
@@ -90,9 +90,9 @@ package playerControl
 		public function set gold(value:int):void 
 		{
 			_gold = value;
-			sendHudData(UiGlobalInfo.GOLD_INFO, _gold);
+			sendHudData(UiGlobalInfo.GOLD_INFO, _gold.toString());
 		}
-		private function sendHudData(type : String, data : int) :void {
+		private function sendHudData(type : String, data : String) :void {
 			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, type, data, true);
 			dispatchEvent(hudEvent);
 			
