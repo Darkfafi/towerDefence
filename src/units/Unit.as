@@ -173,7 +173,7 @@ package units
 			}
 		}
 		
-		private function movement():void 
+		protected function movement():void 
 		{
 			if (!target)
 			{
@@ -197,6 +197,11 @@ package units
 			
 			if (distanceToTarget <= _velocity.length * 1 && _moving) {
 				closeToTarget();
+			}
+			if(_velocity.x < 2){
+				scaleX = 1;
+			}else if (velocity.x > 2) {
+				scaleX = -1;
 			}
 		}
 		public function takeDamage(dmg : int) :void {

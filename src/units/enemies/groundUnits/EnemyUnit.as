@@ -33,6 +33,10 @@ package units.enemies.groundUnits
 			destination = new Point(playerBase.x + playerBase.width / 2, playerBase.y + playerBase.height/ 2);
 			calculateWaypoints(destination);
 		}
+		override protected function movement():void 
+		{
+			super.movement();
+		}
 		override protected function unitDeath():void 
 		{
 			if(!removing){

@@ -28,13 +28,12 @@ package units.alies
 			movAtDthAnimList = [new BuilderWalkAnim, new BuilderUnitAttackArt, new BuilderUnitDeathArt, new BuilderBuildAnim]; // <== placeholders
 			buildSpeed = 1000;
 			buildTimer = new Timer(buildSpeed);
-			rangeView.setSeeAbleObjects([EnemyMeleeUnit]);
 		}
 		
 		override protected function setStats():void 
 		{
 			_health = 50;
-			attackDmg = 2;
+			attackDmg = 0;
 			viewDistance = 50;
 			_speed = 2;
 		}
