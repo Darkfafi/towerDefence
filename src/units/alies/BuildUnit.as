@@ -6,6 +6,7 @@ package units.alies
 	import flash.utils.Timer;
 	import gameControlEngine.GameObject;
 	import towers.Tower;
+	import units.enemies.groundUnits.EnemyMeleeUnit;
 	import units.MeleeUnit;
 	import units.Unit;
 	/**
@@ -27,6 +28,7 @@ package units.alies
 			movAtDthAnimList = [new BuilderWalkAnim, new BuilderUnitAttackArt, new BuilderUnitDeathArt, new BuilderBuildAnim]; // <== placeholders
 			buildSpeed = 1000;
 			buildTimer = new Timer(buildSpeed);
+			rangeView.setSeeAbleObjects([EnemyMeleeUnit]);
 		}
 		
 		override protected function setStats():void 

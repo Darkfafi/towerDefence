@@ -29,7 +29,6 @@ package UI.buyScreens
 			addEventListener(Event.ENTER_FRAME, checkAnim);
 			
 			addChild(_priceBarArt);
-			trace("fdsffsd");
 		}
 		
 		public function hide():void 

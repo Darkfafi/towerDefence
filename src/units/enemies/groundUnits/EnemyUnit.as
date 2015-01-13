@@ -30,22 +30,20 @@ package units.enemies.groundUnits
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			playerBase = TileSystem.getPlayerBase();
-			destination = new Point(playerBase.x, playerBase.y);
+			destination = new Point(playerBase.x + playerBase.width / 2, playerBase.y + playerBase.height/ 2);
 			calculateWaypoints(destination);
 		}
 		override protected function unitDeath():void 
 		{
 			if(!removing){
 				playerBase.addGoldToPlayer(killGoldWorth);
-				_speed = 0;
-				trace(playerBase.gold);
 				super.unitDeath();
 			}
 		}
 		override protected function lastWaypointReached():void 
 		{
 			super.lastWaypointReached();
-			if (destination.x - this.x < 1 && destination.y - this.y < 1) {
+			if (this.x - destination.x < 1 && this.y - destination.y < 1) {
 				playerBase.loseLife(atBaseDamage);
 				removeObject();
 			}

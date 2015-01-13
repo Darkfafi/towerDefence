@@ -1,16 +1,15 @@
-package units 
+package units.enemies.groundUnits 
 {
 	import flash.geom.Point;
-	import units.enemies.groundUnits.EnemyMeleeUnit;
 	/**
 	 * ...
 	 * @author Ramses di Perna
 	 */
-	public class MeleeUnit extends Unit 
+	public class EnemyMeleeUnit extends EnemyUnit 
 	{
 		protected var _dmgFrame : int = 2;
 		
-		public function MeleeUnit() 
+		public function EnemyMeleeUnit() 
 		{
 			super();
 			
@@ -19,7 +18,7 @@ package units
 		{
 			super.whenTargetInViewRange();
 			if(animations[DEATH_ANIM].visible != true){
-				if (targetUnit.moving && targetUnit.targetUnit == this as MeleeUnit /*en type is niet ranged...Anders kan je best lang wachten*/) {
+				if (targetUnit.moving && targetUnit.targetUnit == this as EnemyMeleeUnit /*en type is niet ranged...Anders kan je best lang wachten*/) {
 					_moving = false;
 				}else if(animations[ATTACK_ANIM].visible == false) {
 					_moving = true;
@@ -50,5 +49,5 @@ package units
 			}
 			super.AnimationFinishedPlaying();
 		}
-	}	
+	}
 }

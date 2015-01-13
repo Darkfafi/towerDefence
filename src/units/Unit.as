@@ -207,6 +207,7 @@ package units
 		
 		protected function unitDeath():void 
 		{
+			_speed = 0;
 			switchAnim(DEATH_ANIM,1);
 			//trace("I'ma dead! Owa No"); // death animation etc etc. Maybe shout out death so tower can count kills.
 		}

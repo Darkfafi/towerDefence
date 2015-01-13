@@ -4,7 +4,7 @@ package units.enemies.groundUnits
 	 * ...
 	 * @author Ramses di Perna
 	 */
-	public class SpearRobot extends EnemyUnit 
+	public class SpearRobot extends EnemyMeleeUnit 
 	{
 		
 		public function SpearRobot() 
