@@ -1,6 +1,7 @@
 package units.enemies.groundUnits 
 {
 	import flash.geom.Point;
+	import gameControlEngine.GameObject;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -24,8 +25,13 @@ package units.enemies.groundUnits
 					_moving = true;
 				}
 				calculateWaypoints(new Point(targetUnit.x, targetUnit.y));
-				 
-				if (this.x - targetUnit.x < 1 && this.y - targetUnit.y < 1 && animations[ATTACK_ANIM].visible == false) {
+			}	
+		}
+		override public function onCollision(other:GameObject):void 
+		{
+			super.onCollision(other);
+			if(other == targetUnit){
+				if(animations[ATTACK_ANIM].visible == false && animations[DEATH_ANIM].visible == false) {
 					_moving = false;
 					switchAnim(ATTACK_ANIM, 1);
 				}
@@ -34,7 +40,7 @@ package units.enemies.groundUnits
 		override protected function animationFrameUp():void 
 		{
 			super.animationFrameUp();
-			if(currentMovieClip == animations[ATTACK_ANIM]){
+			if(animations[ATTACK_ANIM].visible == true){
 				if(targetUnit != null){
 					if (currentMovieClip.currentFrame == _dmgFrame) {
 						targetUnit.takeDamage(attackDmg);

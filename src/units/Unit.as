@@ -149,10 +149,12 @@ package units
 		}
 		protected function noTargetInViewRange():void 
 		{
-			if (!_moving) {
+			if(_waypointList.length == 0){
+				calculateWaypoints(destination);
+			}
+			if (_moving == false && animations[WALK_ANIM].visible == true) {
 				_moving = true;
 			}
-			calculateWaypoints(destination);
 		}
 		
 		protected function whenTargetInViewRange():void 
@@ -193,7 +195,7 @@ package units
 			
 			_velocity.add(steeringForce);
 			
-			if (distanceToTarget <= _velocity.length * 1) {
+			if (distanceToTarget <= _velocity.length * 1 && _moving) {
 				closeToTarget();
 			}
 		}
@@ -215,7 +217,7 @@ package units
 		override protected function AnimationFinishedPlaying():void 
 		{
 			super.AnimationFinishedPlaying();
-			if (animations[DEATH_ANIM].visible) {
+			if (animations[DEATH_ANIM].visible == true) {
 				removeObject();
 			}
 		}

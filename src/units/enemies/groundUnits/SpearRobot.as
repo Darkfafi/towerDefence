@@ -17,7 +17,7 @@ package units.enemies.groundUnits
 			_health = 25;
 			attackDmg = 3;
 			viewDistance = 60;
-			_speed = 4.5;
+			_speed = 2;
 		}	
 	}
 

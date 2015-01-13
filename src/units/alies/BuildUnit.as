@@ -77,9 +77,11 @@ package units.alies
 		
 		override public function removeObject():void 
 		{
-			buildTimer.removeEventListener(TimerEvent.TIMER, buildStageTik);
-			stage.removeEventListener(Tower.TOWER_BUILD, towerDone);
-			super.removeObject();
+			if(!removing){
+				buildTimer.removeEventListener(TimerEvent.TIMER, buildStageTik);
+				stage.removeEventListener(Tower.TOWER_BUILD, towerDone);
+				super.removeObject();
+			}
 		}
 	}
 }
