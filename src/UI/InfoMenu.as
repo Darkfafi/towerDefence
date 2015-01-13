@@ -60,9 +60,9 @@ package UI
 			}else if (_currentDisplayTarget is Unit && _currentDisplayTarget is EnemyUnit == false) {
 				var unit : Unit = _currentDisplayTarget as Unit;
 				if (e.target == upgradeButton) {
-					trace("UPGRADE " + unit);
+					//trace("UPGRADE " + unit);
 				}else if (e.target == sellButton){
-					unit.sell();
+					//unit.sell();
 				}	
 			}
 		}

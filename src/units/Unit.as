@@ -65,11 +65,10 @@ package units
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			_position.x = this.x;
 			_position.y = this.y;
-			setHitBox( -5, -10, 10, 15);
+			setHitBox( -5, -15, 10, 25);
 			addRangeView();
 			
-		}
-		
+		}	
 		private function addRangeView():void 
 		{
 			addChild(rangeView);
@@ -155,11 +154,13 @@ package units
 				y = _position.y;
 			}
 		}
+		/*
 		public function sell():void {
 			var playerBase : PlayerBase = TileSystem.getPlayerBase();
 			playerBase.addGoldToPlayer(5);
 			removeObject();
 		}
+		*/
 		protected function noTargetInViewRange():void 
 		{
 			if(_waypointList.length == 0){

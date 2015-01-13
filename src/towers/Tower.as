@@ -13,6 +13,7 @@ package towers
 	import levels.TileSystem;
 	import playerControl.PlayerBase;
 	import UI.InfoMenu;
+	import units.alies.BuildUnit;
 	import units.Unit;
 	import utils.Vector2D;
 	/**
@@ -53,6 +54,9 @@ package towers
 		protected var fireRate : int;
 		protected var bulletSpeed : int;
 		protected var attackDmg : int;
+		
+		//
+		private var needBuilderSign : MovieClip = new BuilderWalkAnim();
 		
 		//build tower with timer. Every timer event it changes art in building with gotoAndStop.
 		public function Tower() 
@@ -170,6 +174,15 @@ package towers
 		override public function onInteraction():void 
 		{
 			super.onInteraction();
+			if (contains(needBuilderSign)) {
+				var playerBase : PlayerBase = TileSystem.getPlayerBase();
+				var builder : BuildUnit = new BuildUnit();
+				if (playerBase.gold >= builder.costUnit) {
+					playerBase.addGoldToPlayer(-builder.costUnit);
+					playerBase.buildConstructUnit(this);
+					removeChild(needBuilderSign);
+				}
+			}
 			rangeView.setAlpha(0.4);
 			var event : ShowInfoEvent = new ShowInfoEvent(InfoMenu.SHOW_INFO, ["Attack : ", "Range : ", "FireRate : "], [attackDmg, range, fireRate], true);
 			dispatchEvent(event);
@@ -252,6 +265,14 @@ package towers
 		{
 			currentTarget = null;
 			super.destroy();
+		}
+		
+		public function lostBuilder():void 
+		{
+			if (contains(towerBuildAnim)) {
+				addChild(needBuilderSign);
+				needBuilderSign.y = -20;
+			}
 		}
 	}
 }
