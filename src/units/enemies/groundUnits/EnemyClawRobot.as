@@ -12,6 +12,7 @@ package units.enemies.groundUnits
 		public function EnemyClawRobot() 
 		{
 			movAtDthAnimList = [new ClawEnemyWalkAnim, new BuilderUnitAttackArt, new ClawEnemyDeathAnim, new BuilderUnitBuildingArt]; // <== placeholders
+			rangeView.setSeeAbleObjects([MeleeUnit]);
 		}
 		override protected function setStats():void 
 		{
