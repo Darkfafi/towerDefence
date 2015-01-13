@@ -44,6 +44,10 @@ package units.enemies.groundUnits
 				super.unitDeath();
 			}
 		}
+		override protected function turnArt(dir:int):void 
+		{
+			super.turnArt(dir * -1);
+		}
 		override protected function lastWaypointReached():void 
 		{
 			super.lastWaypointReached();

@@ -17,11 +17,11 @@ package UI
 			_maxHp = hp;
 			
 			backBar.graphics.beginFill(0xFF2222,0.7);
-			backBar.graphics.drawRect(0, 0, 40, 5);
+			backBar.graphics.drawRect(0, 0, 30, 3);
 			backBar.graphics.endFill();
 			
 			barArt.graphics.beginFill(0x00FF00);
-			barArt.graphics.drawRect(0, 0, 40, 5);
+			barArt.graphics.drawRect(0, 0, 30, 3);
 			barArt.graphics.endFill();
 			
 			scaleBar(_maxHp);

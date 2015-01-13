@@ -82,6 +82,7 @@ package units
 		{
 			
 			hpBar = new HpBar(_health);
+			hpBar.y += 3;
 			addChild(hpBar);
 		}
 		override protected function drawHitBoxObjectArt():void 
@@ -202,11 +203,14 @@ package units
 			if (distanceToTarget <= _velocity.length * 1 && _moving) {
 				closeToTarget();
 			}
-			if(_velocity.x < 2){
-				scaleX = 1;
-			}else if (velocity.x > 2) {
-				scaleX = -1;
+			if(_velocity.x < -1){
+				turnArt(-1);
+			}else if (velocity.x > 1) {
+				turnArt(1)
 			}
+		}
+		protected function turnArt(dir : int) :void {
+			scaleX = dir;
 		}
 		public function takeDamage(dmg : int) :void {
 			_health -= dmg;

@@ -13,7 +13,7 @@ package units.alies
 	 * ...
 	 * @author Ramses di Perna
 	 */
-	public class BuildUnit extends MeleeUnit
+	public class BuildUnit extends MeleeUnit //mag geen buildunit meer zijn.
 	{
 		protected const BUILD_ANIM : int = 3;
 		
@@ -35,7 +35,7 @@ package units.alies
 			_health = 50;
 			attackDmg = 0;
 			viewDistance = 50;
-			_speed = 2;
+			_speed = 3;
 			super.setStats();
 		}
 		
