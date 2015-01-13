@@ -13,6 +13,7 @@ package units
 	import levels.TileSystem;
 	import pathfinderAStar.grid.AStar;
 	import playerControl.PlayerBase;
+	import UI.HpBar;
 	import UI.InfoMenu;
 	import utils.Vector2D;
 	/**
@@ -21,6 +22,7 @@ package units
 	 */
 	public class Unit extends WatchingObject
 	{
+		private var hpBar : HpBar;
 		protected const WALK_ANIM : int = 0;
 		protected const ATTACK_ANIM : int = 1;
 		protected const DEATH_ANIM : int = 2;
@@ -79,6 +81,8 @@ package units
 		protected function setStats():void 
 		{
 			
+			hpBar = new HpBar(_health);
+			addChild(hpBar);
 		}
 		override protected function drawHitBoxObjectArt():void 
 		{
@@ -210,6 +214,7 @@ package units
 				_health = 0;
 				unitDeath();
 			}
+			hpBar.scaleBar(_health);
 		}
 		
 		protected function unitDeath():void 

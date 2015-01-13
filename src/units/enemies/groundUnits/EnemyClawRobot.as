@@ -21,6 +21,7 @@ package units.enemies.groundUnits
 			attackDmg = 10;
 			viewDistance = 50;
 			_speed = 3;
+			super.setStats();
 		}	
 	}
 }

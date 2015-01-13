@@ -36,6 +36,7 @@ package units.alies
 			attackDmg = 0;
 			viewDistance = 50;
 			_speed = 2;
+			super.setStats();
 		}
 		
 		private function init(e:Event):void 
