@@ -16,20 +16,30 @@ package towers.antiGroundTowers
 		{
 			super();
 			towerBuildAnim = new TeslaTowerBuildUpArt();
-			allTowerArt = [new TeslaTowerIdle];
-			allFireAnim = [new TeslaTowerShootArt];
-			allProjectiles = [ElectricBeam];
+			allTowerArt = [new TeslaTowerIdle1,new TeslaTowerIdle2, new TeslaTowerIdle3];
+			allFireAnim = [new TeslaTowerShoot1, new TeslaTowerShoot2, new TeslaTowerShoot3];
+			allProjectiles = [ElectricBeam1,ElectricBeam2,ElectricBeam3];
 			
 			rangeView.setSeeAbleObjects([EnemyUnit]);
 		}
 		override protected function setStats():void 
 		{
-			_costTower = 80;
+			_costTower = 60;
+			_upgradeCost = 70;
+			
 			shootFrame = 50;
 			fireRate = 30;
-			attackDmg = 50;
+			attackDmg = 20;
 			bulletSpeed = 8;
-			range = 150;
+			range = 110;
+		}
+		override public function upgrade():void 
+		{
+			super.upgrade();
+			
+			fireRate += 10;
+			attackDmg += 15;
+			changeRange(range + 10);
 		}
 		override protected function shoot():void 
 		{

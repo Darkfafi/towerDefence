@@ -120,7 +120,6 @@ package playerControl
 					}
 				}
 			}
-			
 			//checks if clicked object is a buy button
 			else if (e.target.parent is BuyButton) {
 				var button : BuyButton = e.target.parent as BuyButton;
@@ -134,7 +133,6 @@ package playerControl
 					if (playerBase.gold >= boughtUnit.costUnit) {
 						deployMod(boughtUnit);
 					}
-					//als het een bouwer is moet tile 5(gebouw) zijn anders moet de tile 2(weg) zijn en niet 6(unit used tile) zijn.
 				}
 			}
 		}
@@ -167,7 +165,7 @@ package playerControl
 			TileSystem.setTileInt(xPos, yPos, 5);
 			var newTower : Tower = plannedTowerBuild;
 			newTower.x = xPos + TileSystem.globalTile.width / 2;
-			newTower.y = yPos + TileSystem.globalTile.height; 
+			newTower.y = yPos + TileSystem.globalTile.height - 10; 
 			world.addChild(newTower);
 			plannedTowerBuild = null;
 			addGoldToPlayer( -newTower.costTower);

@@ -9,6 +9,7 @@ package UI
 	import flash.text.TextField;
 	import gameControlEngine.GameObject;
 	import levels.TileSystem;
+	import playerControl.PlayerBase;
 	import towers.Tower;
 	import units.enemies.groundUnits.EnemyUnit;
 	import units.Unit;
@@ -52,8 +53,11 @@ package UI
 			if (_currentDisplayTarget is Tower) {
 				var tower : Tower = _currentDisplayTarget as Tower;
 				if (e.target == upgradeButton) {
-					trace("UPGRADE " + tower);
-					tower.upgrade();
+					var playerBase : PlayerBase = TileSystem.getPlayerBase();
+					if (playerBase.gold >= tower.upgradeCost) {
+						playerBase.addGoldToPlayer( -tower.upgradeCost);
+						tower.upgrade();
+					}
 				}else if (e.target == sellButton){
 					tower.sell();
 				}	
@@ -70,7 +74,7 @@ package UI
 		private function placeButtons():void 
 		{
 			//als je probeerd te upgraden terwijl je er op heb gedrukt zonder te bouwen of het op max zit dan laat dat zien op scherm met "Max upgraded" if "Error : Can't upgrade N.a.P.T."	
-			upgradeButton.x = sellButton.x -= 30;
+			upgradeButton.x = sellButton.x -= 40;
 			
 			upgradeButton.y -= 60;
 			sellButton.y -= 10;
@@ -86,7 +90,7 @@ package UI
 			
 			for (var i : int = 0; i < screenArtList.length; i++) {
 				var screen : MovieClip = screenArtList[i] as MovieClip;
-				screen.x -= screen.width / 2 + 73;
+				screen.x -= screen.width / 2 + 77;
 				screen.y -= 7;
 				addChild(screen);
 				screenArtList[i] = screen;
@@ -121,7 +125,7 @@ package UI
 				textfield = new TextField();
 				textfield.selectable = false;
 				textfield.x -= 180;
-				textfield.y = -80 + (i * 12); 
+				textfield.y = -80 + (i * 13); 
 				textfield.text = e.textArray[i];
 				textfield.width =  e.textArray[i].length * 5;
 				addChild(textfield);
@@ -131,8 +135,8 @@ package UI
 			for (i = 0; i < e.statsArray.length; i++ ) {
 				textfield = new TextField();
 				textfield.selectable = false;
-				textfield.x -= 130;
-				textfield.y = -80 + (i * 12); 
+				textfield.x -= 115;
+				textfield.y = -80 + (i * 13); 
 				textfield.text = e.statsArray[i];
 				textfield.width =  e.textArray[i].length * 5;
 				addChild(textfield);

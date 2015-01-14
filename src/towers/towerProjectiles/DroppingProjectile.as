@@ -21,10 +21,17 @@ package towers.towerProjectiles
 		private var shootingPower : Number;
 		private var totalsteps : Number;
 		
-		public function DroppingProjectile(bulletDamage:int, bulletSpeed:int, bulletTarget:Unit,shootPower : Number = 50) 
+		private var explosionRadius : int;
+		
+		//private var allExplosions : Array = [];
+		
+		public function DroppingProjectile(bulletDamage:int, bulletSpeed:int, bulletTarget:Unit,shootPower : Number = 50,explRadius : int = 40) 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			super(bulletDamage, bulletSpeed, bulletTarget);
+			
+			explosionRadius = explRadius;
+			
 			if(target != null){
 				targetPosition = new Vector2D(bulletTarget.x, bulletTarget.y);
 				
@@ -51,8 +58,8 @@ package towers.towerProjectiles
 		private function calculateCurve():void 
 		{
 			var currentPos : Point = MathFunctions.cubic(startPos, new Point(startPos.x, startPos.y - shootingPower * 2), 
-			new Point(targetPosition.x + targetUnitVelocity.x * totalsteps / 2, targetPosition.y - shootingPower + targetUnitVelocity.y * totalsteps / 2), 
-			new Point(targetPosition.x + targetUnitVelocity.x * totalsteps, targetPosition.y + targetUnitVelocity.y * totalsteps), time);
+			new Point(targetPosition.x + targetUnitVelocity.x * totalsteps, targetPosition.y - shootingPower + targetUnitVelocity.y * totalsteps), 
+			new Point(targetPosition.x + targetUnitVelocity.x * (totalsteps/ 3), targetPosition.y + targetUnitVelocity.y * (totalsteps/3)), time);
 			_position = new Vector2D(currentPos.x, currentPos.y);
 			time += 1 / totalsteps;
 		}
@@ -75,7 +82,7 @@ package towers.towerProjectiles
 		{
 			//target.takeDamage(damage); // test. Moet met explosie alles wat de explosie raakt via hit array ofzo
 			var artEx : MovieClip = new CanonBallExpl1Anim();
-			var explosion : Explosion = new Explosion(CanonBallExpl1Anim, 100, damage);
+			var explosion : Explosion = new Explosion(CanonBallExpl1Anim, explosionRadius, damage);
 			
 			explosion.x = x;
 			explosion.y = y;

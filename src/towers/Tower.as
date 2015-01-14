@@ -156,20 +156,24 @@ package towers
 		}
 		public function upgrade() :void {
 			if(contains(towerBuildAnim) == false && allTowerArt[currentArtInt + 1] is MovieClip){
+				_upgradeCost += _upgradeCost / 2;
 				changeTowerArt(currentArtInt + 1);
 			}else if(contains(towerBuildAnim)) {
 				trace("Can't upgrade unfinished tower");
 			}else {
 				trace("Max upgrades");
 			}
+			dispatchEvent(new Event(InfoMenu.CLOSE_INFO, true));
 		}
 		
 		public function sell() :void {
-			var playerBase : PlayerBase = TileSystem.getPlayerBase();
-			playerBase.addGoldToPlayer((_costTower + (currentArtInt * _upgradeCost)) / 2);
-			var tile : Tile = TileSystem.getTileFromPos(new Vector2D(x, y));
-			TileSystem.setTileInt(x,y- TileSystem.globalTile.height, 1);
-			removeObject();
+			if(contains(towerBuildAnim) == false){
+				var playerBase : PlayerBase = TileSystem.getPlayerBase();
+				playerBase.addGoldToPlayer((_costTower + (currentArtInt * (_upgradeCost/2))) / 2);
+				var tile : Tile = TileSystem.getTileFromPos(new Vector2D(x, y));
+				TileSystem.setTileInt(x,y- TileSystem.globalTile.height, 1);
+				removeObject();
+			}
 		}
 		
 		override public function onInteraction():void 
@@ -185,7 +189,7 @@ package towers
 				}
 			}
 			rangeView.setAlpha(0.4);
-			var event : ShowInfoEvent = new ShowInfoEvent(InfoMenu.SHOW_INFO, ["Attack : ", "Range : ", "FireRate : "], [attackDmg, range, fireRate], true);
+			var event : ShowInfoEvent = new ShowInfoEvent(InfoMenu.SHOW_INFO, ["Attack : ", "Range : ", "FireRate : ", "$Upgrade$ : "], [attackDmg, range, fireRate,upgradeCost], true);
 			dispatchEvent(event);
 		}
 		override public function exitInteraction():void 
@@ -261,6 +265,11 @@ package towers
 		public function get costTower():int 
 		{
 			return _costTower;
+		}
+		
+		public function get upgradeCost():int 
+		{
+			return _upgradeCost;
 		}
 		override public function destroy():void 
 		{

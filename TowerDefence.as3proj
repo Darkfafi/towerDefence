@@ -55,6 +55,7 @@
     <element path="bin\placeholders.swc" />
     <element path="bin\HERSTEL_assets_3.swc" />
     <element path="bin\assets_5.swc" />
+    <element path="bin\assets_56.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

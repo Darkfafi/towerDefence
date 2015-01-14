@@ -23,6 +23,7 @@ package levels.levelList
 			
 			_levelGrid = [
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
 				[0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1],
 				[0, 0, 0, 0, 0, 1, 2, 2, 1, 1, 2, 1],
@@ -32,7 +33,6 @@ package levels.levelList
 				[0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 1],
 				[0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 			];
 		}
@@ -41,15 +41,19 @@ package levels.levelList
 			_world.addChild(_levelBackGround);
 			
 			_spawnPoints[0].wavesToSpawnList = [
-				giveEnemyArray(EnemyClawRobot, 5),
 				giveEnemyArray(EnemyClawRobot, 3),
-				giveEnemyArray(EnemyClawRobot, 10)
+				giveEnemyArray(EnemyClawRobot, 5),
+				giveEnemyArray(EnemyClawRobot, 4),
+				giveEnemyArray(EnemyClawRobot, 5),
+				giveEnemyArray(SpearRobot, 7)
 			];
 			
 			_spawnPoints[1].wavesToSpawnList = [
-				giveEnemyArray(SpearRobot, 5),
 				null,
-				giveEnemyArray(EnemyClawRobot, 3)
+				null,
+				giveEnemyArray(SpearRobot, 3),
+				giveEnemyArray(SpearRobot, 5),
+				giveEnemyArray(EnemyClawRobot, 6)
 			];
 		}
 		

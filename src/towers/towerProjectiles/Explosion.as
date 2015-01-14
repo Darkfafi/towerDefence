@@ -50,7 +50,7 @@ package towers.towerProjectiles
 		private function explosion():void 
 		{
 			var l : int = targetObjects.length;
-			trace(targetObjects);
+			
 			for (var i : int = l - 1; i >= 0; i--) {
 				if (targetObjects[i] is EnemyUnit) {
 					var enemy : EnemyUnit = targetObjects[i] as EnemyUnit;
@@ -61,7 +61,7 @@ package towers.towerProjectiles
 		override protected function animationFrameUp():void 
 		{
 			super.animationFrameUp();
-			if (currentMovieClip.currentFrame == currentMovieClip.totalFrames / 2) {
+			if (currentMovieClip.currentFrame == Math.round(currentMovieClip.totalFrames / 2)) {
 				explosion();
 			}
 		}
