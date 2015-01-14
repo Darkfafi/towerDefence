@@ -2,8 +2,10 @@ package towers
 {
 	import events.ShowInfoEvent;
 	import flash.display.MovieClip;
+	import flash.display.SimpleButton;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import gameControlEngine.gameExtraClasses.RangeView;
@@ -57,7 +59,7 @@ package towers
 		protected var attackDmg : int;
 		
 		//
-		private var needBuilderSign : MovieClip = new BuilderWalkAnim();
+		private var needBuilderSign : SimpleButton = new BuyBuilderButton();
 		
 		//build tower with timer. Every timer event it changes art in building with gotoAndStop.
 		public function Tower() 
@@ -179,15 +181,7 @@ package towers
 		override public function onInteraction():void 
 		{
 			super.onInteraction();
-			if (contains(needBuilderSign)) {
-				var playerBase : PlayerBase = TileSystem.getPlayerBase();
-				var builder : BuildUnit = new BuildUnit();
-				if (playerBase.gold >= builder.costUnit) {
-					playerBase.addGoldToPlayer(-builder.costUnit);
-					playerBase.buildConstructUnit(this);
-					removeChild(needBuilderSign);
-				}
-			}
+			
 			rangeView.setAlpha(0.4);
 			var event : ShowInfoEvent = new ShowInfoEvent(InfoMenu.SHOW_INFO, ["Attack : ", "Range : ", "FireRate : ", "$Upgrade$ : "], [attackDmg, range, fireRate,upgradeCost], true);
 			dispatchEvent(event);
@@ -281,7 +275,21 @@ package towers
 		{
 			if (contains(towerBuildAnim)) {
 				addChild(needBuilderSign);
-				needBuilderSign.y = -20;
+				needBuilderSign.addEventListener(MouseEvent.CLICK, askForBuilder);
+				needBuilderSign.x = -needBuilderSign.width / 2;
+				needBuilderSign.y = -60;
+			}
+		}
+		
+		private function askForBuilder(e:MouseEvent):void 
+		{
+			var playerBase : PlayerBase = TileSystem.getPlayerBase();
+			var builder : BuildUnit = new BuildUnit();
+			if (playerBase.gold >= builder.costUnit) {
+				playerBase.addGoldToPlayer(-builder.costUnit);
+				playerBase.buildConstructUnit(this);
+				removeChild(needBuilderSign);
+				needBuilderSign.removeEventListener(MouseEvent.CLICK, askForBuilder);
 			}
 		}
 	}

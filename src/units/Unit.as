@@ -66,7 +66,7 @@ package units
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			_position.x = this.x;
 			_position.y = this.y;
-			setHitBox( -5, -20, 10, 20);
+			setHitBox( -20, -20, 25, 20);
 			addRangeView();
 			
 		}	

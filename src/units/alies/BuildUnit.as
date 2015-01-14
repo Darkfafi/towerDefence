@@ -25,7 +25,7 @@ package units.alies
 		public function BuildUnit() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
-			movAtDthAnimList = [new BuilderWalkAnim, new BuilderUnitAttackArt, new BuilderUnitDeathArt, new BuilderBuildAnim]; // <== placeholders
+			movAtDthAnimList = [new BuilderWalkAnim, new BuilderUnitAttackArt, new BuilderDeathAnim, new BuilderBuildAnim]; // <== placeholders
 			buildSpeed = 1000;
 			buildTimer = new Timer(buildSpeed);
 		}

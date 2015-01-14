@@ -52,7 +52,7 @@ package towers.towerProjectiles
 		{
 			var explosion : Explosion = new Explosion(CanonBallExpl1Anim, explosionRadius, damage);
 			
-			//explosion.visible = false;
+			explosion.visible = false;
 			
 			explosion.x = x;
 			explosion.y = y;
