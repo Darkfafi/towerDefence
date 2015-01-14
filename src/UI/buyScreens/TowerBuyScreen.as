@@ -2,6 +2,7 @@ package UI.buyScreens
 {
 	import flash.display.Sprite;
 	import towers.antiGroundTowers.CanonTower;
+	import towers.antiGroundTowers.SkyLaserTower;
 	import towers.antiGroundTowers.TeslaTower;
 	import UI.buttons.BuyButton;
 	/**
@@ -22,6 +23,8 @@ package UI.buyScreens
 			var towerButton : Sprite = new BuyButton(new CanonTowerButton,CanonTower);
 			buttonList.push(towerButton);
 			towerButton = new BuyButton(new TeslaTowerButton , TeslaTower);
+			buttonList.push(towerButton);
+			towerButton = new BuyButton(new TeslaTowerButton, SkyLaserTower);
 			buttonList.push(towerButton);
 		}
 	}

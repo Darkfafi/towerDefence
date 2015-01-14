@@ -25,11 +25,14 @@ package towers.towerProjectiles
 			var diffX : Number = target.x - this.x;
 			var diffY : Number = target.y - this.y;
 			
-			art.scaleX = ((1 / art.width) * Math.abs(new Vector2D(diffX, diffY).length) * 0.1);
+			art.gotoAndStop(art.totalFrames);
+			
+			art.scaleX = ((1 / art.width) * Math.abs(new Vector2D(diffX, diffY).length) * 1);
 			var rotInRad : Number = Math.atan2(diffY, diffX);
 			
 			art.rotation = (rotInRad * (180 / Math.PI));
 			
+			art.gotoAndStop(1);
 			
 			playAnim(art,60 / art.scaleX);
 		}

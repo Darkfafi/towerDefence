@@ -81,7 +81,6 @@ package towers.towerProjectiles
 		private function explode():void 
 		{
 			//target.takeDamage(damage); // test. Moet met explosie alles wat de explosie raakt via hit array ofzo
-			var artEx : MovieClip = new CanonBallExpl1Anim();
 			var explosion : Explosion = new Explosion(CanonBallExpl1Anim, explosionRadius, damage);
 			
 			explosion.x = x;

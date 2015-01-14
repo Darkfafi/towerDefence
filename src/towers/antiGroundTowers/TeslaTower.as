@@ -18,7 +18,7 @@ package towers.antiGroundTowers
 			towerBuildAnim = new TeslaTowerBuildUpArt();
 			allTowerArt = [new TeslaTowerIdle1,new TeslaTowerIdle2, new TeslaTowerIdle3];
 			allFireAnim = [new TeslaTowerShoot1, new TeslaTowerShoot2, new TeslaTowerShoot3];
-			allProjectiles = [ElectricBeam1,ElectricBeam2,ElectricBeam3];
+			allProjectiles = [ElectricBeam1,ElectricBeam3,ElectricBeam2];
 			
 			rangeView.setSeeAbleObjects([EnemyUnit]);
 		}
