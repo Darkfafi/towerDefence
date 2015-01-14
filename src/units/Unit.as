@@ -68,7 +68,6 @@ package units
 			_position.y = this.y;
 			setHitBox( -20, -20, 25, 20);
 			addRangeView();
-			
 		}	
 		private function addRangeView():void 
 		{

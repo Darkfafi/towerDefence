@@ -74,10 +74,10 @@ package UI
 		private function placeButtons():void 
 		{
 			//als je probeerd te upgraden terwijl je er op heb gedrukt zonder te bouwen of het op max zit dan laat dat zien op scherm met "Max upgraded" if "Error : Can't upgrade N.a.P.T."	
-			upgradeButton.x = sellButton.x -= 40;
+			upgradeButton.x = sellButton.x -= 39;
 			
-			upgradeButton.y -= 60;
-			sellButton.y -= 10;
+			upgradeButton.y -= 57;
+			sellButton.y -= 12;
 			
 			addChild(upgradeButton);
 			addChild(sellButton);
@@ -90,8 +90,8 @@ package UI
 			
 			for (var i : int = 0; i < screenArtList.length; i++) {
 				var screen : MovieClip = screenArtList[i] as MovieClip;
-				screen.x -= screen.width / 2 + 77;
-				screen.y -= 7;
+				screen.x -= screen.width / 2 + 75;
+				screen.y -= 11;
 				addChild(screen);
 				screenArtList[i] = screen;
 				screen.total
