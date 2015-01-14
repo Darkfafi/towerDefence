@@ -18,6 +18,7 @@ package towers.antiGroundTowers
 			towerBuildAnim = new TeslaTowerBuildUpArt();
 			allTowerArt = [new TeslaTowerIdle];
 			allFireAnim = [new TeslaTowerShootArt];
+			allProjectiles = [ElectricBeam];
 			
 			rangeView.setSeeAbleObjects([EnemyUnit]);
 		}
@@ -37,6 +38,7 @@ package towers.antiGroundTowers
 				var projectile : Projectile = new ShockBeam(attackDmg, bulletSpeed, currentTarget);
 				projectile.x = x;
 				projectile.y = y - (allTowerArt[currentArtInt].height) + 10;
+				projectile.setArt(allProjectiles[currentArtInt]);
 				parent.addChild(projectile);
 			}
 		}

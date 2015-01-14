@@ -1,5 +1,6 @@
 package towers.towerProjectiles 
 {
+	import flash.display.MovieClip;
 	import flash.events.Event;
 	import units.Unit;
 	import utils.Vector2D;
@@ -20,23 +21,22 @@ package towers.towerProjectiles
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			art.graphics.clear();
-			art = new ElectricBeam();
-			addChild(art);
-			art.stop();
 			
 			var diffX : Number = target.x - this.x;
 			var diffY : Number = target.y - this.y;
 			
-			//trace(new Vector2D(diffX, diffY).length +" <-- length | X diff -->" + diffX);
-			
-			art.scaleX = ((1 / art.width) * Math.abs(new Vector2D(diffX, diffY).length)) * 0.1;
+			art.scaleX = ((1 / art.width) * Math.abs(new Vector2D(diffX, diffY).length) * 0.1);
 			var rotInRad : Number = Math.atan2(diffY, diffX);
 			
 			art.rotation = (rotInRad * (180 / Math.PI));
 			
 			
 			playAnim(art,60 / art.scaleX);
+		}
+		override public function setArt(artProjectile:Class):void 
+		{
+			super.setArt(artProjectile);
+			art.stop();
 		}
 		override protected function AnimationFinishedPlaying():void 
 		{

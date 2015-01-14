@@ -17,24 +17,28 @@ package towers.antiGroundTowers
 			towerBuildAnim = new CanonTowerBuildUpArt();
 			allTowerArt = [new CannonTowerIdle, new TowerLaserIdle];
 			allFireAnim = [new CannonTowerShootArt, new TowerLaserShoot];
+			allProjectiles = [CanonArt1];
 			
 			rangeView.setSeeAbleObjects([EnemyUnit]);
 		}
 		override protected function setStats():void 
 		{
 			_costTower = 50;
-			fireRate = 30;
+			fireRate = 10;
 			attackDmg = 50;
 			bulletSpeed = 8;
 			range = 100;
 		}
 		override protected function shoot():void 
 		{
-			super.shoot();
-			var projectile : Projectile = new DroppingProjectile(attackDmg, bulletSpeed, currentTarget,50);
-			projectile.x = x;
-			projectile.y = y - height / 2;
-			parent.addChild(projectile);
+			if(currentTarget != null){
+				super.shoot();
+				var projectile : Projectile = new DroppingProjectile(attackDmg, bulletSpeed, currentTarget, 50);
+				projectile.setArt(allProjectiles[currentArtInt]);
+				projectile.x = x;
+				projectile.y = y - height / 2;
+				parent.addChild(projectile);
+			}
 		}
 	}
 

@@ -27,6 +27,7 @@ package units
 		protected const WALK_ANIM : int = 0;
 		protected const ATTACK_ANIM : int = 1;
 		protected const DEATH_ANIM : int = 2;
+		protected const IDLE_ANIM : int = 3; //bij builder die geen idle heeft is dit build anim.
 		
 		protected var movAtDthAnimList : Array = [];
 		protected var animations : Array = [];

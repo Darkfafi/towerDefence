@@ -13,6 +13,8 @@ package towers.towerProjectiles
 	 */
 	public class Projectile extends GameObject
 	{
+		protected var _currentartInt : int;
+		
 		protected var art : MovieClip = new MovieClip();
 		
 		protected var damage : int; 
@@ -32,10 +34,11 @@ package towers.towerProjectiles
 			damage = bulletDamage;
 			speed = bulletSpeed;
 			target = bulletTarget;
-			
-			art.graphics.beginFill(0x000000, 1);
-			art.graphics.drawCircle(0, 0, 5);
-			art.graphics.endFill();
+		}
+		
+		public function setArt(artProjectile : Class):void 
+		{
+			art =  new artProjectile as MovieClip;
 			addChild(art);
 		}
 		
@@ -45,6 +48,11 @@ package towers.towerProjectiles
 			_position = new Vector2D(x, y);
 			addTag(Tags.UPDATE_TAG);
 			addTag(Tags.POSITION_ON_TOP_TAG);
+		}
+		
+		public function set currentartInt(value:int):void 
+		{
+			_currentartInt = value;
 		}
 	}
 }

@@ -39,6 +39,7 @@ package towers
 		protected var towerBuildAnim : MovieClip; //deze array bevat alle construct tower art.
 		protected var allTowerArt : Array = []; // deze array bevat alle tower/upgrade art.
 		protected var allFireAnim : Array = []; //deze array bevat alle tower attack/fire animations
+		protected var allProjectiles : Array = []; // deze array bevat alle projectile art
 		
 		// all bullet art dat je kan meegeven ofzo
 		

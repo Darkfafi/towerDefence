@@ -77,7 +77,9 @@ package units.alies
 		}
 		override protected function unitDeath():void 
 		{
-			targetTower.lostBuilder();
+			if(targetTower != null){
+				targetTower.lostBuilder();
+			}
 			super.unitDeath();
 		}
 		override public function removeObject():void 
