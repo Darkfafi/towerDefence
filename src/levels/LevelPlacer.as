@@ -47,8 +47,9 @@ package levels
 		public function createLevel(levelInt : int) :Level {
 			tileSystem.placeTiles(allLevelsList[levelInt].levelGrid);
 			currentLevel = levelInt;
-			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, UiGlobalInfo.LEVEL_INFO, ""+currentLevel + 1, true);
+			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, UiGlobalInfo.LEVEL_INFO,String(currentLevel + 1), true);
 			dispatchEvent(hudEvent);
+			allLevelsList[levelInt].levelId = levelInt;
 			return allLevelsList[levelInt];
 		}
 		

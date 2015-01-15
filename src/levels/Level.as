@@ -18,6 +18,8 @@ package levels
 	 */
 	public class Level 
 	{
+		private var _levelId : int;
+		
 		protected var _levelBackGround : MovieClip = new MovieClip();
 		protected var _levelGrid : Array;
 		
@@ -120,6 +122,16 @@ package levels
 		public function get spawnPoints():Array 
 		{
 			return _spawnPoints;
+		}
+		
+		public function set levelId(value:int):void 
+		{
+			_levelId = value;
+		}
+		
+		public function get levelId():int 
+		{
+			return _levelId;
 		}
 		
 		protected function giveEnemyArray(enemyType : Class,amount : int):Array {

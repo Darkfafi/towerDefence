@@ -28,7 +28,7 @@ package units.enemies
 			_world = world;
 		}
 		
-		public function spawnWave(waveInt : int, timeTillNextEnemy : int = 1000) :void {
+		public function spawnWave(waveInt : int, timeTillNextEnemy : int = 1500) :void {
 			
 			currentWave = waveInt - 1;
 			if(waveSpawnAble(waveInt)){
@@ -59,7 +59,7 @@ package units.enemies
 			
 			_world.dispatchEvent(new Event(DONE_WAVE,true));
 			
-			trace("DONE WITH WAVE " + (currentWave + 1)); //met een dispatchevent. in de level class word er in de functie ++ gedaan op een counter.
+			//trace("DONE WITH WAVE " + (currentWave + 1)); //met een dispatchevent. in de level class word er in de functie ++ gedaan op een counter.
 			//Als counter gelijk is aan de hoeveelheid spawnpoints en alle enemies zijn dood dan reset de counter en ga naar volgende wave
 			
 			spawnTimer.removeEventListener(TimerEvent.TIMER, spawnEnemy);

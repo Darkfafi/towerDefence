@@ -177,7 +177,6 @@ package units
 			if(deployUnit && animations[IDLE_ANIM].visible == false){
 				_moving = false;
 				switchAnim(IDLE_ANIM);
-				trace("adsdaasd");
 			}
 		}
 		protected function whenTargetInViewRange():void 
