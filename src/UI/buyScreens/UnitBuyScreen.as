@@ -3,6 +3,7 @@ package UI.buyScreens
 	import flash.display.Sprite;
 	import UI.buttons.BuyButton;
 	import units.alies.BuildUnit;
+	import units.alies.KnifeUnit;
 	import units.alies.MachineGunner;
 	/**
 	 * ...
@@ -19,8 +20,10 @@ package UI.buyScreens
 		override protected function buttonAssign():void 
 		{
 			super.buttonAssign();
-			var towerButton : Sprite = new BuyButton(new CanonTowerButton,MachineGunner);
-			buttonList.push(towerButton);
+			var unitButton : Sprite = new BuyButton(new CanonTowerButton,MachineGunner);
+			buttonList.push(unitButton);
+			unitButton = new BuyButton(new TeslaTowerButton, KnifeUnit);
+			buttonList.push(unitButton);
 		}
 	}
 

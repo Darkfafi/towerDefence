@@ -170,10 +170,13 @@ package levels
 				}
 			}
 			if (spawnsCantSpawn == _spawnPoints.length) {
+				
 				trace("NEXT LEVEL");
-				var timer : Timer = new Timer(500, 1);
+				
+				var timer : Timer = new Timer(2500, 1);
 				timer.addEventListener(TimerEvent.TIMER_COMPLETE, nextLevel);
 				timer.start();
+				
 				//laat win scherm verschijnen die een button heeft voor next level of met timer maar niet gelijk
 				//dispatches event so the levelPlacer can remove this level and place the next level.
 			}else {
@@ -188,7 +191,8 @@ package levels
 			var timer : Timer = e.target as Timer;
 			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, nextLevel);
 			timer.stop();
-			var levelEvent : levelSwitchEvent = new levelSwitchEvent(LEVEL_EVENT, levelId + 1, true);
+			
+			var levelEvent : levelSwitchEvent = new levelSwitchEvent(LEVEL_EVENT, levelId + 1, true); //zonder de +1 is een retry functie. Gebruik in voordeel
 			_world.dispatchEvent(levelEvent);
 		}
 		

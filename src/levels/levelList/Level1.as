@@ -42,29 +42,29 @@ package levels.levelList
 			_world.addChild(_levelBackGround);
 			
 			_spawnPoints[0].wavesToSpawnList = [
-				/*giveEnemyArray(SpearRobot, 3),
+				giveEnemyArray(SpearRobot, 3),
 				giveEnemyArray(SpearRobot, 5),
 				giveEnemyArray(SpearRobot, 4),
 				giveEnemyArray(EnemyClawRobot, 5),
 				giveEnemyArray(SpearRobot, 7),
 				giveEnemyArray(SpearRobot, 7),
 				giveEnemyArray(EnemyGunRobotOne, 5),
-				giveEnemyArray(EnemyGunRobotOne, 7),*/
-				
-				giveEnemyArray(EnemyGunRobotOne, 2)
+				giveEnemyArray(EnemyGunRobotOne, 7),
+				null,
+				giveEnemyArray(EnemyGunRobotOne, 10)
 				
 			];
 			
 			_spawnPoints[1].wavesToSpawnList = [
 				null,
-				null
-				/*giveEnemyArray(SpearRobot, 3),
+				null,
+				giveEnemyArray(SpearRobot, 3),
 				giveEnemyArray(SpearRobot, 3),
 				giveEnemyArray(SpearRobot, 5),
 				giveEnemyArray(SpearRobot, 4),
 				giveEnemyArray(EnemyClawRobot, 6),
 				giveEnemyArray(SpearRobot, 10),
-				giveEnemyArray(SpearRobot, 20)*/
+				giveEnemyArray(SpearRobot, 20)
 			];
 		}
 		

@@ -55,9 +55,6 @@ package levels
 			
 			return allLevelsList[levelInt];
 		}
-		
-		//maak ook een switchlevel functie waarbij hij het level destroyed en een nieuwe plaatst met createlevel ofzo.
-		
 		public function destroy() :void {
 			var level : Level = allLevelsList[currentLevel] as Level;
 			level.destroy();
