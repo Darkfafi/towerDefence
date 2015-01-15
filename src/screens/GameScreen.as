@@ -26,7 +26,7 @@ package screens
 		
 		public var player : Player;
 		
-		public function GameScreen(levelToSpawn : int = 1) 
+		public function GameScreen(levelToSpawn : int = 0) 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			_levelToSpawn = levelToSpawn;
@@ -60,7 +60,7 @@ package screens
 		{
 			//chose level from array
 			levelPlacer = new LevelPlacer(this);
-			if(levelPlacer.checkIfCanBePlaced(levelInt) == true){
+			if(levelPlacer.checkIfCanBePlaced(levelInt)){
 				ui = new FullUI(this);
 				addChild(levelPlacer);
 				var level : Level = levelPlacer.createLevel(levelInt);
@@ -68,7 +68,7 @@ package screens
 				level.startLevel(1); //als die niet bestaat dan ga terug naar menu met event die daarvoor zorgt
 				addChild(ui)
 			}else {
-				dispatchEvent(new Event(GameScreen.GAME_OVER, true));
+				dispatchEvent(new Event(GameScreen.GAME_OVER));
 			}
 		}
 		

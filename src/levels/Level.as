@@ -13,13 +13,14 @@ package levels
 	import UI.UiGlobalInfo;
 	import units.enemies.groundUnits.EnemyUnit;
 	import units.enemies.SpawnPoint;
+	import flash.utils.setInterval;
 	/**
 	 * ...
 	 * @author Ramses di Perna
 	 */
 	public class Level 
 	{
-		public static const LEVEL_EVENT : String = "levelSwitchEvent";
+		public static const LEVEL_EVENT : String = "switchLevelNow";
 		
 		private var _levelId : int;
 		
@@ -170,14 +171,25 @@ package levels
 			}
 			if (spawnsCantSpawn == _spawnPoints.length) {
 				trace("NEXT LEVEL");
-				var levelEvent : levelSwitchEvent = new levelSwitchEvent(LEVEL_EVENT, levelId + 1, true);
-				_world.dispatchEvent(levelEvent);
+				var timer : Timer = new Timer(500, 1);
+				timer.addEventListener(TimerEvent.TIMER_COMPLETE, nextLevel);
+				timer.start();
+				//laat win scherm verschijnen die een button heeft voor next level of met timer maar niet gelijk
 				//dispatches event so the levelPlacer can remove this level and place the next level.
 			}else {
 				timerTillNextWave = new Timer(1000, _timeUntilNextWave * 0.001);
 				timerTillNextWave.addEventListener(TimerEvent.TIMER, nextWaveCountDown);
 				timerTillNextWave.start();
 			}
+		}
+		
+		private function nextLevel(e:TimerEvent):void 
+		{
+			var timer : Timer = e.target as Timer;
+			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, nextLevel);
+			timer.stop();
+			var levelEvent : levelSwitchEvent = new levelSwitchEvent(LEVEL_EVENT, levelId + 1, true);
+			_world.dispatchEvent(levelEvent);
 		}
 		
 		private function nextWaveCountDown(e:TimerEvent):void 
@@ -208,9 +220,10 @@ package levels
 		public function destroy() :void {
 			_world.removeEventListener(Event.REMOVED_FROM_STAGE, objectRemoved, true);
 			_world.removeEventListener(SpawnPoint.DONE_WAVE, SpawnPointDoneWithWave);
-			timerTillNextWave.removeEventListener(TimerEvent.TIMER, nextWaveCountDown);
-			timerTillNextWave.stop();
-			
+			if(timerTillNextWave != null){
+				timerTillNextWave.removeEventListener(TimerEvent.TIMER, nextWaveCountDown);
+				timerTillNextWave.stop();
+			}
 			for (var i : int = 0; i < _spawnPoints.length; i++) {
 				_spawnPoints[i].destroy();
 			}

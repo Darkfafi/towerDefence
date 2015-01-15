@@ -42,7 +42,6 @@ package screens
 					if (game != null && stage.contains(game)) {
 						game.destroy();
 						game.removeEventListener(GameScreen.GAME_OVER, gameOver);
-						game.removeEventListener(Level.LEVEL_EVENT, switchLevel);
 						stage.removeChild(game);
 						game = null;
 					}
@@ -55,7 +54,7 @@ package screens
 		
 		private function switchLevel(e:Event):void 
 		{
-			var lvlEvent : levelSwitchEvent = e.target as levelSwitchEvent;
+			var lvlEvent : levelSwitchEvent = e as levelSwitchEvent;
 			if (game != null && stage.contains(game)) {
 				game.destroy();
 				game.removeEventListener(GameScreen.GAME_OVER, gameOver);
@@ -75,5 +74,4 @@ package screens
 		}
 		
 	}
-
 }

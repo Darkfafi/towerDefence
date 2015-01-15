@@ -20,7 +20,7 @@ package UI
 		public static const LEVEL_INFO : String = "levelInfoForHud";
 		
 		//---------------
-		private var _uiGlobalBg : Sprite = new Sprite();
+		private var _uiGlobalBg : Sprite = new GlobalInfoBg();
 		
 		private var _textGold : HudTextField = new HudTextField("GOLD");
 		private var	_textLives : HudTextField = new HudTextField("LIVES");
@@ -32,6 +32,10 @@ package UI
 		public function UiGlobalInfo(game : DisplayObjectContainer) 
 		{
 			_game = game; 
+			
+			_uiGlobalBg.alpha = 0.8;
+			addChild(_uiGlobalBg);
+			
 			placeHudItems();
 			game.addEventListener(GLOBAL_UI_INFO, checkSentData);
 		}
@@ -59,11 +63,11 @@ package UI
 		}
 		private function updateGoldText(data:String):void 
 		{
-			_textGold.changeText("Gold : " + data);
+			_textGold.changeText(data);
 		}
 		private function updateLivesText(data:String):void 
 		{
-			_textLives.changeText("Lives : " + data);
+			_textLives.changeText(data);
 			if (int(data) < 5) {
 				_textLives.changeColor(0xff0000);
 			}
@@ -78,10 +82,11 @@ package UI
 		}
 		private function placeHudItems():void 
 		{
-			_textLives.x += _textGold.width + 50;
+			_textGold.x = 245;
+			_textLives.x += 50;
 			_textWave.x = _game.stage.stageWidth / 2 - _textWave.width / 3;
 			_textLevel.x = _game.stage.stageWidth - (_textLevel.width + 100);
-			
+			_textGold.y = _textLives.y = _textWave.y = _textLevel.y += 5;
 			addChild(_textGold);
 			addChild(_textLives);
 			addChild(_textWave);
