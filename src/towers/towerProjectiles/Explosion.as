@@ -43,7 +43,6 @@ package towers.towerProjectiles
 			addChild(rangeView);
 			
 			rangeView.drawRangeView(_explosionRange);
-			rangeView.setAlpha(0.7);
 			playAnim(_explosionArt);
 		}
 		

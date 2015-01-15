@@ -114,6 +114,10 @@ package towers
 				removeChild(towerBuildAnim);
 				addRangeView();
 				changeTowerArt(0);
+				if (contains(needBuilderSign)) {
+					removeChild(needBuilderSign);
+					needBuilderSign.removeEventListener(MouseEvent.CLICK, askForBuilder);
+				}
 			}
 		}
 		protected function changeTowerArt(towerArtInt : int) :void {

@@ -27,7 +27,7 @@ package towers.towerProjectiles
 			
 			art.gotoAndStop(art.totalFrames);
 			
-			art.scaleX = ((1 / art.width) * Math.abs(new Vector2D(diffX, diffY).length) * 1);
+			art.scaleX = ((1 / art.width) * Math.abs(new Vector2D(diffX, diffY).length));
 			var rotInRad : Number = Math.atan2(diffY, diffX);
 			
 			art.rotation = (rotInRad * (180 / Math.PI));
