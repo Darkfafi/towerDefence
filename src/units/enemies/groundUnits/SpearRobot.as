@@ -17,7 +17,7 @@ package units.enemies.groundUnits
 		override protected function setStats():void 
 		{
 			killGoldWorth = 5;
-			_health = 25;
+			_health = 75;
 			attackDmg = 3;
 			viewDistance = 60;
 			_speed = 2;

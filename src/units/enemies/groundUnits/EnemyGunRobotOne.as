@@ -2,27 +2,29 @@ package units.enemies.groundUnits
 {
 	import units.MeleeUnit;
 	import units.RangeUnit;
-	import units.Unit;
 	/**
 	 * ...
 	 * @author Ramses di Perna
 	 */
-	public class EnemyClawRobot extends EnemyMeleeUnit
+	public class EnemyGunRobotOne extends EnemyRangeUnit 
 	{
 		
-		public function EnemyClawRobot() 
+		public function EnemyGunRobotOne() 
 		{
-			movAtDthAnimList = [new ClawEnemyWalkAnim, new ClawEnemyAttackAnim, new ClawEnemyDeathAnim]; // <== placeholders
+			super();
+			movAtDthAnimList = [new GunRobot1WalkAnim, new GunRobot1AttackAnim, new GunRobot1DeathAnim];
 			rangeView.setSeeAbleObjects([MeleeUnit,RangeUnit]);
 		}
 		override protected function setStats():void 
 		{
+			
 			killGoldWorth = 10;
 			_health = 50;
-			attackDmg = 10;
-			viewDistance = 50;
-			_speed = 3;
+			attackDmg = 7;
+			viewDistance = 100;
+			_speed = 2;
+			
 			super.setStats();
-		}	
+		}
 	}
 }

@@ -3,6 +3,7 @@ package units
 	import flash.geom.Point;
 	import gameControlEngine.GameObject;
 	import units.enemies.groundUnits.EnemyMeleeUnit;
+	import units.enemies.groundUnits.EnemyRangeUnit;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -20,7 +21,7 @@ package units
 		{
 			super.whenTargetInViewRange();
 			if(animations[DEATH_ANIM].visible != true){
-				if (targetUnit.moving && targetUnit.targetUnit == this as MeleeUnit /*en type is niet ranged...Anders kan je best lang wachten*/) {
+				if (targetUnit.moving && targetUnit.targetUnit == this as MeleeUnit && targetUnit is EnemyRangeUnit == false) {
 					_moving = false;
 				}else if(animations[ATTACK_ANIM].visible == false) {
 					_moving = true;

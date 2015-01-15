@@ -15,6 +15,7 @@ package units
 	import playerControl.PlayerBase;
 	import UI.HpBar;
 	import UI.InfoMenu;
+	import units.alies.BuildUnit;
 	import units.enemies.groundUnits.EnemyUnit;
 	import utils.Vector2D;
 	/**
@@ -163,7 +164,9 @@ package units
 				if(destination.x - x > 1 || destination.y - y > 1){
 					calculateWaypoints(destination);
 				}else {
-					goIdleState();
+					if(animations[DEATH_ANIM].visible == false){
+						goIdleState();
+					}
 				}
 			}
 			if (_moving == false && animations[WALK_ANIM].visible == true) {
@@ -174,6 +177,7 @@ package units
 			if(deployUnit && animations[IDLE_ANIM].visible == false){
 				_moving = false;
 				switchAnim(IDLE_ANIM);
+				trace("adsdaasd");
 			}
 		}
 		protected function whenTargetInViewRange():void 
@@ -241,8 +245,8 @@ package units
 		{
 			_speed = 0;
 			switchAnim(DEATH_ANIM, 1);
-			if (this is EnemyUnit == false) {
-				var tile : Tile = TileSystem.getTileFromPos(new Vector2D(x, y));
+			if (this is EnemyUnit == false && this is BuildUnit == false) {
+				var tile : Tile = TileSystem.getTileFromPos(new Vector2D(destination.x, destination.y));
 				TileSystem.setTileInt(tile.x, tile.y, 2);
 			}
 			//trace("I'ma dead! Owa No"); // death animation etc etc. Maybe shout out death so tower can count kills.
