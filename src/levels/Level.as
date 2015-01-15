@@ -1,6 +1,7 @@
 package levels 
 {
 	import events.HudEvent;
+	import events.levelSwitchEvent;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -18,6 +19,8 @@ package levels
 	 */
 	public class Level 
 	{
+		public static const LEVEL_EVENT : String = "levelSwitchEvent";
+		
 		private var _levelId : int;
 		
 		protected var _levelBackGround : MovieClip = new MovieClip();
@@ -167,6 +170,8 @@ package levels
 			}
 			if (spawnsCantSpawn == _spawnPoints.length) {
 				trace("NEXT LEVEL");
+				var levelEvent : levelSwitchEvent = new levelSwitchEvent(LEVEL_EVENT, levelId + 1, true);
+				_world.dispatchEvent(levelEvent);
 				//dispatches event so the levelPlacer can remove this level and place the next level.
 			}else {
 				timerTillNextWave = new Timer(1000, _timeUntilNextWave * 0.001);

@@ -19,14 +19,17 @@ package screens
 		
 		private var levelPlacer : LevelPlacer;
 		
+		private var _levelToSpawn : int;
+		
 		public var gameController : GameController;
 		private var ui : FullUI;
 		
 		public var player : Player;
 		
-		public function GameScreen() 
+		public function GameScreen(levelToSpawn : int = 1) 
 		{
-			addEventListener(Event.ADDED_TO_STAGE,init)
+			addEventListener(Event.ADDED_TO_STAGE, init);
+			_levelToSpawn = levelToSpawn;
 		}
 		
 		private function init(e:Event):void 
@@ -37,7 +40,7 @@ package screens
 			addEventListener(PlayerBase.NO_MORE_LIVES, gameOver);
 			
 			gameController = new GameController(this);
-			placeLevel();
+			placeLevel(_levelToSpawn);
 		}
 		
 		private function gameOver(e:Event):void 
@@ -53,24 +56,30 @@ package screens
 			}
 		}
 		
-		private function placeLevel():void 
+		private function placeLevel(levelInt : int):void 
 		{
 			//chose level from array
-			ui = new FullUI(this);
 			levelPlacer = new LevelPlacer(this);
-			addChild(levelPlacer);
-			var level : Level = levelPlacer.createLevel(0);
-			player = new Player(this);
-			level.startLevel(1);
-			addChild(ui)
+			if(levelPlacer.checkIfCanBePlaced(levelInt) == true){
+				ui = new FullUI(this);
+				addChild(levelPlacer);
+				var level : Level = levelPlacer.createLevel(levelInt);
+				player = new Player(this);
+				level.startLevel(1); //als die niet bestaat dan ga terug naar menu met event die daarvoor zorgt
+				addChild(ui)
+			}else {
+				dispatchEvent(new Event(GameScreen.GAME_OVER, true));
+			}
 		}
 		
 		override public function destroy():void 
 		{
-			player.destroy();
-			gameController.destroy();
-			levelPlacer.destroy();
-			ui.destroy();
+			if(contains(levelPlacer)){
+				player.destroy();
+				gameController.destroy();
+				levelPlacer.destroy();
+				ui.destroy();
+			}
 			removeEventListener(Event.ENTER_FRAME, update);
 			removeEventListener(PlayerBase.NO_MORE_LIVES, gameOver);
 			super.destroy();

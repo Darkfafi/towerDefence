@@ -6,6 +6,8 @@ package levels
 	import flash.events.Event;
 	import flash.geom.Point;
 	import levels.levelList.Level1;
+	import screens.GameScreen;
+	import screens.ScreenManager;
 	import UI.UiGlobalInfo;
 	import units.enemies.groundUnits.EnemyClawRobot;
 	import units.Unit;
@@ -44,12 +46,13 @@ package levels
 			
 			tileSystem = new TileSystem(parent);
 		}
-		public function createLevel(levelInt : int) :Level {
+		public function createLevel(levelInt : int) :Level {				
 			tileSystem.placeTiles(allLevelsList[levelInt].levelGrid);
 			currentLevel = levelInt;
 			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, UiGlobalInfo.LEVEL_INFO,String(currentLevel + 1), true);
 			dispatchEvent(hudEvent);
 			allLevelsList[levelInt].levelId = levelInt;
+			
 			return allLevelsList[levelInt];
 		}
 		
@@ -58,6 +61,15 @@ package levels
 		public function destroy() :void {
 			var level : Level = allLevelsList[currentLevel] as Level;
 			level.destroy();
+		}
+		
+		public function checkIfCanBePlaced(lvlInt : int):Boolean 
+		{
+			var result : Boolean = false;
+			if (allLevelsList[lvlInt] != null) {
+				result = true;
+			}
+			return result;
 		}
 	}
 }

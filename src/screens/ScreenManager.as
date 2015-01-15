@@ -1,7 +1,9 @@
 package screens 
 {
+	import events.levelSwitchEvent;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import levels.Level;
 	import playerControl.PlayerBase;
 	/**
 	 * ...
@@ -33,11 +35,14 @@ package screens
 					}
 					game = new GameScreen();
 					game.addEventListener(GameScreen.GAME_OVER, gameOver);
+					game.addEventListener(Level.LEVEL_EVENT, switchLevel);
 					stage.addChild(game);
 				break
 				case MENU_SCREEN:
 					if (game != null && stage.contains(game)) {
 						game.destroy();
+						game.removeEventListener(GameScreen.GAME_OVER, gameOver);
+						game.removeEventListener(Level.LEVEL_EVENT, switchLevel);
 						stage.removeChild(game);
 						game = null;
 					}
@@ -46,6 +51,22 @@ package screens
 				break
 				
 			}
+		}
+		
+		private function switchLevel(e:Event):void 
+		{
+			var lvlEvent : levelSwitchEvent = e.target as levelSwitchEvent;
+			if (game != null && stage.contains(game)) {
+				game.destroy();
+				game.removeEventListener(GameScreen.GAME_OVER, gameOver);
+				game.removeEventListener(Level.LEVEL_EVENT, switchLevel);
+				stage.removeChild(game);
+				game = null;
+			}
+			game = new GameScreen(lvlEvent.level);
+			game.addEventListener(GameScreen.GAME_OVER, gameOver);
+			game.addEventListener(Level.LEVEL_EVENT, switchLevel);
+			stage.addChild(game);
 		}
 		
 		private function gameOver(e:Event):void 
