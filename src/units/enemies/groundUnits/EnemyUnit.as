@@ -23,6 +23,7 @@ package units.enemies.groundUnits
 		public function EnemyUnit() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			deployUnit = false;
 		}
 		
 		private function init(e:Event):void 

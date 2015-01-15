@@ -3,6 +3,7 @@ package UI.buyScreens
 	import flash.display.Sprite;
 	import UI.buttons.BuyButton;
 	import units.alies.BuildUnit;
+	import units.alies.MachineGunner;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -18,7 +19,7 @@ package UI.buyScreens
 		override protected function buttonAssign():void 
 		{
 			super.buttonAssign();
-			var towerButton : Sprite = new BuyButton(new CanonTowerButton,BuildUnit);
+			var towerButton : Sprite = new BuyButton(new CanonTowerButton,MachineGunner);
 			buttonList.push(towerButton);
 		}
 	}

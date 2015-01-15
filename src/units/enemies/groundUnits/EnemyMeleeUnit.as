@@ -2,6 +2,7 @@ package units.enemies.groundUnits
 {
 	import flash.geom.Point;
 	import gameControlEngine.GameObject;
+	import units.RangeUnit;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -19,7 +20,7 @@ package units.enemies.groundUnits
 		{
 			super.whenTargetInViewRange();
 			if(animations[DEATH_ANIM].visible != true){
-				if (targetUnit.moving && targetUnit.targetUnit == this as EnemyMeleeUnit /*en type is niet ranged...Anders kan je best lang wachten*/) {
+				if (targetUnit.moving && targetUnit.targetUnit == this as EnemyMeleeUnit && targetUnit is RangeUnit == false) {
 					_moving = false;
 				}else if(animations[ATTACK_ANIM].visible == false) {
 					_moving = true;
@@ -52,6 +53,8 @@ package units.enemies.groundUnits
 		{
 			if (animations[ATTACK_ANIM].visible == true) {
 				switchAnim(WALK_ANIM);
+				
+				calculateWaypoints(destination);
 			}
 			super.AnimationFinishedPlaying();
 		}

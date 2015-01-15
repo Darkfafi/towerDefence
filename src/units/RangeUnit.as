@@ -9,6 +9,7 @@ package units
 	public class RangeUnit extends Unit 
 	{
 		protected var shootDelay : int;
+		private var _dmgFrame : int = 4;
 		
 		public function RangeUnit() 
 		{

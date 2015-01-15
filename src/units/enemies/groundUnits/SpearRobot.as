@@ -1,6 +1,7 @@
 package units.enemies.groundUnits 
 {
 	import units.MeleeUnit;
+	import units.RangeUnit;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -11,7 +12,7 @@ package units.enemies.groundUnits
 		public function SpearRobot() 
 		{
 			movAtDthAnimList = [new SpearRobotWalkAnim, new SpearRobotAttackAnim, new SpearRobotDeathAnim, new BuilderUnitBuildingArt]; // <== placeholders
-			rangeView.setSeeAbleObjects([MeleeUnit]);
+			rangeView.setSeeAbleObjects([MeleeUnit,RangeUnit]);
 		}
 		override protected function setStats():void 
 		{

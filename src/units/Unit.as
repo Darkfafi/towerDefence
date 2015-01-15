@@ -24,6 +24,9 @@ package units
 	public class Unit extends WatchingObject
 	{
 		private var hpBar : HpBar;
+		
+		protected var deployUnit : Boolean = true;
+		
 		protected const WALK_ANIM : int = 0;
 		protected const ATTACK_ANIM : int = 1;
 		protected const DEATH_ANIM : int = 2;
@@ -154,24 +157,25 @@ package units
 				y = _position.y;
 			}
 		}
-		/*
-		public function sell():void {
-			var playerBase : PlayerBase = TileSystem.getPlayerBase();
-			playerBase.addGoldToPlayer(5);
-			removeObject();
-		}
-		*/
 		protected function noTargetInViewRange():void 
 		{
-			if(_waypointList.length == 0){
-				calculateWaypoints(destination);
+			if (_waypointList.length == 0) {
+				if(destination.x - x > 1 || destination.y - y > 1){
+					calculateWaypoints(destination);
+				}else {
+					goIdleState();
+				}
 			}
 			if (_moving == false && animations[WALK_ANIM].visible == true) {
 				_moving = true;
-			}
-			
+			}	
 		}
-		
+		protected function goIdleState() :void {
+			if(deployUnit && animations[IDLE_ANIM].visible == false){
+				_moving = false;
+				switchAnim(IDLE_ANIM);
+			}
+		}
 		protected function whenTargetInViewRange():void 
 		{
 			//action what to do when unit sees target.

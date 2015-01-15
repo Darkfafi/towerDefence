@@ -53,6 +53,8 @@ package units
 		{
 			if (animations[ATTACK_ANIM].visible == true) {
 				switchAnim(WALK_ANIM);
+				
+				calculateWaypoints(destination);
 			}
 			super.AnimationFinishedPlaying();
 		}
