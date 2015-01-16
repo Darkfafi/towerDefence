@@ -20,9 +20,9 @@ package UI.buyScreens
 		override protected function buttonAssign():void 
 		{
 			super.buttonAssign();
-			var unitButton : Sprite = new BuyButton(new CanonTowerButton,MachineGunner);
+			var unitButton : Sprite = new BuyButton(new MachineGunUnitButton,MachineGunner);
 			buttonList.push(unitButton);
-			unitButton = new BuyButton(new TeslaTowerButton, KnifeUnit);
+			unitButton = new BuyButton(new KnifeMeleeUnitButton, KnifeUnit);
 			buttonList.push(unitButton);
 		}
 	}

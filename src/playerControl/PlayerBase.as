@@ -2,6 +2,7 @@ package playerControl
 {
 	import events.HudEvent;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
 	import gameControlEngine.GameObject;
@@ -19,6 +20,9 @@ package playerControl
 	public class PlayerBase extends GameObject
 	{
 		public static const NO_MORE_LIVES : String = "noMoreLives";
+		
+		private var _backArtBase : Sprite = new CommandCenterBackArt();
+		private var _frontArtBase : GameObject = new PlayerBaseArt();
 		
 		//stats playerBase
 		private var _gold : int; //word gegeven door level aan begin en later gevult door kills en stuff
@@ -38,6 +42,11 @@ package playerControl
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			sendHudData(UiGlobalInfo.LIVES_INFO, _lives.toString());
+			
+			world.addChild(_backArtBase);
+			world.addChild(_frontArtBase);
+			
+			_frontArtBase.y = _backArtBase.y = y + TileSystem.globalTile.height + 10;
 		}
 		
 		public function loseLife(dmg : int):void 

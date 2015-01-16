@@ -186,7 +186,8 @@ package units
 		override public function removeTarget(targetObj:GameObject):void 
 		{
 			super.removeTarget(targetObj);
-			//_waypointList = [];
+			_waypointList = [];
+			calculateWaypoints(destination);
 		}
 		protected function setFocusOnTargetUnit():void 
 		{

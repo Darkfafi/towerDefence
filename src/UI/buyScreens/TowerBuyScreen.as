@@ -24,7 +24,7 @@ package UI.buyScreens
 			buttonList.push(towerButton);
 			towerButton = new BuyButton(new TeslaTowerButton , TeslaTower);
 			buttonList.push(towerButton);
-			towerButton = new BuyButton(new TeslaTowerButton, SkyLaserTower);
+			towerButton = new BuyButton(new SkyLaserTowerButton, SkyLaserTower);
 			buttonList.push(towerButton);
 		}
 	}

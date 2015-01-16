@@ -171,7 +171,7 @@ package levels
 			}
 			if (spawnsCantSpawn == _spawnPoints.length) {
 				
-				trace("NEXT LEVEL");
+				//trace("NEXT LEVEL");
 				
 				var timer : Timer = new Timer(2500, 1);
 				timer.addEventListener(TimerEvent.TIMER_COMPLETE, nextLevel);
@@ -211,7 +211,7 @@ package levels
 		
 		private function startNextWave():void 
 		{
-			trace("NEXT WAVE");
+			//trace("NEXT WAVE");
 			_currentWave += 1;
 			spawnWave(_currentWave);
 		}
