@@ -4,11 +4,13 @@ package levels
 	import events.levelSwitchEvent;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	import gameControlEngine.GameObject;
+	import screens.EndScreens.WinScreen;
 	import screens.GameScreen;
 	import UI.UiGlobalInfo;
 	import units.enemies.groundUnits.EnemyUnit;
@@ -192,8 +194,14 @@ package levels
 			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, nextLevel);
 			timer.stop();
 			
+			var winScreen : Sprite = new WinScreen(_levelId);
+			winScreen.x = _world.stage.stageWidth / 2;
+			winScreen.y = _world.stage.stageHeight / 2;
+			_world.addChild(winScreen);
+			
+			/*
 			var levelEvent : levelSwitchEvent = new levelSwitchEvent(LEVEL_EVENT, levelId + 1, true); //zonder de +1 is een retry functie. Gebruik in voordeel
-			_world.dispatchEvent(levelEvent);
+			_world.dispatchEvent(levelEvent);*/
 		}
 		
 		private function nextWaveCountDown(e:TimerEvent):void 

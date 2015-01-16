@@ -1,5 +1,6 @@
 package screens 
 {
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import gameControlEngine.GameController;
 	import levels.Level;
@@ -7,6 +8,7 @@ package screens
 	import playerControl.Player;
 	import playerControl.PlayerBase;
 	import screens.EndScreens.LoseScreen;
+	import screens.EndScreens.VictoryScreen;
 	import UI.FullUI;
 	/**
 	 * ...
@@ -73,7 +75,8 @@ package screens
 				level.startLevel(1); //als die niet bestaat dan ga terug naar menu met event die daarvoor zorgt
 				addChild(ui)
 			}else {
-				dispatchEvent(new Event(GameScreen.GAME_OVER));
+				var compleatGameScreen : Sprite = new VictoryScreen();
+				addChild(compleatGameScreen);
 			}
 		}
 		

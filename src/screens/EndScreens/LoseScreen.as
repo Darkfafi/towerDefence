@@ -30,7 +30,7 @@ package screens.EndScreens
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			addEventListener(MouseEvent.CLICK, clickedOnMenu);
+			addEventListener(MouseEvent.CLICK, clickedOnMenu,false,0,true);
 			addMenu();
 		}
 		
