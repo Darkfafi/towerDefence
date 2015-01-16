@@ -57,6 +57,7 @@
     <element path="bin\assets_5.swc" />
     <element path="bin\assets_56.swc" />
     <element path="bin\uid_shizzle.swc" />
+    <element path="bin\Start_End_Command_keng.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

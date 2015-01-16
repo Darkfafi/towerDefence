@@ -25,15 +25,16 @@ package screens
 			stage = _stage;
 		}
 		
-		public function switchScreen(screen : String) :void {
+		public function switchScreen(screen : String,levelToStart : int = 0) :void {
 			switch(screen) {
 				case GAME_SCREEN:
 					if (menu != null && stage.contains(menu)) {
 						menu.destroy();
+						menu.removeEventListener(MenuScreen.START_GAME, startGame);
 						stage.removeChild(menu);
 						menu = null;
 					}
-					game = new GameScreen();
+					game = new GameScreen(levelToStart);
 					game.addEventListener(GameScreen.GAME_OVER, gameOver);
 					game.addEventListener(Level.LEVEL_EVENT, switchLevel);
 					stage.addChild(game);
@@ -46,10 +47,16 @@ package screens
 						game = null;
 					}
 					menu = new MenuScreen();
+					menu.addEventListener(MenuScreen.START_GAME, startGame);
 					stage.addChild(menu);
 				break
 				
 			}
+		}
+		
+		private function startGame(e:levelSwitchEvent):void 
+		{
+			switchScreen(GAME_SCREEN, e.level);
 		}
 		
 		private function switchLevel(e:Event):void 
@@ -67,6 +74,8 @@ package screens
 			game.addEventListener(Level.LEVEL_EVENT, switchLevel);
 			stage.addChild(game);
 		}
+		
+		
 		
 		private function gameOver(e:Event):void 
 		{

@@ -10,6 +10,8 @@ package
 	 */
 	public class Main extends Sprite 
 	{
+		public static const START_GAME : String = "StartGameScreen";
+		
 		private var screenManager : ScreenManager;
 		
 		public function Main():void 
@@ -23,7 +25,7 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			screenManager = new ScreenManager(stage);
-			screenManager.switchScreen(ScreenManager.GAME_SCREEN);
+			screenManager.switchScreen(ScreenManager.MENU_SCREEN);
 		}
 		
 	}
