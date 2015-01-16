@@ -5,6 +5,7 @@ package screens
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import media.SoundManager;
 	/**
 	 * ...
 	 * @author Ramses di Perna
@@ -28,6 +29,7 @@ package screens
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			placeButtons();
+			SoundManager.playMusic(SoundManager.MENU_MUSIC);
 		}
 		
 		private function clickedOnMenu(e:MouseEvent):void 

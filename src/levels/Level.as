@@ -153,7 +153,6 @@ package levels
 		private function SpawnPointDoneWithWave(e:Event):void 
 		{
 			_spawnsDoneSpawning ++;
-			//trace(_spawnsDoneSpawning);
 		}
 		protected function objectRemoved(e:Event):void {
 			if (e.target is EnemyUnit) {
@@ -187,7 +186,6 @@ package levels
 				timerTillNextWave.start();
 			}
 		}
-		
 		private function nextLevel(e:TimerEvent):void 
 		{
 			var timer : Timer = e.target as Timer;
@@ -198,12 +196,7 @@ package levels
 			winScreen.x = _world.stage.stageWidth / 2;
 			winScreen.y = _world.stage.stageHeight / 2;
 			_world.addChild(winScreen);
-			
-			/*
-			var levelEvent : levelSwitchEvent = new levelSwitchEvent(LEVEL_EVENT, levelId + 1, true); //zonder de +1 is een retry functie. Gebruik in voordeel
-			_world.dispatchEvent(levelEvent);*/
 		}
-		
 		private function nextWaveCountDown(e:TimerEvent):void 
 		{
 			var timer : Timer = e.target as Timer;
@@ -216,19 +209,16 @@ package levels
 			}
 			
 		}
-		
 		private function startNextWave():void 
 		{
 			//trace("NEXT WAVE");
 			_currentWave += 1;
 			spawnWave(_currentWave);
 		}
-		
 		private function sendUIData(type : String, data : String) :void {
 			var hudEvent : HudEvent = new HudEvent(UiGlobalInfo.GLOBAL_UI_INFO, type, data, true);
 			_world.dispatchEvent(hudEvent);
 		}
-		
 		public function destroy() :void {
 			_world.removeEventListener(Event.REMOVED_FROM_STAGE, objectRemoved, true);
 			_world.removeEventListener(SpawnPoint.DONE_WAVE, SpawnPointDoneWithWave);

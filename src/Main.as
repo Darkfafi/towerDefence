@@ -2,6 +2,7 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import media.SoundManager;
 	import screens.ScreenManager;
 	
 	/**
@@ -24,10 +25,17 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
-			screenManager = new ScreenManager(stage);
-			screenManager.switchScreen(ScreenManager.MENU_SCREEN);
+			SoundManager.loadSounds();
+			addEventListener(Event.ENTER_FRAME, checkSoundsLoaded);
 		}
 		
+		private function checkSoundsLoaded(e:Event):void 
+		{
+			if (SoundManager.allSoundsLoaded) {
+				removeEventListener(Event.ENTER_FRAME, checkSoundsLoaded);
+				screenManager = new ScreenManager(stage);
+				screenManager.switchScreen(ScreenManager.MENU_SCREEN);
+			}
+		}
 	}
-	
 }

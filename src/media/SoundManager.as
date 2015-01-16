@@ -13,6 +13,11 @@ package media
 	public class SoundManager
 	{
 		//public static consts with array int in them bijv: public static const GAME_MUSIC : int = 0;
+		public static const MENU_MUSIC : int = 0;
+		public static const GAME_MUSIC : int = 1;
+		
+		
+		//------------------------------------------\\
 		
 		private static var soundVolume : Number = 0.7;
 		private static var musicVolume : Number = 0.5;
@@ -40,6 +45,9 @@ package media
 		public static function loadSounds() : void {
 			
 			// music (all url requests) bijv: allUrls.push(new URLRequest("http://15826.hosts.ma-cloud.nl/Leerjaar2/Projecten/PongGame/sounds/Instrument.mp3")); // Menu Music
+			
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/3bjx1xmyeryhxfv/MenuMusic.mp3?dl=1")); // Menu Music
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/uaka2elut79fdez/GameMusic.mp3?dl=1")); // Game Music
 			
 			//sounds/effects
 			for (var i : int = 0; i < allUrls.length; i++) {

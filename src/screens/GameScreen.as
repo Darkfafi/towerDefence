@@ -5,6 +5,7 @@ package screens
 	import gameControlEngine.GameController;
 	import levels.Level;
 	import levels.LevelPlacer;
+	import media.SoundManager;
 	import playerControl.Player;
 	import playerControl.PlayerBase;
 	import screens.EndScreens.LoseScreen;
@@ -44,6 +45,8 @@ package screens
 			
 			gameController = new GameController(this);
 			placeLevel(_levelToSpawn);
+			
+			SoundManager.playMusic(SoundManager.GAME_MUSIC);
 		}
 		
 		private function gameOver(e:Event):void 
