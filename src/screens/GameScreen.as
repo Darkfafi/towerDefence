@@ -6,6 +6,7 @@ package screens
 	import levels.LevelPlacer;
 	import playerControl.Player;
 	import playerControl.PlayerBase;
+	import screens.EndScreens.LoseScreen;
 	import UI.FullUI;
 	/**
 	 * ...
@@ -46,8 +47,12 @@ package screens
 		private function gameOver(e:Event):void 
 		{
 			//show GameOver on screen or something and after that.
-			dispatchEvent(new Event(GAME_OVER));
-			
+			//dispatchEvent(new Event(GAME_OVER));
+			gameRunning = false;
+			var loseScreen : LoseScreen = new LoseScreen(_levelToSpawn);
+			loseScreen.x = 200;
+			loseScreen.y = 190;
+			addChild(loseScreen);
 		}
 		private function update(e:Event):void 
 		{

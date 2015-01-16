@@ -26,7 +26,7 @@ package playerControl
 		
 		//stats playerBase
 		private var _gold : int; //word gegeven door level aan begin en later gevult door kills en stuff
-		private var _lives : int = 25;
+		private var _lives : int = 1;
 		
 		private var world : DisplayObjectContainer;
 		
