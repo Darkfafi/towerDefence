@@ -1,5 +1,6 @@
 package towers.antiGroundTowers 
 {
+	import media.SoundManager;
 	import towers.Tower;
 	import towers.towerProjectiles.DroppingProjectile;
 	import towers.towerProjectiles.Projectile;
@@ -47,6 +48,7 @@ package towers.antiGroundTowers
 		{
 			if(currentTarget != null){
 				super.shoot();
+				SoundManager.playSound(SoundManager.CANON_TOWER_SOUND);
 				var projectile : Projectile = new DroppingProjectile(attackDmg, bulletSpeed, currentTarget, 50,_expRadius);
 				projectile.setArt(allProjectiles[currentArtInt]);
 				projectile.x = x;

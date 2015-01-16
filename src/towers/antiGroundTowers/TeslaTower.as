@@ -1,5 +1,6 @@
 package towers.antiGroundTowers 
 {
+	import media.SoundManager;
 	import towers.Tower;
 	import towers.towerProjectiles.Projectile;
 	import towers.towerProjectiles.ShockBeam;
@@ -44,6 +45,7 @@ package towers.antiGroundTowers
 		override protected function shoot():void 
 		{
 			super.shoot();
+			SoundManager.playSound(SoundManager.ELECTRIC_ZAP_SOUND);
 			if(currentTarget != null){
 				var projectile : Projectile = new ShockBeam(attackDmg, bulletSpeed, currentTarget);
 				projectile.x = x;

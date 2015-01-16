@@ -1,6 +1,7 @@
 package towers.antiGroundTowers 
 {
 	import flash.events.Event;
+	import media.SoundManager;
 	import towers.Tower;
 	import towers.towerProjectiles.Projectile;
 	import towers.towerProjectiles.SkyLaserBeam;
@@ -54,6 +55,14 @@ package towers.antiGroundTowers
 			attackDmg += 5;
 			changeRange(range + 15);
 			_expRadius += 10;
+			
+		}
+		override protected function animationFrameUp():void 
+		{
+			super.animationFrameUp();
+			if (allFireAnim[currentArtInt].visible == true && allFireAnim[currentArtInt].currentFrame == 2) {
+				SoundManager.playSound(SoundManager.SKY_LASER_SOUND);
+			}
 		}
 		override protected function shoot():void 
 		{

@@ -16,6 +16,10 @@ package media
 		public static const MENU_MUSIC : int = 0;
 		public static const GAME_MUSIC : int = 1;
 		
+		public static const SKY_LASER_SOUND : int = 2;
+		public static const CANON_TOWER_SOUND : int = 3;
+		public static const ELECTRIC_ZAP_SOUND : int = 4;
+		
 		
 		//------------------------------------------\\
 		
@@ -46,8 +50,14 @@ package media
 			
 			// music (all url requests) bijv: allUrls.push(new URLRequest("http://15826.hosts.ma-cloud.nl/Leerjaar2/Projecten/PongGame/sounds/Instrument.mp3")); // Menu Music
 			
+			//Music
 			allUrls.push(new URLRequest("https://www.dropbox.com/s/3bjx1xmyeryhxfv/MenuMusic.mp3?dl=1")); // Menu Music
 			allUrls.push(new URLRequest("https://www.dropbox.com/s/uaka2elut79fdez/GameMusic.mp3?dl=1")); // Game Music
+			
+			//Sounds Effects Towers
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/18bf4n4wzhdqjpl/SkyLaserTowerSound.mp3?dl=1")); // skyLaserTower sound
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/u2nhppmbfmd4z5a/CanonTowerSound.mp3?dl=1")); // Canon Tower sound
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/t6tefvgj2o8c5xh/ElectricZap.mp3?dl=1")); // Electric zap Tower sound
 			
 			//sounds/effects
 			for (var i : int = 0; i < allUrls.length; i++) {
