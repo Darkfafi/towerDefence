@@ -162,7 +162,13 @@ package towers
 		}
 		public function upgrade() :void {
 			if(contains(towerBuildAnim) == false && allTowerArt[currentArtInt + 1] is MovieClip){
-				_upgradeCost += _upgradeCost / 2;
+				//als er een volgende upgrade is anders 99999 dat vertaald word in hud als max upgrade
+				if(allTowerArt[currentArtInt + 2] is MovieClip){
+					_upgradeCost += _upgradeCost / 2;
+				}else {
+					_upgradeCost = 00;
+				}
+				
 				changeTowerArt(currentArtInt + 1);
 			}else if(contains(towerBuildAnim)) {
 				trace("Can't upgrade unfinished tower");
@@ -177,7 +183,7 @@ package towers
 				var playerBase : PlayerBase = TileSystem.getPlayerBase();
 				playerBase.addGoldToPlayer((_costTower + (currentArtInt * (_upgradeCost/2))) / 2);
 				var tile : Tile = TileSystem.getTileFromPos(new Vector2D(x, y));
-				TileSystem.setTileInt(x,y- TileSystem.globalTile.height, 1);
+				TileSystem.setTileInt(tile.x,tile.y, 1);
 				removeObject();
 			}
 		}

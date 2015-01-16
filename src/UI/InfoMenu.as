@@ -125,7 +125,7 @@ package UI
 				textfield = new TextField();
 				textfield.selectable = false;
 				textfield.x -= 180;
-				textfield.y = -80 + (i * 13); 
+				textfield.y = -85 + (i * 13); 
 				textfield.text = e.textArray[i];
 				textfield.width =  e.textArray[i].length * 5;
 				addChild(textfield);
@@ -136,7 +136,7 @@ package UI
 				textfield = new TextField();
 				textfield.selectable = false;
 				textfield.x -= 115;
-				textfield.y = -80 + (i * 13); 
+				textfield.y = -85 + (i * 13); 
 				textfield.text = e.statsArray[i];
 				textfield.width =  e.textArray[i].length * 5;
 				addChild(textfield);

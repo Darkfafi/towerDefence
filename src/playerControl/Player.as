@@ -65,7 +65,7 @@ package playerControl
 					}else {
 						buildTile.negativeTile(); //shows red tile
 					}
-			}else if (e.target.parent is BuyButton && priceBar.contains(priceBar.priceBarArt) == false) {
+			}else if (e.target.parent is BuyButton && priceBar.priceBarArt() == false) {
 				var button : BuyButton = e.target.parent as BuyButton;
 				if (button.boughtItem is Tower) {
 					var boughtTower : Tower = button.boughtItem as Tower;
@@ -78,7 +78,7 @@ package playerControl
 				}
 				world.addChild(priceBar);
 				
-			}else if (priceBar.contains(priceBar.priceBarArt) == true) {
+			}else if (priceBar.priceBarArt()) {
 				if (e.target.hitTestPoint(priceBar.x, priceBar.y) == false) {
 					world.removeChild(priceBar);
 					priceBar.hide();

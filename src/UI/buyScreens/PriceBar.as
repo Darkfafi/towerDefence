@@ -11,33 +11,38 @@ package UI.buyScreens
 	 */
 	public class PriceBar extends Sprite 
 	{
-		private var _priceBarArt : MovieClip = new PriceTabArt();
+		private var _priceBarOpen : MovieClip = new PriceTagOpen();
+		private var _priceBarIdle : MovieClip = new PriceTagIdle();
+		
 		private var _priceBarText : HudTextField = new HudTextField("COST");
 		
 		public function PriceBar() 
 		{
 			super();
-			_priceBarText.x += 45;
+			_priceBarText.x += 25;
 			_priceBarText.y += 10;
-			_priceBarArt.gotoAndStop(1);
+			_priceBarOpen.gotoAndStop(1);
 		}
 		
 		public function showCost(cost : int) :void {
-			_priceBarArt.gotoAndPlay(1);
+			_priceBarOpen.gotoAndPlay(1);
 			_priceBarText.changeText(cost.toString());
 			
 			addEventListener(Event.ENTER_FRAME, checkAnim);
 			
-			addChild(_priceBarArt);
+			addChild(_priceBarOpen);
 		}
 		
 		public function hide():void 
 		{
 			removeEventListener(Event.ENTER_FRAME, checkAnim);
-			_priceBarArt.gotoAndStop(1);
+			_priceBarOpen.gotoAndStop(1);
 			
-			if(contains(_priceBarArt)){
-				removeChild(_priceBarArt);
+			if(contains(_priceBarOpen)){
+				removeChild(_priceBarOpen);
+			}
+			if (contains(_priceBarIdle)) {
+				removeChild(_priceBarIdle);
 			}
 			if(contains(_priceBarText)){
 				removeChild(_priceBarText);
@@ -46,16 +51,21 @@ package UI.buyScreens
 		
 		private function checkAnim(e:Event):void 
 		{
-			if (_priceBarArt.currentFrame == _priceBarArt.totalFrames) {
+			if (_priceBarOpen.currentFrame == _priceBarOpen.totalFrames) {
 				removeEventListener(Event.ENTER_FRAME, checkAnim);
+				addChild(_priceBarIdle);
 				addChild(_priceBarText);
-				_priceBarArt.stop();
+				removeChild(_priceBarOpen);
 			}
 		}
 		
-		public function get priceBarArt():MovieClip 
+		public function priceBarArt():Boolean 
 		{
-			return _priceBarArt;
+			var result : Boolean = false;
+			if (contains(_priceBarIdle) || contains(_priceBarOpen)) {
+				result = true;
+			}
+			return result;
 		}
 	}
 
