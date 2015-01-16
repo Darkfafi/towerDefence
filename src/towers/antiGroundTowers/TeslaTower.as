@@ -25,10 +25,10 @@ package towers.antiGroundTowers
 		override protected function setStats():void 
 		{
 			_costTower = 55;
-			_upgradeCost = 65;
+			_upgradeCost = 75;
 			
 			shootFrame = 50;
-			fireRate = 30;
+			fireRate = 35;
 			attackDmg = 20;
 			bulletSpeed = 8;
 			range = 110;

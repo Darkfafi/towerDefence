@@ -38,10 +38,10 @@ package towers.antiGroundTowers
 			
 			_expRadius = 40;
 			
-			fireRate = 15;
+			fireRate = 10;
 			attackDmg = 20;
 			bulletSpeed = 8;
-			range = 135;
+			range = 125;
 		}
 		override public function upgrade():void 
 		{

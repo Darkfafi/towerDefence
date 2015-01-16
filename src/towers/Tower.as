@@ -164,7 +164,7 @@ package towers
 			if(contains(towerBuildAnim) == false && allTowerArt[currentArtInt + 1] is MovieClip){
 				//als er een volgende upgrade is anders 99999 dat vertaald word in hud als max upgrade
 				if(allTowerArt[currentArtInt + 2] is MovieClip){
-					_upgradeCost += _upgradeCost / 2;
+					_upgradeCost += (_upgradeCost * (currentArtInt + 2)) / 2;
 				}else {
 					_upgradeCost = 00;
 				}
