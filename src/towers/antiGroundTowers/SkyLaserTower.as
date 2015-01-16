@@ -47,12 +47,12 @@ package towers.antiGroundTowers
 		{
 			super.upgrade();
 			
-			fireRate += 10;
+			fireRate += 3.25;
 			
 			shootFrame = allFireAnim[currentArtInt].totalFrames;
 			
-			attackDmg += 5 * currentArtInt;
-			changeRange(range + 20);
+			attackDmg += 5;
+			changeRange(range + 15);
 			_expRadius += 10;
 		}
 		override protected function shoot():void 

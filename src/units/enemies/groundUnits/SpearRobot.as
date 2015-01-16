@@ -18,7 +18,7 @@ package units.enemies.groundUnits
 		{
 			killGoldWorth = 15;
 			_health = 75;
-			attackDmg = 10;
+			attackDmg = 7;
 			viewDistance = 60;
 			_speed = 2;
 			super.setStats();

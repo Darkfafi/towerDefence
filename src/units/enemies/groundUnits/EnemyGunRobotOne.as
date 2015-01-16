@@ -20,7 +20,7 @@ package units.enemies.groundUnits
 			
 			killGoldWorth = 10;
 			_health = 60;
-			attackDmg = 7;
+			attackDmg = 6;
 			viewDistance = 100;
 			_speed = 2;
 			

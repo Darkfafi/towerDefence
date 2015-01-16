@@ -29,7 +29,7 @@ package towers.antiGroundTowers
 			
 			shootFrame = 50;
 			fireRate = 35;
-			attackDmg = 20;
+			attackDmg = 15;
 			bulletSpeed = 8;
 			range = 110;
 		}
@@ -38,7 +38,7 @@ package towers.antiGroundTowers
 			super.upgrade();
 			
 			fireRate += 5;
-			attackDmg += 15;
+			attackDmg += 10;
 			changeRange(range + 10);
 		}
 		override protected function shoot():void 

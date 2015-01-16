@@ -21,8 +21,8 @@ package units.alies
 		override protected function setStats():void 
 		{
 			_health = 50;
-			costUnit = 50;
-			attackDmg = 15;
+			costUnit = 40;
+			attackDmg = 5;
 			viewDistance = 120;
 			_speed = 3;
 			
