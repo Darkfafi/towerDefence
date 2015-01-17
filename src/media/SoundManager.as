@@ -20,6 +20,9 @@ package media
 		public static const CANON_TOWER_SOUND : int = 3;
 		public static const ELECTRIC_ZAP_SOUND : int = 4;
 		
+		public static const BUTTON_SOUND : int = 5;
+		public static const BUILDING_PLACE_SOUND : int = 6;
+		
 		
 		//------------------------------------------\\
 		
@@ -58,6 +61,9 @@ package media
 			allUrls.push(new URLRequest("https://www.dropbox.com/s/18bf4n4wzhdqjpl/SkyLaserTowerSound.mp3?dl=1")); // skyLaserTower sound
 			allUrls.push(new URLRequest("https://www.dropbox.com/s/u2nhppmbfmd4z5a/CanonTowerSound.mp3?dl=1")); // Canon Tower sound
 			allUrls.push(new URLRequest("https://www.dropbox.com/s/t6tefvgj2o8c5xh/ElectricZap.mp3?dl=1")); // Electric zap Tower sound
+			
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/6822f1aiq6xrcq8/ButtonSound1.mp3?dl=1")); // Button sound
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/5ruhd7kz3nhfy7r/BuildPlaceSound.mp3?dl=1")); // Place Building sound
 			
 			//sounds/effects
 			for (var i : int = 0; i < allUrls.length; i++) {

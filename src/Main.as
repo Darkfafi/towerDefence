@@ -2,6 +2,7 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import media.LoadingScreen;
 	import media.SoundManager;
 	import screens.ScreenManager;
 	
@@ -14,6 +15,8 @@ package
 		public static const START_GAME : String = "StartGameScreen";
 		
 		private var screenManager : ScreenManager;
+		
+		private var loadingScreen : LoadingScreen = new LoadingScreen();
 		
 		public function Main():void 
 		{
@@ -32,9 +35,14 @@ package
 		private function checkSoundsLoaded(e:Event):void 
 		{
 			if (SoundManager.allSoundsLoaded) {
+				if (contains(loadingScreen)) {
+					removeChild(loadingScreen);
+				}
 				removeEventListener(Event.ENTER_FRAME, checkSoundsLoaded);
 				screenManager = new ScreenManager(stage);
 				screenManager.switchScreen(ScreenManager.MENU_SCREEN);
+			}else if (!contains(loadingScreen)) {
+				addChild(loadingScreen);
 			}
 		}
 	}

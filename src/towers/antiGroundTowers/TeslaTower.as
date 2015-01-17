@@ -45,13 +45,13 @@ package towers.antiGroundTowers
 		override protected function shoot():void 
 		{
 			super.shoot();
-			SoundManager.playSound(SoundManager.ELECTRIC_ZAP_SOUND);
 			if(currentTarget != null){
 				var projectile : Projectile = new ShockBeam(attackDmg, bulletSpeed, currentTarget);
 				projectile.x = x;
 				projectile.y = y - (allTowerArt[currentArtInt].height) + 10;
 				projectile.setArt(allProjectiles[currentArtInt]);
 				parent.addChild(projectile);
+				SoundManager.playSound(SoundManager.ELECTRIC_ZAP_SOUND);
 			}
 		}
 	}

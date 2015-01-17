@@ -3,6 +3,7 @@ package playerControl
 	import events.BuyEvent;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
+	import flash.display.SimpleButton;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -10,6 +11,7 @@ package playerControl
 	import gameControlEngine.GameObject;
 	import gameControlEngine.Tags;
 	import levels.TileSystem;
+	import media.SoundManager;
 	import towers.antiGroundTowers.CanonTower;
 	import towers.Tower;
 	import UI.buttons.BuyButton;
@@ -65,21 +67,27 @@ package playerControl
 					}else {
 						buildTile.negativeTile(); //shows red tile
 					}
-			}else if (e.target.parent is BuyButton && priceBar.priceBarArt() == false) {
-				var button : BuyButton = e.target.parent as BuyButton;
-				if (button.boughtItem is Tower) {
-					var boughtTower : Tower = button.boughtItem as Tower;
-					priceBar.showCost(boughtTower.costTower);
-				}else if (button.boughtItem is Unit) {
-					var boughtUnit : Unit = button.boughtItem as Unit;
-					priceBar.showCost(boughtUnit.costUnit);
-					
-					//was bezig met unit placement. Ook worden builders via unbuild towers aangeraden als hun builder dood is.
+			}else if (e.target.parent is BuyButton) {
+				if(priceBar.priceBarArt() == false){
+					var button : BuyButton = e.target.parent as BuyButton;
+					if (button.boughtItem is Tower) {
+						var boughtTower : Tower = button.boughtItem as Tower;
+						priceBar.showCost(boughtTower.costTower);
+					}else if (button.boughtItem is Unit) {
+						var boughtUnit : Unit = button.boughtItem as Unit;
+						priceBar.showCost(boughtUnit.costUnit);
+						
+						//was bezig met unit placement. Ook worden builders via unbuild towers aangeraden als hun builder dood is.
+					}
+					world.addChild(priceBar);
+				}else if (priceBar.priceBarArt()) {
+					if (e.target.hitTestPoint(priceBar.x, priceBar.y) == false) {
+						world.removeChild(priceBar);
+						priceBar.hide();
+					}
 				}
-				world.addChild(priceBar);
-				
-			}else if (priceBar.priceBarArt()) {
-				if (e.target.hitTestPoint(priceBar.x, priceBar.y) == false) {
+			}else {
+				if (priceBar.priceBarArt()) {
 					world.removeChild(priceBar);
 					priceBar.hide();
 				}
@@ -135,6 +143,9 @@ package playerControl
 					}
 				}
 			}
+			if (e.target is SimpleButton) {
+				SoundManager.playSound(SoundManager.BUTTON_SOUND);
+			}
 		}
 		
 		private function deployUnit(posX:int, posY:int):void 
@@ -162,6 +173,7 @@ package playerControl
 		//sets a tower and creates a builder
 		private function buildTower(xPos : int, yPos : int):void 
 		{
+			SoundManager.playSound(SoundManager.BUILDING_PLACE_SOUND);
 			TileSystem.setTileInt(xPos, yPos, 5);
 			var newTower : Tower = plannedTowerBuild;
 			newTower.x = xPos + TileSystem.globalTile.width / 2;

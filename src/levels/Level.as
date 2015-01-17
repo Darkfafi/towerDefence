@@ -192,6 +192,8 @@ package levels
 			timer.removeEventListener(TimerEvent.TIMER_COMPLETE, nextLevel);
 			timer.stop();
 			
+			_game.gameController.destroy();
+			
 			var winScreen : Sprite = new WinScreen(_levelId);
 			winScreen.x = _world.stage.stageWidth / 2;
 			winScreen.y = _world.stage.stageHeight / 2;
