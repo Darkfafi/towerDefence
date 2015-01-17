@@ -154,7 +154,8 @@ package playerControl
 			var newUnit : Unit = plannedUnitDeploy;
 			playerBase.buildUnit(newUnit, new Point(posX, posY));
 			plannedUnitDeploy = null;
-			addGoldToPlayer(-newUnit.costUnit);
+			addGoldToPlayer( -newUnit.costUnit);
+			SoundManager.playSound(SoundManager.UNIT_PLACED_SOUND);
 		}
 		
 		//if you click on a tower to construct from the build menu then you go to buildmodus.
@@ -182,6 +183,7 @@ package playerControl
 			plannedTowerBuild = null;
 			addGoldToPlayer( -newTower.costTower);
 			playerBase.buildConstructUnit(newTower);
+			SoundManager.playSound(SoundManager.BUILD_UNIT_MADE);
 		}	
 		
 		public function checkBuildable(tileInt : int) : Boolean {

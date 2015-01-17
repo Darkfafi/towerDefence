@@ -22,6 +22,8 @@ package media
 		
 		public static const BUTTON_SOUND : int = 5;
 		public static const BUILDING_PLACE_SOUND : int = 6;
+		public static const UNIT_PLACED_SOUND : int = 7;
+		public static const BUILD_UNIT_MADE : int = 8;
 		
 		
 		//------------------------------------------\\
@@ -64,6 +66,9 @@ package media
 			
 			allUrls.push(new URLRequest("https://www.dropbox.com/s/6822f1aiq6xrcq8/ButtonSound1.mp3?dl=1")); // Button sound
 			allUrls.push(new URLRequest("https://www.dropbox.com/s/5ruhd7kz3nhfy7r/BuildPlaceSound.mp3?dl=1")); // Place Building sound
+			
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/9d1hasnevd6y8ao/yesSir.mp3?dl=1")); // Place Unit YES SIR! sound
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/ukwnkmlm866vk8x/ofcourse.mp3?dl=1")); // Place Unit OFCOURSE! sound
 			
 			//sounds/effects
 			for (var i : int = 0; i < allUrls.length; i++) {
