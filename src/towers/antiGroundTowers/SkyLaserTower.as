@@ -37,10 +37,10 @@ package towers.antiGroundTowers
 			_costTower = 90;
 			_upgradeCost = 100;
 			
-			_expRadius = 40;
+			_expRadius = 35;
 			
 			fireRate = 10;
-			attackDmg = 20;
+			attackDmg = 10;
 			bulletSpeed = 8;
 			range = 125;
 		}

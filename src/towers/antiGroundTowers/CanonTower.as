@@ -30,6 +30,8 @@ package towers.antiGroundTowers
 			_costTower = 50;
 			_upgradeCost = 60;
 			
+			_expRadius = 35;
+			
 			fireRate = 10;
 			attackDmg = 7;
 			bulletSpeed = 6;
@@ -39,9 +41,9 @@ package towers.antiGroundTowers
 		{
 			super.upgrade();
 			
-			fireRate += 5;
+			fireRate += 3;
 			attackDmg += 5 * currentArtInt;
-			changeRange(range + 15);
+			changeRange(range + 10);
 			_expRadius += 5;
 		}
 		override protected function shoot():void 

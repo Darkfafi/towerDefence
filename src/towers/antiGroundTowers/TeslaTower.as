@@ -39,7 +39,7 @@ package towers.antiGroundTowers
 			super.upgrade();
 			
 			fireRate += 5;
-			attackDmg += 10;
+			attackDmg += 5 + (5 *currentArtInt);
 			changeRange(range + 10);
 		}
 		override protected function shoot():void 
