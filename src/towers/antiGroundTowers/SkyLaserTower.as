@@ -53,7 +53,7 @@ package towers.antiGroundTowers
 			shootFrame = allFireAnim[currentArtInt].totalFrames;
 			
 			attackDmg += 5;
-			changeRange(range + 15);
+			changeRange(range + 10);
 			_expRadius += 10;
 			
 		}

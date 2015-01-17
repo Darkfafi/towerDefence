@@ -14,6 +14,8 @@ package UI.buyScreens
 	{
 		public static const BUTTON_PRESSED : String = "buyButtonPressed";
 		
+		protected var titleImage : Sprite = new Sprite();
+		
 		protected var bgArt : MovieClip = new towersBuybgArt();
 		
 		protected var buttonList : Array = []; // lijst met alle buttons die automatisch worden geplaatst 
@@ -23,8 +25,16 @@ package UI.buyScreens
 		public function BuyMenu() 
 		{
 			drawBg();
+			placeTitle();
 			buttonAssign();
 			placeButtons();
+		}
+		
+		protected function placeTitle():void 
+		{
+			titleImage.y += titleImage.height + 13;
+			titleImage.x += titleImage.width - 27;
+			addChild(titleImage);
 		}
 		
 		protected function buttonAssign():void 

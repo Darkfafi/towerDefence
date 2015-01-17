@@ -17,6 +17,11 @@ package UI.buyScreens
 			super();
 			//misschien een button place functie die allebuttons zelf op de goede plek zet vanuit een array ofzo.
 		}
+		override protected function placeTitle():void 
+		{
+			titleImage = new TowersTabMenuTitle();
+			super.placeTitle();
+		}
 		override protected function buttonAssign():void 
 		{
 			super.buttonAssign();

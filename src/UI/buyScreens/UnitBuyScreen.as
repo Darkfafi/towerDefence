@@ -17,6 +17,12 @@ package UI.buyScreens
 			super();
 			
 		}
+		override protected function placeTitle():void 
+		{
+			titleImage = new UnitsTabMenuTitle();
+			titleImage.x += titleImage.width / 2 + 10;
+			super.placeTitle();
+		}
 		override protected function buttonAssign():void 
 		{
 			super.buttonAssign();
