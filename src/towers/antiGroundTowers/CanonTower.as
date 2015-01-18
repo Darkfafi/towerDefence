@@ -33,7 +33,7 @@ package towers.antiGroundTowers
 			_expRadius = 35;
 			
 			fireRate = 10;
-			attackDmg = 7;
+			attackDmg = 5;
 			bulletSpeed = 6;
 			range = 100;
 		}

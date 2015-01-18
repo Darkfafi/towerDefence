@@ -168,7 +168,6 @@ package towers
 				}else {
 					_upgradeCost = 00;
 				}
-				
 				changeTowerArt(currentArtInt + 1);
 			}else if(contains(towerBuildAnim)) {
 				trace("Can't upgrade unfinished tower");
