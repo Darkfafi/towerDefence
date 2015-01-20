@@ -5,6 +5,7 @@ package units.alies
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	import gameControlEngine.GameObject;
+	import media.SoundManager;
 	import towers.Tower;
 	import units.enemies.groundUnits.EnemyMeleeUnit;
 	import units.MeleeUnit;
@@ -44,6 +45,7 @@ package units.alies
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			stage.addEventListener(Tower.TOWER_BUILD, towerDone);
+			SoundManager.playSound(SoundManager.I_CAN_BUILD_IT);
 		}
 		public function setTowerTarget(towerToBuild : Tower) :void {
 			targetTower = towerToBuild;

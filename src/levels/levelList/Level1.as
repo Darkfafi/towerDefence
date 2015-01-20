@@ -20,7 +20,7 @@ package levels.levelList
 			_levelBackGround = new LevelOneBgArt(); //als map niet goed is komt er lag
 			_timeTillLevelStarts = 20000;
 			_timeUntilNextWave = 10000;
-			levelStartGold = 200;
+			levelStartGold = 20000;
 			
 			_levelGrid = [
 				[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -55,7 +55,10 @@ package levels.levelList
 				giveEnemyArray(EnemyGunRobotOne, 7),
 				null,
 				giveEnemyArray(EnemyGunRobotOne, 10),
+				giveEnemyArray(EnemyGunRobotOne, 10),
+				null,
 				giveEnemyArray(EnemyGunRobotOne, 10)
+				
 				
 			];
 			
@@ -73,6 +76,7 @@ package levels.levelList
 				giveEnemyArray(EnemyClawRobot, 20),
 				giveEnemyArray(EnemyClawRobot, 5),
 				giveEnemyArray(SpearRobot, 20),
+				giveEnemyArray(EnemyClawRobot, 15),
 				giveEnemyArray(EnemyClawRobot, 15)
 			];
 		}

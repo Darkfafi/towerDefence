@@ -25,6 +25,13 @@ package media
 		public static const UNIT_PLACED_SOUND : int = 7;
 		public static const BUILD_UNIT_MADE : int = 8;
 		
+		//Voices
+		public static const UTOPIA_MY_ASS : int = 9;
+		
+		public static const I_CAN_BUILD_IT: int = 10;
+		
+		public static const NAHAHAHHAAHA: int = 11;
+		
 		
 		//------------------------------------------\\
 		
@@ -69,6 +76,12 @@ package media
 			
 			allUrls.push(new URLRequest("https://www.dropbox.com/s/9d1hasnevd6y8ao/yesSir.mp3?dl=1")); // Place Unit YES SIR! sound
 			allUrls.push(new URLRequest("https://www.dropbox.com/s/ukwnkmlm866vk8x/ofcourse.mp3?dl=1")); // Place Unit OFCOURSE! sound
+			
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/02eseamaijwarew/UtopiaMyAss_01.mp3?dl=1")); // Place utopia my ass! sound
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/9usd79xd8h2f4cg/ready%20for%20t%20action.mp3?dl=1")); // Place I can Build it sound
+			allUrls.push(new URLRequest("https://www.dropbox.com/s/dpfjei7272vs235/nahahahahaaaaa.mp3?dl=1")); // barry nahahaha! sound
+			
+			
 			
 			//sounds/effects
 			for (var i : int = 0; i < allUrls.length; i++) {

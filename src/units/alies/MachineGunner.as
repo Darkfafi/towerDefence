@@ -1,5 +1,7 @@
 package units.alies 
 {
+	import flash.events.Event;
+	import media.SoundManager;
 	import units.enemies.groundUnits.EnemyUnit;
 	import units.RangeUnit;
 	
@@ -14,9 +16,15 @@ package units.alies
 		public function MachineGunner() 
 		{
 			super();
-			
+			addEventListener(Event.ADDED_TO_STAGE, init);
 			movAtDthAnimList = [new MachineGunUnitWalkAnim, new MachineGunUnitShootAnim, new MachineGunUnitDeathAnim, new MachineGunUnitIdleAnim]; // <== placeholders
 			rangeView.setSeeAbleObjects([EnemyUnit]);
+		}
+		
+		private function init(e:Event):void 
+		{
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			SoundManager.playSound(SoundManager.UTOPIA_MY_ASS);
 		}
 		override protected function setStats():void 
 		{

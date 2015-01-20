@@ -14,7 +14,6 @@ package units
 		public function RangeUnit() 
 		{
 			super();
-			
 		}
 		override protected function whenTargetInViewRange():void 
 		{

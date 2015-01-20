@@ -37,9 +37,9 @@ package towers.antiGroundTowers
 			bulletSpeed = 6;
 			range = 100;
 		}
-		override public function upgrade():void 
+		override protected function doUpgrade():void 
 		{
-			super.upgrade();
+			super.doUpgrade();
 			
 			fireRate += 3;
 			attackDmg += 5 * currentArtInt;

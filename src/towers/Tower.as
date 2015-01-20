@@ -123,6 +123,7 @@ package towers
 		protected function changeTowerArt(towerArtInt : int) :void {
 			for (var i : int = currentArtVisible.length - 1; i >= 0; i--) {
 				if (contains(currentArtVisible[i])) {
+					currentArtVisible[i].gotoAndStop(1);
 					removeChild(currentArtVisible[i]);
 					currentArtVisible.splice(i, 1);
 				}
@@ -138,7 +139,7 @@ package towers
 			addChild(towerArt); // geeft error als je voorbij de array limit gaat.
 			addChild(towerFireArt); // ^
 			
-			towerFireArt.stop();
+			towerFireArt.gotoAndStop(1);
 			towerFireArt.visible = false;
 			
 		}
@@ -164,7 +165,7 @@ package towers
 			if(contains(towerBuildAnim) == false && allTowerArt[currentArtInt + 1] is MovieClip){
 				//als er een volgende upgrade is anders 99999 dat vertaald word in hud als max upgrade
 				if(allTowerArt[currentArtInt + 2] is MovieClip){
-					_upgradeCost += (_upgradeCost * (currentArtInt + 2)) / 2;
+					doUpgrade();
 				}else {
 					_upgradeCost = 00;
 				}
@@ -175,6 +176,11 @@ package towers
 				trace("Max upgrades");
 			}
 			dispatchEvent(new Event(InfoMenu.CLOSE_INFO, true));
+		}
+		
+		protected function doUpgrade():void 
+		{
+			_upgradeCost += (_upgradeCost * (currentArtInt + 2)) / 2;
 		}
 		
 		public function sell() :void {
@@ -218,7 +224,7 @@ package towers
 		override protected function animationFrameUp():void 
 		{
 			super.animationFrameUp();
-			if (currentMovieClip.currentFrame == shootFrame) {
+			if (currentMovieClip.currentFrame == shootFrame && currentMovieClip == towerFireArt) {
 				shoot();
 			}
 		}
